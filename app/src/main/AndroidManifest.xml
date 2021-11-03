@@ -8,15 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SmartFlowerPot" />
-        <activity
-            android:name="com.example.smartflowerpot.Activity.BaseActivity"
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.example.dannyappPokemonApp.PokemonSingleCardsActivity" />
+        android:theme="@style/Theme.SmartFlowerPot" >
+        <activity android:name="com.example.smartflowerpot.Activity.BaseActivity" />
     </application>
 </manifest>
