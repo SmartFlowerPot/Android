@@ -30,7 +30,12 @@ public class TemperatureRepo {
         return instance;
     }
 
-    public void getTemperature() {
+    public LiveData<Temperature> getTemperature() {
+        getTemperatureRequest();
+        return temperature;
+    }
+
+    public void getTemperatureRequest() {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
         Call<TemperatureResponse> call = plantAPI.getTemperature();
         call.enqueue(new Callback<TemperatureResponse>() {

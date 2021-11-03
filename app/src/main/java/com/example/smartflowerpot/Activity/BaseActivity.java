@@ -11,20 +11,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.LiveData;
 
+import com.example.smartflowerpot.Model.Temperature;
 import com.example.smartflowerpot.R;
+import com.example.smartflowerpot.ViewModel.TemperatureViewModel;
 
 public  class BaseActivity extends AppCompatActivity {
-private Button update;
-private TextView textView;
+    private Button update;
+    private TextView textView;
+    private TemperatureViewModel temperatureViewModel;
 
-
-
-    @Override
-    public void setContentView(int layoutResID) {
-        ConstraintLayout constraintLayout = (ConstraintLayout) getLayoutInflater().inflate(R.layout.baseactivity, null);
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +30,15 @@ private TextView textView;
         textView = findViewById(R.id.textView);
     }
 
+    @Override
+    public void setContentView(int layoutResID) {
+        ConstraintLayout constraintLayout = (ConstraintLayout) getLayoutInflater().inflate(R.layout.baseactivity, null);
 
-
+    }
 
     public void updateTemperature(View view)  {
-
-
+        LiveData<Temperature> temperature = temperatureViewModel.getTemperature();
+        textView.setText(temperature.getValue().toString());
     }
 
 }
