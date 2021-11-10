@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartflowerpot.Model.Temperature;
 import com.example.smartflowerpot.R;
@@ -28,10 +29,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginactivity);
-        loginButton = findViewById(R.id.loginButton);
+
+        loginButton = findViewById(R.id.loginButton1);
         usernameInput = findViewById(R.id.usernameInput);
         passwordInput = findViewById(R.id.passwordInput);
         printTest = findViewById(R.id.printTest);
+
+        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,11 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void setContentView(int layoutResID) {
-        ConstraintLayout constraintLayout = (ConstraintLayout) getLayoutInflater().inflate(R.layout.loginactivity, null);
-
-    }
 
 
 
