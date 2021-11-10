@@ -9,10 +9,10 @@ import java.sql.Timestamp;
 public class TemperatureResponse {
 
     private double temperatureInDegrees;
-    private Timestamp timestamp;
+    private String timeStamp;
 
 
     public Temperature getTemperature(){
-        return new Temperature(timestamp, temperatureInDegrees);
+        return new Temperature(Timestamp.valueOf(timeStamp), temperatureInDegrees);
     }
 }

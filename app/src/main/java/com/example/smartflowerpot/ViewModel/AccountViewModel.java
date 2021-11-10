@@ -17,15 +17,15 @@ public class AccountViewModel extends ViewModel {
 
     public LiveData<Account> getAccount(String username, String password) {
 
-        if(username.isEmpty() || password.isEmpty()){
+        if (username.isEmpty() || password.isEmpty()) {
             return null;
-        }
-        else {
+        } else {
             return accountRepo.getAccount(username, password);
         }
 
     }
-    public LiveData<Account> registerAccount(String username, String password){
+
+    public LiveData<Account> registerAccount(String username, String password) {
         return accountRepo.registerAccount(username, password);
     }
 }

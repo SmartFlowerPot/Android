@@ -23,6 +23,7 @@ public class TemperatureRepo {
 
     private TemperatureRepo() {
         temperature = new MutableLiveData<>();
+
     }
 
     public static synchronized TemperatureRepo getInstance() {
@@ -32,7 +33,7 @@ public class TemperatureRepo {
         return instance;
     }
 
-    public LiveData<Temperature> getTemperature() {
+    public MutableLiveData<Temperature> getTemperature() {
         getTemperatureRequest();
         return temperature;
     }
@@ -45,7 +46,8 @@ public class TemperatureRepo {
             @Override
             public void onResponse(Call<TemperatureResponse> call, Response<TemperatureResponse> response) {
                 if (response.isSuccessful()) {
-                    temperature.setValue(response.body().getTemperature());
+                    System.out.println(response.body());
+                    temperature.postValue(response.body().getTemperature());
                 }
             }
             @EverythingIsNonNull

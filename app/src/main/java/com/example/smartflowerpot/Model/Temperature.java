@@ -1,14 +1,18 @@
 package com.example.smartflowerpot.Model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Temperature {
+public class Temperature implements Serializable {
     private double temperature;
     private Timestamp timeStamp;
 
     public Temperature( Timestamp timeStamp, double temperature) {
         this.temperature = temperature;
         this.timeStamp = timeStamp;
+    }
+
+    public Temperature() {
     }
 
     public double getTemperature() {

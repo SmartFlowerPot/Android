@@ -1,31 +1,23 @@
 package com.example.smartflowerpot.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.smartflowerpot.Model.Account;
-import com.example.smartflowerpot.Model.Temperature;
 import com.example.smartflowerpot.R;
-import com.example.smartflowerpot.ViewModel.AccountViewModel;
 import com.example.smartflowerpot.ViewModel.TemperatureViewModel;
+
+import java.text.SimpleDateFormat;
+
 
 public class BaseActivity extends AppCompatActivity {
     private Button update;
-    private TextView textView;
+    private TextView temperature;
+    private TextView timeStamp;
     private TemperatureViewModel temperatureViewModel;
 
     @Override
@@ -33,17 +25,19 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.baseactivity);
         update = findViewById(R.id.button);
-        textView = findViewById(R.id.textView);
+        temperature = findViewById(R.id.temperatureTextView);
+        timeStamp = findViewById(R.id.timeStampTextView);
+
 
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
-
+        temperatureViewModel.getTemperature();
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                LiveData<Temperature> temperature = temperatureViewModel.getTemperature();
-                textView.setText(temperature.getValue().toString());
+                String timeStampFormatted = new SimpleDateFormat("MM/dd - HH:mm:ss").format(temperatureViewModel.getTemperature().getValue().getTimeStamp());
+                temperature.setText("Temperature: " + Double.toString(temperatureViewModel.getTemperature().getValue().getTemperature()) + "°C");
+                timeStamp.setText(timeStampFormatted);
             }
 
         });
