@@ -11,6 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface PlantAPI {
 
@@ -20,8 +21,8 @@ public interface PlantAPI {
     @GET("Account/{username}")
     Call<AccountResponse> getAccountByUsername(@Path("username") String username);
 
-    @GET("Account/{username}&{password}")
-    Call<AccountResponse> getAccount(@Path("username") String username, @Path("password") String password);
+    @GET("Account")
+    Call<AccountResponse> getAccount(@Query("username") String username, @Query("password") String password);
 
     @POST("Account")
     Call<AccountResponse> registerAccount(@Body Account account);
@@ -30,6 +31,9 @@ public interface PlantAPI {
 
     @GET("Temperature")
     Call<TemperatureResponse> getTemperature();
+
+    @GET("Temperature/iot")
+    Call<TemperatureResponse> getTemperatureFromIot();
 
     //-----------------------------------------------------------------------------------------------
 
