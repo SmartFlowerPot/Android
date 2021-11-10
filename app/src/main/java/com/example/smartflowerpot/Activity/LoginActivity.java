@@ -22,6 +22,7 @@ import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
+    private Button goToRegisterButton;
     private TextInputEditText usernameInput;
     private TextInputEditText passwordInput;
     private TextView printTest;
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.loginactivity);
 
         loginButton = findViewById(R.id.loginButton1);
+        goToRegisterButton = findViewById(R.id.goToRegisterButton);
         usernameInput = findViewById(R.id.usernameInput);
         passwordInput = findViewById(R.id.passwordInput);
         printTest = findViewById(R.id.printTest);
@@ -51,6 +53,15 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
                     startActivity(intent);
                 }
+            }
+
+
+        });
+        goToRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
 
 

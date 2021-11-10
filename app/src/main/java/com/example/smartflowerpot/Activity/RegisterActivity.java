@@ -1,5 +1,6 @@
 package com.example.smartflowerpot.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,7 +32,9 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
-                accountViewModel.registerAccount(username, password);
+          //      accountViewModel.registerAccount(username, password);
+                Intent intent = new Intent(RegisterActivity.this, BaseActivity.class);
+                startActivity(intent);
 
             }
         });
