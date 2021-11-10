@@ -17,18 +17,18 @@ public interface PlantAPI {
 
     //-----------------------------------------------------------------------------------------------
 
-    @GET("/Account/{username}")
+    @GET("Account/{username}")
     Call<AccountResponse> getAccountByUsername(@Path("username") String username);
 
-    @GET("/Account/{username}&{password}")
+    @GET("Account/{username}&{password}")
     Call<AccountResponse> getAccount(@Path("username") String username, @Path("password") String password);
 
-    @POST("/Account")
+    @POST("Account")
     Call<AccountResponse> registerAccount(@Body Account account);
 
     //-----------------------------------------------------------------------------------------------
 
-    @GET("/Temperature")
+    @GET("Temperature")
     Call<TemperatureResponse> getTemperature();
 
     //-----------------------------------------------------------------------------------------------

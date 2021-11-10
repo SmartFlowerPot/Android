@@ -46,11 +46,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
+                System.out.println(password);
                 LiveData<Account> account = accountViewModel.getAccount(username, password);
-                if (account == null) {
-                    printTest.setText("Please retype the credentials");
+                if (account.getValue() == null) {
+                    printTest.setText("Please retype the credentials or user not found");
                 } else {
-                    printTest.setText(account.getValue().getUsername());
                     Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
                     startActivity(intent);
                 }
