@@ -6,7 +6,7 @@ public class Temperature {
     private double temperature;
     private Timestamp timeStamp;
 
-    public Temperature(double temperature, Timestamp timeStamp) {
+    public Temperature( Timestamp timeStamp, double temperature) {
         this.temperature = temperature;
         this.timeStamp = timeStamp;
     }

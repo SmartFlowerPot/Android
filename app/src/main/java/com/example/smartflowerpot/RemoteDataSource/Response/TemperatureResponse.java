@@ -8,11 +8,11 @@ import java.sql.Timestamp;
 
 public class TemperatureResponse {
 
-    private double temperature;
+    private double temperatureInDegrees;
     private Timestamp timestamp;
 
 
     public Temperature getTemperature(){
-        return new Temperature(temperature, timestamp);
+        return new Temperature(timestamp, temperatureInDegrees);
     }
 }
