@@ -1,5 +1,6 @@
 package com.example.smartflowerpot.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.smartflowerpot.Model.Account;
 import com.example.smartflowerpot.Model.Temperature;
 import com.example.smartflowerpot.R;
 import com.example.smartflowerpot.ViewModel.AccountViewModel;
@@ -42,13 +44,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
-                printTest.setText(accountViewModel.getAccount(username, password).getValue().getUsername());
-
+                LiveData<Account> account = accountViewModel.getAccount(username, password);
+                if (account == null) {
+                    printTest.setText("Please retype the credentials");
+                } else {
+                    Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
+                    startActivity(intent);
+                }
             }
+
+
         });
     }
-
-
-
-
 }

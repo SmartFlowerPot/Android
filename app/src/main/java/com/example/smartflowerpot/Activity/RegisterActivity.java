@@ -37,11 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void setContentView(int layoutResID) {
-        ConstraintLayout constraintLayout = (ConstraintLayout) getLayoutInflater().inflate(R.layout.registeractivity, null);
 
-    }
 
 
 }

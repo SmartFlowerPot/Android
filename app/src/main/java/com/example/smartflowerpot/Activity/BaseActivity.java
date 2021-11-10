@@ -1,6 +1,8 @@
 package com.example.smartflowerpot.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -30,11 +32,6 @@ public  class BaseActivity extends AppCompatActivity {
         textView = findViewById(R.id.textView);
     }
 
-    @Override
-    public void setContentView(int layoutResID) {
-        ConstraintLayout constraintLayout = (ConstraintLayout) getLayoutInflater().inflate(R.layout.baseactivity, null);
-
-    }
 
     public void updateTemperature(View view)  {
         LiveData<Temperature> temperature = temperatureViewModel.getTemperature();
