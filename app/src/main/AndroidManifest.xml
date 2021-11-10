@@ -12,5 +12,6 @@
         android:theme="@style/Theme.SmartFlowerPot">
         <activity android:name="com.example.smartflowerpot.Activity.BaseActivity" />
         <activity android:name=".Activity.LoginActivity"/>
+        <activity android:name=".Activity.RegisterActivity"/>
     </application>
 </manifest>

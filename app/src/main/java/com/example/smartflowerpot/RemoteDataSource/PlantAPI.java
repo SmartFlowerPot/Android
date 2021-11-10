@@ -14,8 +14,8 @@ public interface PlantAPI {
 
     @GET("/Temperature")
     Call<TemperatureResponse> getTemperature();
-    @GET("/Account/{username}")
-    Call<AccountResponse> getAccount(@Path("username") String username);
-    @POST("/Account")
-    Call<AccountResponse> postAccount();
+    @GET("/Account/{username}&{password}")
+    Call<AccountResponse> getAccount(@Path("username") String username, @Path("password") String password);
+    @POST("/Account/{username}&{password}")
+    Call<AccountResponse> registerAccount(@Path("username") String username, @Path("password") String password);
 }

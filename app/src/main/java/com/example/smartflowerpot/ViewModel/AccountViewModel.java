@@ -15,14 +15,17 @@ public class AccountViewModel extends ViewModel {
         accountRepo = AccountRepo.getInstance();
     }
 
-    public LiveData<Account> getAccount(String username) {
+    public LiveData<Account> getAccount(String username, String password) {
 
         if(username != ""){
             return null;
         }
         else {
-            return accountRepo.getAccount(username);
+            return accountRepo.getAccount(username, password);
         }
 
+    }
+    public LiveData<Account> registerAccount(String username, String password){
+        return accountRepo.registerAccount(username, password);
     }
 }
