@@ -34,7 +34,9 @@ public class AccountRepo {
     }
 
     public LiveData<Account> getAccount(String username, String password) {
+
         getAccountRequest(username, password);
+
         return account;
     }
 
@@ -49,6 +51,7 @@ public class AccountRepo {
                     account.setValue(response.body().getAccount(username, username));
                 }
             }
+
             @EverythingIsNonNull
             @Override
             public void onFailure(Call<AccountResponse> call, Throwable t) {
@@ -61,6 +64,7 @@ public class AccountRepo {
         registerAccountRequest(username, password);
         return account;
     }
+
     public void registerAccountRequest(String username, String password) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
         Account tempAccount = new Account(username, password);
@@ -73,6 +77,7 @@ public class AccountRepo {
                     account.setValue(response.body().getAccount(username, password));
                 }
             }
+
             @EverythingIsNonNull
             @Override
             public void onFailure(Call<AccountResponse> call, Throwable t) {

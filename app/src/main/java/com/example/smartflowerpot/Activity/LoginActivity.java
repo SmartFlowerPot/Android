@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (account == null) {
                     printTest.setText("Please retype the credentials");
                 } else {
+                    printTest.setText(account.getValue().getUsername());
                     Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
                     startActivity(intent);
                 }

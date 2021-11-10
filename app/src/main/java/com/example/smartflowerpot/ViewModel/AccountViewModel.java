@@ -17,7 +17,7 @@ public class AccountViewModel extends ViewModel {
 
     public LiveData<Account> getAccount(String username, String password) {
 
-        if(username != ""){
+        if(username == "" || password == ""){
             return null;
         }
         else {
