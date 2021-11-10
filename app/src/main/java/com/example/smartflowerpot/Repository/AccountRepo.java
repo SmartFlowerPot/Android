@@ -63,7 +63,8 @@ public class AccountRepo {
     }
     public void registerAccountRequest(String username, String password) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<AccountResponse> call = plantAPI.registerAccount(username, password);
+        Account tempAccount = new Account(username, password);
+        Call<AccountResponse> call = plantAPI.registerAccount(tempAccount);
         call.enqueue(new Callback<AccountResponse>() {
             @EverythingIsNonNull
             @Override

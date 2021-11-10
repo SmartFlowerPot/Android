@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.RegisterActivity" android:exported="true" android:label="Register" android:parentActivityName=".Activity.LoginActivity"/>
+        <activity android:name=".Activity.RegisterActivity" android:exported="true" android:label="Register" android:parentActivityName=".Activity.LoginActivity" />
 
     </application>
 </manifest>
