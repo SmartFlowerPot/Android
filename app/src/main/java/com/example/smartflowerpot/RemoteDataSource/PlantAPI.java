@@ -8,15 +8,31 @@ import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface PlantAPI {
 
-    @GET("/Temperature")
-    Call<TemperatureResponse> getTemperature();
+
+    //-----------------------------------------------------------------------------------------------
+
+    @GET("/Account/{username}")
+    Call<AccountResponse> getAccountByUsername(@Path("username") String username);
+
     @GET("/Account/{username}&{password}")
     Call<AccountResponse> getAccount(@Path("username") String username, @Path("password") String password);
+
     @POST("/Account")
     Call<AccountResponse> registerAccount(@Body Account account);
+
+    //-----------------------------------------------------------------------------------------------
+
+    @GET("/Temperature")
+    Call<TemperatureResponse> getTemperature();
+
+    //-----------------------------------------------------------------------------------------------
+
+
+
 }
