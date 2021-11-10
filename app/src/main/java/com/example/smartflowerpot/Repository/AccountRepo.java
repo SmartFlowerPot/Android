@@ -1,6 +1,5 @@
 package com.example.smartflowerpot.Repository;
 
-import retrofit2.Call;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -9,48 +8,50 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.smartflowerpot.Model.Account;
 import com.example.smartflowerpot.Model.Temperature;
 import com.example.smartflowerpot.RemoteDataSource.PlantAPI;
+import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
 import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
 
-public class TemperatureRepo {
-    private static TemperatureRepo instance;
-    private final MutableLiveData<Temperature> temperature;
+public class AccountRepo {
+    private static AccountRepo instance;
+    private final MutableLiveData<Account> account;
 
 
-    private TemperatureRepo() {
-        temperature = new MutableLiveData<>();
+    private AccountRepo() {
+        account = new MutableLiveData<>();
     }
 
-    public static synchronized TemperatureRepo getInstance() {
+    public static synchronized AccountRepo getInstance() {
         if (instance == null) {
-            instance = new TemperatureRepo();
+            instance = new AccountRepo();
         }
         return instance;
     }
 
-    public LiveData<Temperature> getTemperature() {
-        getTemperatureRequest();
-        return temperature;
+    public LiveData<Account> getAccount(String username) {
+        getAccountRequest(username);
+        return account;
     }
 
-    public void getTemperatureRequest() {
+    public void getAccountRequest(String username) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<TemperatureResponse> call = plantAPI.getTemperature();
-        call.enqueue(new Callback<TemperatureResponse>() {
+        Call<AccountResponse> call = plantAPI.getAccount(username);
+        call.enqueue(new Callback<AccountResponse>() {
             @EverythingIsNonNull
             @Override
-            public void onResponse(Call<TemperatureResponse> call, Response<TemperatureResponse> response) {
+            public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
                 if (response.isSuccessful()) {
-                    temperature.setValue(response.body().getTemperature());
+                    account.setValue(response.body().getAccount(username));
                 }
             }
             @EverythingIsNonNull
             @Override
-            public void onFailure(Call<TemperatureResponse> call, Throwable t) {
+            public void onFailure(Call<AccountResponse> call, Throwable t) {
                 Log.i("Retrofit", "Something went wrong :(");
             }
         });

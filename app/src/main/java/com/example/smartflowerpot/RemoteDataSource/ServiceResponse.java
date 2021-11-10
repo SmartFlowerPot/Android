@@ -1,5 +1,9 @@
 package com.example.smartflowerpot.RemoteDataSource;
 
+import androidx.lifecycle.LiveData;
+
+import com.example.smartflowerpot.Model.Temperature;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
