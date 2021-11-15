@@ -34,9 +34,7 @@ public class AccountRepo {
     }
 
     public LiveData<Account> getAccount(String username, String password) {
-
         getAccountRequest(username, password);
-
         return account;
     }
 
@@ -48,7 +46,7 @@ public class AccountRepo {
             @Override
             public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
                 if (response.isSuccessful()) {
-                    account.setValue(response.body().getAccount(username, username));
+                    account.setValue(response.body().getAccount(username, password));
                 }
             }
 
@@ -56,6 +54,7 @@ public class AccountRepo {
             @Override
             public void onFailure(Call<AccountResponse> call, Throwable t) {
                 Log.i("Retrofit", "Something went wrong :(");
+                account.setValue(null);
             }
         });
     }
@@ -74,9 +73,7 @@ public class AccountRepo {
             @Override
             public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
                 if (response.isSuccessful()) {
-
                     account.setValue(response.body().getAccount(username, password));
-
                 }
             }
 
@@ -84,6 +81,7 @@ public class AccountRepo {
             @Override
             public void onFailure(Call<AccountResponse> call, Throwable t) {
                 Log.i("Retrofit", "Something went wrong :(");
+                account.setValue(null);
             }
         });
     }

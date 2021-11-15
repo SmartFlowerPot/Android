@@ -16,13 +16,7 @@ public class AccountViewModel extends ViewModel {
     }
 
     public LiveData<Account> getAccount(String username, String password) {
-
-        if (username.isEmpty() || password.isEmpty()) {
-            return null;
-        } else {
-            return accountRepo.getAccount(username, password);
-        }
-
+        return accountRepo.getAccount(username, password);
     }
 
     public LiveData<Account> registerAccount(String username, String password) {

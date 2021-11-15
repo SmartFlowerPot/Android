@@ -16,7 +16,6 @@ public class TemperatureViewModel extends ViewModel {
     }
 
     public MutableLiveData<Temperature> getTemperature() {
-
         return temperatureRepo.getTemperature();
     }
 }

@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
-                System.out.println(password);
+
                 if (username.isEmpty() || password.isEmpty()) {
                     Toast toast = Toast.makeText(context, "Fields cannot be empty!", Toast.LENGTH_SHORT);
                     toast.show();
@@ -52,17 +52,13 @@ public class LoginActivity extends AppCompatActivity {
                     if (account == null) {
                         Toast toast = Toast.makeText(context, "User not found", Toast.LENGTH_SHORT);
                         toast.show();
-
                     } else {
-
                         Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
                         startActivity(intent);
                     }
                 }
 
             }
-
-
         });
         goToRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,8 +66,6 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
-
-
         });
     }
 }

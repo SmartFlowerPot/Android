@@ -47,13 +47,17 @@ public class TemperatureRepo {
             public void onResponse(Call<TemperatureResponse> call, Response<TemperatureResponse> response) {
                 if (response.isSuccessful()) {
                     System.out.println(response.body());
-                    temperature.postValue(response.body().getTemperature());
+                    if(response.code() == 204) {
+                        temperature.postValue(null);
+                    }
+                    else temperature.postValue(response.body().getTemperature());
                 }
             }
             @EverythingIsNonNull
             @Override
             public void onFailure(Call<TemperatureResponse> call, Throwable t) {
                 Log.i("Retrofit", "Something went wrong :(");
+                temperature.postValue(null);
             }
         });
     }
