@@ -38,7 +38,7 @@ public class TemperatureRepo {
         return temperature;
     }
 
-    public void getTemperatureRequest() {
+    private void getTemperatureRequest() {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
         Call<TemperatureResponse> call = plantAPI.getTemperature();
         call.enqueue(new Callback<TemperatureResponse>() {

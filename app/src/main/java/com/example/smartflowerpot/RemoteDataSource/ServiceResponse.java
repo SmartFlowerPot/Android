@@ -13,9 +13,7 @@ public class ServiceResponse {
     private static PlantAPI plantApi = retrofit.create(PlantAPI.class);
     private static ServiceResponse instance;
 
-    private ServiceResponse(){
-        instance = ServiceResponse.getInstance();
-    }
+    private ServiceResponse(){}
 
     public static ServiceResponse getInstance(){
         if(instance == null)

@@ -38,7 +38,7 @@ public class AccountRepo {
         return account;
     }
 
-    public void getAccountRequest(String username, String password) {
+    private void getAccountRequest(String username, String password) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
         Call<AccountResponse> call = plantAPI.getAccount(username, password);
         call.enqueue(new Callback<AccountResponse>() {
@@ -64,7 +64,7 @@ public class AccountRepo {
         return account;
     }
 
-    public void registerAccountRequest(String username, String password) {
+    private void registerAccountRequest(String username, String password) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
         Account tempAccount = new Account(username, password);
         Call<AccountResponse> call = plantAPI.registerAccount(tempAccount);
