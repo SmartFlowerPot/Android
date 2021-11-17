@@ -28,36 +28,51 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registeractivity);
-        registerButton = findViewById(R.id.registerButton);
-        usernameInputRegister = findViewById(R.id.usernameInputRegister);
-        passwordInputRegister = findViewById(R.id.passwordInputRegister);
 
-        Context context = getApplicationContext();
+        initViews();
+
         accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = usernameInputRegister.getText().toString();
-                String password = passwordInputRegister.getText().toString();
-                if (username.isEmpty() || password.isEmpty()) {
-                    Toast toast = Toast.makeText(context, "Fields cannot be empty!", Toast.LENGTH_SHORT);
-                    toast.show();
-                } else {
-                    LiveData<Account> account = accountViewModel.registerAccount(username, password);
-                    if (account.getValue() != null) {
-                        Toast toast = Toast.makeText(context, "Account Created", Toast.LENGTH_SHORT);
-                        toast.show();
-                        Intent intent = new Intent(RegisterActivity.this, BaseActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Toast toast = Toast.makeText(context, "Registration Failed", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                }
-
+                handleRegister();
             }
         });
+    }
+
+    private void initViews() {
+        registerButton = findViewById(R.id.registerButton);
+        usernameInputRegister = findViewById(R.id.usernameInputRegister);
+        passwordInputRegister = findViewById(R.id.passwordInputRegister);
+    }
+
+    private void handleRegister() {
+        String username = usernameInputRegister.getText().toString().trim();
+        String password = passwordInputRegister.getText().toString().trim();
+
+        if (username.isEmpty()) {
+            usernameInputRegister.setError("Username cannot be empty.");
+            usernameInputRegister.requestFocus();
+            return;
+        }
+
+        if (password.isEmpty()) {
+            passwordInputRegister.setError("Password cannot be empty.");
+            passwordInputRegister.requestFocus();
+            return;
+        }
+
+        LiveData<Account> account = accountViewModel.registerAccount(username, password);
+        if (account.getValue() != null) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Account Created", Toast.LENGTH_SHORT);
+            toast.show();
+            Intent intent = new Intent(RegisterActivity.this, BaseActivity.class);
+            startActivity(intent);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Registration Failed", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
 

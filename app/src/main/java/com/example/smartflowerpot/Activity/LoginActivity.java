@@ -28,38 +28,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginactivity);
 
-        loginButton = findViewById(R.id.loginButton1);
-        goToRegisterButton = findViewById(R.id.goToRegisterButton);
-        usernameInput = findViewById(R.id.usernameInputRegister);
-        passwordInput = findViewById(R.id.passwordInputRegister);
-
-        Context context = getApplicationContext();
-
+        initViews();
 
         accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = usernameInput.getText().toString();
-                String password = passwordInput.getText().toString();
-
-                if (username.isEmpty() || password.isEmpty()) {
-                    Toast toast = Toast.makeText(context, "Fields cannot be empty!", Toast.LENGTH_SHORT);
-                    toast.show();
-                } else {
-                    LiveData<Account> account = accountViewModel.getAccount(username, password);
-                    if (account == null) {
-                        Toast toast = Toast.makeText(context, "User not found", Toast.LENGTH_SHORT);
-                        toast.show();
-                    } else {
-                        Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
-                        startActivity(intent);
-                    }
-                }
-
+                handleLogin();
             }
         });
+
         goToRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,5 +46,38 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void initViews() {
+        loginButton = findViewById(R.id.loginButton1);
+        goToRegisterButton = findViewById(R.id.goToRegisterButton);
+        usernameInput = findViewById(R.id.usernameInputRegister);
+        passwordInput = findViewById(R.id.passwordInputRegister);
+    }
+
+    private void handleLogin(){
+        String username = usernameInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim();
+
+        if (username.isEmpty()){
+            usernameInput.setError("Username cannot be empty.");
+            usernameInput.requestFocus();
+            return;
+        }
+
+        if (password.isEmpty()){
+            passwordInput.setError("Password cannot be empty");
+            passwordInput.requestFocus();
+            return;
+        }
+
+        LiveData<Account> account = accountViewModel.getAccount(username, password);
+        if (account == null) {
+            Toast toast = Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
+            startActivity(intent);
+        }
     }
 }

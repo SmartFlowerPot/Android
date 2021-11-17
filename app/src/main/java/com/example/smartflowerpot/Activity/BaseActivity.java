@@ -27,10 +27,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.baseactivity);
-        update = findViewById(R.id.button);
-        temperature = findViewById(R.id.temperatureTextView);
-        timeStamp = findViewById(R.id.timeStampTextView);
 
+        initViews();
 
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
         MutableLiveData<Temperature> temperature = temperatureViewModel.getTemperature();
@@ -48,9 +46,12 @@ public class BaseActivity extends AppCompatActivity {
                 }
                 else Toast.makeText(getApplicationContext(), "Problem with getting temperature.", Toast.LENGTH_LONG).show();
             }
-
         });
+    }
 
-
+    private void initViews() {
+        update = findViewById(R.id.button);
+        temperature = findViewById(R.id.temperatureTextView);
+        timeStamp = findViewById(R.id.timeStampTextView);
     }
 }
