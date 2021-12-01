@@ -25,4 +25,9 @@
         android:name="com.example.smartflowerpot.CreateFragment"
         android:label="fragment_create"
         tools:layout="@layout/fragment_create" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.smartflowerpot.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

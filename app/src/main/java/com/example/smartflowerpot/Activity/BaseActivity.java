@@ -1,13 +1,16 @@
 package com.example.smartflowerpot.Activity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.smartflowerpot.R;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.navigation.ui.*;
@@ -18,6 +21,7 @@ public class BaseActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private NavController navController;
     private AppBarConfiguration appBarConfiguration;
+    private MaterialToolbar topbar;
 
 
     @Override
@@ -28,7 +32,19 @@ public class BaseActivity extends AppCompatActivity {
         initViews();
         setupNavigation();
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.createFragment);
+            }
+        });
+    }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+        return true;
     }
 
     private void setupNavigation() {
@@ -38,17 +54,17 @@ public class BaseActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_container);
         navController = navHostFragment.getNavController();
 
+        setSupportActionBar(topbar);
+
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.overviewFragment,
                 R.id.accountFragment,
-                R.id.friendsFragment).build();
+                R.id.friendsFragment,
+                R.id.settingsFragment)
+                .build();
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
+        NavigationUI.setupWithNavController(topbar, navController, appBarConfiguration);
     }
 
     @Override
@@ -58,6 +74,11 @@ public class BaseActivity extends AppCompatActivity {
 
     private void initViews() {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        topbar = findViewById(R.id.topbar);
         fab = findViewById(R.id.fab);
+    }
+
+    public void setTopbarTitle(String title){
+        topbar.setTitle(title);
     }
 }
