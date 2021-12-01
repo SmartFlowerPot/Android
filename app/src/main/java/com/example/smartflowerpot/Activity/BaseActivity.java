@@ -1,29 +1,24 @@
 package com.example.smartflowerpot.Activity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.smartflowerpot.Model.Temperature;
 import com.example.smartflowerpot.R;
-import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
-import com.example.smartflowerpot.ViewModel.TemperatureViewModel;
-
-import java.text.SimpleDateFormat;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.navigation.ui.*;
 
 public class BaseActivity extends AppCompatActivity {
-    private Button update;
-    private TextView temperature;
-    private TextView timeStamp;
-    private TemperatureViewModel temperatureViewModel;
+
+    private BottomNavigationView bottomNavigationView;
+    private FloatingActionButton fab;
+    private NavController navController;
+    private AppBarConfiguration appBarConfiguration;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,31 +26,38 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.baseactivity);
 
         initViews();
+        setupNavigation();
 
-        temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
-        temperatureViewModel.getTemperature().observe(this, new Observer<Temperature>() {
-            @Override
-            public void onChanged(Temperature temperature) {
-                if(temperature != null) {
-                    //String timeStampFormatted = new SimpleDateFormat("MM/dd - HH:mm:ss").format(temperature.getTimeStamp());
-                    BaseActivity.this.temperature.setText("Temperature: " + Double.toString(temperature.getTemperature()) + "°C");
-                    timeStamp.setText(temperature.getTimeStamp());
-                }
-                else Toast.makeText(getApplicationContext(), "Problem with getting temperature.", Toast.LENGTH_LONG).show();
-            }
-        });
 
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                temperatureViewModel.getTemperatureRequest();
-            }
-        });
+    }
+
+    private void setupNavigation() {
+        bottomNavigationView.setBackground(null);
+        bottomNavigationView.getMenu().getItem(3).setEnabled(false);
+
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_container);
+        navController = navHostFragment.getNavController();
+
+        appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.overviewFragment,
+                R.id.accountFragment,
+                R.id.friendsFragment).build();
+
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
     }
 
     private void initViews() {
-        update = findViewById(R.id.button);
-        temperature = findViewById(R.id.temperatureTextView);
-        timeStamp = findViewById(R.id.timeStampTextView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        fab = findViewById(R.id.fab);
     }
 }
