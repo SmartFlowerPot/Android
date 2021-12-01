@@ -34,11 +34,10 @@ public class TemperatureRepo {
     }
 
     public MutableLiveData<Temperature> getTemperature() {
-        getTemperatureRequest();
         return temperature;
     }
 
-    private void getTemperatureRequest() {
+    public void getTemperatureRequest() {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
         Call<TemperatureResponse> call = plantAPI.getTemperature();
         call.enqueue(new Callback<TemperatureResponse>() {
@@ -46,18 +45,18 @@ public class TemperatureRepo {
             @Override
             public void onResponse(Call<TemperatureResponse> call, Response<TemperatureResponse> response) {
                 if (response.isSuccessful()) {
-                    System.out.println(response.body());
                     if(response.code() == 204) {
-                        temperature.postValue(null);
+                        temperature.setValue(null);
                     }
-                    else temperature.postValue(response.body().getTemperature());
+                    else temperature.setValue(response.body().getTemperature());
                 }
             }
             @EverythingIsNonNull
             @Override
             public void onFailure(Call<TemperatureResponse> call, Throwable t) {
+                System.out.println("sdasdasd" + t.getCause());
                 Log.i("Retrofit", "Something went wrong :(");
-                temperature.postValue(null);
+                temperature.setValue(null);
             }
         });
     }

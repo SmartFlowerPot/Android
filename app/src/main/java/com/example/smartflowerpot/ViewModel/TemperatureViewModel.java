@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.smartflowerpot.Model.Temperature;
+import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
 import com.example.smartflowerpot.Repository.TemperatureRepo;
 
 public class TemperatureViewModel extends ViewModel {
@@ -17,5 +18,9 @@ public class TemperatureViewModel extends ViewModel {
 
     public MutableLiveData<Temperature> getTemperature() {
         return temperatureRepo.getTemperature();
+    }
+
+    public void getTemperatureRequest() {
+        temperatureRepo.getTemperatureRequest();
     }
 }

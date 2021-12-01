@@ -5,9 +5,9 @@ import java.sql.Timestamp;
 
 public class Temperature implements Serializable {
     private double temperature;
-    private Timestamp timeStamp;
+    private String timeStamp;
 
-    public Temperature( Timestamp timeStamp, double temperature) {
+    public Temperature( String timeStamp, double temperature) {
         this.temperature = temperature;
         this.timeStamp = timeStamp;
     }
@@ -23,11 +23,11 @@ public class Temperature implements Serializable {
         this.temperature = temperature;
     }
 
-    public Timestamp getTimeStamp() {
+    public String getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Timestamp timeStamp) {
+    public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
     }
 

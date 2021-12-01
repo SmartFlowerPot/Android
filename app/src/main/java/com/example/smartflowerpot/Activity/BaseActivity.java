@@ -8,10 +8,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartflowerpot.Model.Temperature;
 import com.example.smartflowerpot.R;
+import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
 import com.example.smartflowerpot.ViewModel.TemperatureViewModel;
 
 import java.text.SimpleDateFormat;
@@ -31,20 +33,22 @@ public class BaseActivity extends AppCompatActivity {
         initViews();
 
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
-        MutableLiveData<Temperature> temperature = temperatureViewModel.getTemperature();
-
-        if(temperature.getValue() == null)
-            Toast.makeText(this, "Problem with getting temperature.", Toast.LENGTH_LONG).show();
+        temperatureViewModel.getTemperature().observe(this, new Observer<Temperature>() {
+            @Override
+            public void onChanged(Temperature temperature) {
+                if(temperature != null) {
+                    //String timeStampFormatted = new SimpleDateFormat("MM/dd - HH:mm:ss").format(temperature.getTimeStamp());
+                    BaseActivity.this.temperature.setText("Temperature: " + Double.toString(temperature.getTemperature()) + "°C");
+                    timeStamp.setText(temperature.getTimeStamp());
+                }
+                else Toast.makeText(getApplicationContext(), "Problem with getting temperature.", Toast.LENGTH_LONG).show();
+            }
+        });
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(temperature.getValue() != null) {
-                    String timeStampFormatted = new SimpleDateFormat("MM/dd - HH:mm:ss").format(temperature.getValue().getTimeStamp());
-                    BaseActivity.this.temperature.setText("Temperature: " + Double.toString(temperature.getValue().getTemperature()) + "°C");
-                    timeStamp.setText(timeStampFormatted);
-                }
-                else Toast.makeText(getApplicationContext(), "Problem with getting temperature.", Toast.LENGTH_LONG).show();
+                temperatureViewModel.getTemperatureRequest();
             }
         });
     }
