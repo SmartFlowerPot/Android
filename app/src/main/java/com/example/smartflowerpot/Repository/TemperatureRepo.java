@@ -18,7 +18,7 @@ import retrofit2.internal.EverythingIsNonNull;
 
 public class TemperatureRepo {
     private static TemperatureRepo instance;
-    private final MutableLiveData<Temperature> temperature;
+    private MutableLiveData<Temperature> temperature;
 
 
     private TemperatureRepo() {
@@ -54,7 +54,6 @@ public class TemperatureRepo {
             @EverythingIsNonNull
             @Override
             public void onFailure(Call<TemperatureResponse> call, Throwable t) {
-                System.out.println("sdasdasd" + t.getCause());
                 Log.i("Retrofit", "Something went wrong :(");
                 temperature.setValue(null);
             }

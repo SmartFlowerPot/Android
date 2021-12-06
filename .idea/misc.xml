@@ -3,19 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Ionut Grosu/Desktop/Android/app/src/main/res/layout/baseactivity.xml" value="0.5322916666666667" />
-        <entry key="..\:/Users/Ionut Grosu/Desktop/Android/app/src/main/res/layout/bottom_navbar.xml" value="0.5322916666666667" />
-        <entry key="..\:/Users/Ionut Grosu/Desktop/Android/app/src/main/res/layout/fragment_account.xml" value="0.5322916666666667" />
-        <entry key="..\:/Users/Ionut Grosu/Desktop/Android/app/src/main/res/layout/fragment_create.xml" value="0.5322916666666667" />
-        <entry key="..\:/Users/Ionut Grosu/Desktop/Android/app/src/main/res/layout/fragment_friends.xml" value="0.5322916666666667" />
-        <entry key="..\:/Users/Ionut Grosu/Desktop/Android/app/src/main/res/layout/fragment_overview.xml" value="0.5322916666666667" />
         <entry key="..\:/Users/Ionut Grosu/Desktop/Android/app/src/main/res/layout/loginactivity.xml" value="0.34479166666666666" />
-        <entry key="..\:/Users/Ionut Grosu/Desktop/Android/app/src/main/res/layout/top_appbar.xml" value="0.5322916666666667" />
-        <entry key="..\:/Users/Ionut Grosu/Desktop/Android/app/src/main/res/menu/bottom_menu.xml" value="0.5322916666666667" />
-        <entry key="..\:/Users/Ionut Grosu/Desktop/Android/app/src/main/res/menu/top_menu.xml" value="0.5322916666666667" />
         <entry key="..\:/Users/User/Desktop/Sep4Android/app/src/main/res/layout/baseactivity.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/Desktop/Sep4Android/app/src/main/res/layout/loginactivity.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/Desktop/Sep4Android/app/src/main/res/layout/registeractivity.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/drawable/ic_baseline_local_florist_24.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/drawable/ic_potted_plant.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/baseactivity.xml" value="0.29891304347826086" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/bottom_navbar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/fragment_account.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/fragment_create.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/fragment_overview.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/fragment_plant.xml" value="0.29891304347826086" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/loginactivity.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/recycledview_plants.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/top_appbar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/menu/bottom_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/menu/top_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

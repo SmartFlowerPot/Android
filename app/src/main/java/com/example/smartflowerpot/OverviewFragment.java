@@ -3,62 +3,71 @@ package com.example.smartflowerpot;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link OverviewFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class OverviewFragment extends Fragment {
+import com.example.smartflowerpot.Activity.BaseActivity;
+import com.example.smartflowerpot.Adapters.PlantsAdapter;
+import com.example.smartflowerpot.Model.Plant;
+import com.example.smartflowerpot.ViewModel.PlantsOverviewViewModel;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public OverviewFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OverviewFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OverviewFragment newInstance(String param1, String param2) {
-        OverviewFragment fragment = new OverviewFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class OverviewFragment extends Fragment implements PlantsAdapter.OnListItemClickListener{
+    private View view;
+    private RecyclerView recycledViewPlants;
+    private PlantsAdapter plantsAdapter;
+    private PlantsOverviewViewModel plantsOverviewViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        //((BaseActivity)getActivity()).setTopbarTitle("Your plants"); why this doesnt work?????????????????????????????????????????????????????
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_overview, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_overview, container, false);
+
+        recycledViewPlants = view.findViewById(R.id.recycledViewPlants);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
+        recycledViewPlants.setLayoutManager(gridLayoutManager);
+
+        plantsOverviewViewModel = new ViewModelProvider(this).get(PlantsOverviewViewModel.class);
+
+        //plantsOverviewViewModel.getPlants("karlo");
+
+        plantsOverviewViewModel.getPlantsResponse().observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
+            @Override
+            public void onChanged(List<Plant> plants) {
+                plantsAdapter.setmPlants(plants);
+            }
+        });
+
+        ArrayList<Plant> plants = new ArrayList<>();
+        plants.add(new Plant("123", "sadasdasd", null));
+        plants.add(new Plant("345", "asdasdas", null));
+        plants.add(new Plant("567", "fghjfghj", null));
+        plants.add(new Plant("789", "fg", null));
+        plants.add(new Plant("91011", "sfgshs", null));
+
+        plantsAdapter = new PlantsAdapter(plants, this);
+        recycledViewPlants.setAdapter(plantsAdapter);
+        return view;
+    }
+
+    @Override
+    public void onListItemClick(String deviceIdentifier) {
+        Bundle bundle = new Bundle();
+        bundle.putString("DeviceIdentifier", deviceIdentifier);
+        Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_plant, bundle);
     }
 }

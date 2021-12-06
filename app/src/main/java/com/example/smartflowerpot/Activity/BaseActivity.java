@@ -6,23 +6,30 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.gridlayout.widget.GridLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartflowerpot.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.navigation.ui.*;
+
+import java.util.Objects;
+
 
 public class BaseActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton fab;
+    private MaterialToolbar topbar;
+    private RecyclerView recycledViewPlants;
+
     private NavController navController;
     private AppBarConfiguration appBarConfiguration;
-    private MaterialToolbar topbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,9 @@ public class BaseActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navController.navigate(R.id.createFragment);
+                if(navController.getCurrentDestination().getId() != R.id.createFragment) {
+                    navController.navigate(R.id.createFragment);
+                }
             }
         });
     }
