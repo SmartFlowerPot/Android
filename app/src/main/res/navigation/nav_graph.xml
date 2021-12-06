@@ -30,4 +30,9 @@
         android:name="com.example.smartflowerpot.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/CO2Fragment"
+        android:name="com.example.smartflowerpot.CO2Fragment"
+        android:label="fragment_c_o2"
+        tools:layout="@layout/fragment_c_o2" />
 </navigation>

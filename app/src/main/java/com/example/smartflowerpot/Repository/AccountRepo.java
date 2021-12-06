@@ -46,7 +46,8 @@ public class AccountRepo {
             @Override
             public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
                 if (response.isSuccessful()) {
-                    account.setValue(response.body().getAccount(username, password));
+                    account.postValue(response.body().getAccount(username, password));
+                    System.out.println("Account Retrieved: " + account.getValue().getUsername() + ", " + account.getValue().getPassword());
                 }
             }
 
@@ -61,6 +62,7 @@ public class AccountRepo {
 
     public LiveData<Account> registerAccount(String username, String password) {
         registerAccountRequest(username, password);
+
         return account;
     }
 
@@ -73,7 +75,8 @@ public class AccountRepo {
             @Override
             public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
                 if (response.isSuccessful()) {
-                    account.setValue(response.body().getAccount(username, password));
+                    account.postValue(response.body().getAccount(username, password));
+                    System.out.println("Account Registered: " + username + ", " + password);
                 }
             }
 

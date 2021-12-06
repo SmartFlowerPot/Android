@@ -3,7 +3,9 @@ package com.example.smartflowerpot.RemoteDataSource;
 import retrofit2.Call;
 
 import com.example.smartflowerpot.Model.Account;
+import com.example.smartflowerpot.Model.CO2;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
+import com.example.smartflowerpot.RemoteDataSource.Response.CO2Response;
 import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
 
 import retrofit2.http.Body;
@@ -32,10 +34,10 @@ public interface PlantAPI {
     @GET("Temperature")
     Call<TemperatureResponse> getTemperature();
 
-    @GET("Temperature/iot")
-    Call<TemperatureResponse> getTemperatureFromIot();
-
     //-----------------------------------------------------------------------------------------------
+
+    @GET("CO2")
+    Call<CO2Response> getCO2();
 
 
 
