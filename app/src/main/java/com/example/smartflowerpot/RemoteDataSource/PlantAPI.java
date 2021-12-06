@@ -3,7 +3,9 @@ package com.example.smartflowerpot.RemoteDataSource;
 import retrofit2.Call;
 
 import com.example.smartflowerpot.Model.Account;
+import com.example.smartflowerpot.Model.Humidity;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
+import com.example.smartflowerpot.RemoteDataSource.Response.HumidityResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
 
 import retrofit2.http.Body;
@@ -37,6 +39,10 @@ public interface PlantAPI {
 
     //-----------------------------------------------------------------------------------------------
 
+
+    //  Ionut
+    @GET("Humidity")
+    Call<HumidityResponse> getHumidity();
 
 
 }
