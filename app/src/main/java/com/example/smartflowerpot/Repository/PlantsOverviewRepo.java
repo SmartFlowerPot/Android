@@ -41,7 +41,7 @@ public class PlantsOverviewRepo {
         return plants;
     }
 
-    public void getPlants(String username) {
+    /*public void getPlants(String username) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
         Call<PlantsResponse> call = plantAPI.getPlants(username);
         call.enqueue(new Callback<PlantsResponse>() {
@@ -62,7 +62,7 @@ public class PlantsOverviewRepo {
                 plants.setValue(null);
             }
         });
-    }
+    }*/
 
     public void createAPlant(String username, Plant plant) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();

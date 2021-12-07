@@ -6,11 +6,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.smartflowerpot.Model.Account;
+import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.Model.Temperature;
 import com.example.smartflowerpot.RemoteDataSource.PlantAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
+import com.example.smartflowerpot.RemoteDataSource.Response.PlantsResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
 import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,11 +23,12 @@ import retrofit2.internal.EverythingIsNonNull;
 
 public class AccountRepo {
     private static AccountRepo instance;
-    private final MutableLiveData<Account> account;
-
+    private MutableLiveData<Account> account;
+    private MutableLiveData<List<Plant>> plants;
 
     private AccountRepo() {
         account = new MutableLiveData<>();
+        plants = new MutableLiveData<>();
     }
 
     public static synchronized AccountRepo getInstance() {
@@ -84,6 +89,36 @@ public class AccountRepo {
             public void onFailure(Call<AccountResponse> call, Throwable t) {
                 Log.i("Retrofit", "Something went wrong :(");
                 account.setValue(null);
+            }
+        });
+    }
+
+    public MutableLiveData<List<Plant>> getPlantsResponse() {
+        return plants;
+    }
+
+    public void getPlants(String username) {
+        PlantAPI plantAPI = ServiceResponse.getPlantAPI();
+        Call<AccountResponse> call = plantAPI.getAccountByUsername(username);
+        call.enqueue(new Callback<AccountResponse>() {
+            @EverythingIsNonNull
+            @Override
+            public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
+                if (response.isSuccessful()) {
+                    if(response.code() == 204) {
+                        plants.setValue(null);
+                    }
+                    else {
+                        System.out.println(response.body());
+                        plants.setValue(response.body().getAccount().getPlants());
+                    }
+                }
+            }
+            @EverythingIsNonNull
+            @Override
+            public void onFailure(Call<AccountResponse> call, Throwable t) {
+                Log.i("Retrofit", "Something went wrong :(");
+                plants.setValue(null);
             }
         });
     }

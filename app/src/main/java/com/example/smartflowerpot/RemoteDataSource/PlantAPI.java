@@ -46,23 +46,20 @@ public interface PlantAPI {
 
     //-----------------------------------------------------------------------------------------------
 
-    @GET("Plant/{username}&{plantID}")
-    Call<PlantResponse> getPlantInfo(@Path("username") String username, @Path("plantID") String plantID);
+    @GET("Plant")
+    Call<PlantResponse> getPlantInfo(@Query("eui") String eui);
+
     @GET("CO2")
     Call<CO2Response> getCO2(@Query("eui") String eui);
 
     //-----------------------------------------------------------------------------------------------
 
-    @GET("Humidity")
-    Call<HumidityResponse> getHumidity(@Query("eui") String eui);
-
-
     //  Ionut
     @GET("Humidity")
     Call<HumidityResponse> getHumidity(@Query("eui") String eui);
 
-    @GET("Plant/{username}")
-    Call<PlantsResponse> getPlants(@Path("username") String username);
+    @GET("Account/{username}")
+    Call<AccountResponse> getPlants(@Path("username") String username);
 
     @POST("Plant/{username}/{plant}")
     Call<PlantResponse> createAPlant(@Path("username") String username, @Path("plant") Plant plant);

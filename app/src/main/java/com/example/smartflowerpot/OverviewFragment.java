@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import com.example.smartflowerpot.Activity.BaseActivity;
 import com.example.smartflowerpot.Adapters.PlantsAdapter;
 import com.example.smartflowerpot.Model.Plant;
+import com.example.smartflowerpot.ViewModel.AccountViewModel;
 import com.example.smartflowerpot.ViewModel.PlantsOverviewViewModel;
+import com.example.smartflowerpot.ViewModel.TemperatureViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     private RecyclerView recycledViewPlants;
     private PlantsAdapter plantsAdapter;
     private PlantsOverviewViewModel plantsOverviewViewModel;
+    private AccountViewModel accountViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,9 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         recycledViewPlants.setLayoutManager(gridLayoutManager);
 
         plantsOverviewViewModel = new ViewModelProvider(this).get(PlantsOverviewViewModel.class);
+        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+
+        accountViewModel.getPlants("karlo");
 
         //plantsOverviewViewModel.getPlants("karlo");
 

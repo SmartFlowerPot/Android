@@ -23,7 +23,7 @@ public class PlantsOverviewViewModel extends ViewModel {
     }
 
     public void getPlants(String username) {
-        plantsOverviewRepo.getPlants(username);
+        //plantsOverviewRepo.getPlants(username);
     }
 
     public void createAPlant(String username, Plant plant) {

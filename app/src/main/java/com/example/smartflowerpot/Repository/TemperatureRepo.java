@@ -37,9 +37,9 @@ public class TemperatureRepo {
         return temperature;
     }
 
-    public void getTemperatureRequest() {
+    public void getTemperatureRequest(String eui) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<TemperatureResponse> call = plantAPI.getTemperature();
+        Call<TemperatureResponse> call = plantAPI.getTemperature(eui);
         call.enqueue(new Callback<TemperatureResponse>() {
             @EverythingIsNonNull
             @Override
@@ -48,7 +48,9 @@ public class TemperatureRepo {
                     if(response.code() == 204) {
                         temperature.setValue(null);
                     }
-                    else temperature.setValue(response.body().getTemperature());
+                    else {
+                        temperature.setValue(response.body().getTemperature());
+                    }
                 }
             }
             @EverythingIsNonNull

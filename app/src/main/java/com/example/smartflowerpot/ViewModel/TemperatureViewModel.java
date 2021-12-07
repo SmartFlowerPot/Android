@@ -20,7 +20,7 @@ public class TemperatureViewModel extends ViewModel {
         return temperatureRepo.getTemperature();
     }
 
-    public void getTemperatureRequest() {
-        temperatureRepo.getTemperatureRequest();
+    public void getTemperatureRequest(String eui) {
+        temperatureRepo.getTemperatureRequest(eui);
     }
 }

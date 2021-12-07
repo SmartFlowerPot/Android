@@ -35,7 +35,7 @@ public class PlantRepo {
 
     public void getPlantInfo(String username, String plantID) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<PlantResponse> call = plantAPI.getPlantInfo(username, plantID);
+        Call<PlantResponse> call = plantAPI.getPlantInfo(plantID);
         call.enqueue(new Callback<PlantResponse>() {
             @EverythingIsNonNull
             @Override
@@ -44,7 +44,10 @@ public class PlantRepo {
                     if(response.code() == 204) {
                         plant.setValue(null);
                     }
-                    else plant.setValue(response.body().getPlant());
+                    else {
+                        System.out.println(response.body().getPlant());
+                        plant.setValue(response.body().getPlant());
+                    }
                 }
             }
             @EverythingIsNonNull
