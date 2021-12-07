@@ -45,7 +45,18 @@ public class CreateFragment extends Fragment {
 
     private void createPlant() {
 
-        Plant plant = new Plant( "test", nicknameField.getText().toString(), deviceIdentifierField.getText().toString());
+        long millis = System.currentTimeMillis();
+        Date date = new Date(millis);
+
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.000'");
+        df.setTimeZone(tz);
+        String nowAsISO = df.format(date);
+        System.out.println(nowAsISO);
+
+
+
+        Plant plant = new Plant(nowAsISO, nicknameField.getText().toString(), deviceIdentifierField.getText().toString());
         System.out.println(plant.toString());
         plantsOverviewViewModel.createAPlant("karlo", plant);
     }
@@ -59,7 +70,6 @@ public class CreateFragment extends Fragment {
         nicknameField = view.findViewById(R.id.nicknameField);
         deviceIdentifierField = view.findViewById(R.id.deviceIdentifierField);
         createPlantbtn = view.findViewById(R.id.createPlantBtn);
-
 
         plantsOverviewViewModel = new ViewModelProvider(this).get(PlantsOverviewViewModel.class);
 
