@@ -34,7 +34,6 @@ public class CreateFragment extends Fragment {
     private EditText deviceIdentifierField;
     private Button createPlantbtn;
     private View view;
-    private DatePicker datePicker;
     private PlantsOverviewViewModel plantsOverviewViewModel;
 
 
@@ -45,19 +44,8 @@ public class CreateFragment extends Fragment {
     }
 
     private void createPlant() {
-        int day = datePicker.getDayOfMonth() + 1;
-        int month = datePicker.getMonth();
-        int year = datePicker.getYear() - 1900;
 
-        TimeZone tz = TimeZone.getTimeZone("UTC");
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.000'");
-        df.setTimeZone(tz);
-        String nowAsISO = df.format(new Date(year, month, day, 0,0,0));
-        System.out.println(nowAsISO);
-
-
-
-        Plant plant = new Plant( nowAsISO , nicknameField.getText().toString(), deviceIdentifierField.getText().toString());
+        Plant plant = new Plant( "test", nicknameField.getText().toString(), deviceIdentifierField.getText().toString());
         System.out.println(plant.toString());
         plantsOverviewViewModel.createAPlant("karlo", plant);
     }
@@ -71,7 +59,7 @@ public class CreateFragment extends Fragment {
         nicknameField = view.findViewById(R.id.nicknameField);
         deviceIdentifierField = view.findViewById(R.id.deviceIdentifierField);
         createPlantbtn = view.findViewById(R.id.createPlantBtn);
-        datePicker = view.findViewById(R.id.datePicker);
+
 
         plantsOverviewViewModel = new ViewModelProvider(this).get(PlantsOverviewViewModel.class);
 
