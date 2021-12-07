@@ -45,8 +45,10 @@ public class AccountRepo {
             @EverythingIsNonNull
             @Override
             public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 200) {
                     account.setValue(response.body().getAccount(username, password));
+                } else if(response.code() == 404){
+                    account.setValue(null);
                 }
             }
 
