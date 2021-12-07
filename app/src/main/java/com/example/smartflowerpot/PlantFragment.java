@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.smartflowerpot.Activity.BaseActivity;
+import com.example.smartflowerpot.Model.Humidity;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.Model.Temperature;
 import com.example.smartflowerpot.ViewModel.AccountViewModel;
+import com.example.smartflowerpot.ViewModel.HumidityViewModel;
 import com.example.smartflowerpot.ViewModel.PlantViewModel;
 import com.example.smartflowerpot.ViewModel.TemperatureViewModel;
 
@@ -24,6 +26,7 @@ public class PlantFragment extends Fragment {
     private TextView temperatureReading;
     private PlantViewModel plantViewModel;
     private TemperatureViewModel temperatureViewModel;
+    private HumidityViewModel humidityViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,19 @@ public class PlantFragment extends Fragment {
 
         plantViewModel = new ViewModelProvider(this).get(PlantViewModel.class);
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
+        humidityViewModel = new ViewModelProvider(this).get(HumidityViewModel.class);
+
+        humidityViewModel.getHumidityRequest("0004A30B00E8355E");
+
+        humidityViewModel.getHumidity().observe(getViewLifecycleOwner(), new Observer<Humidity>() {
+            @Override
+            public void onChanged(Humidity humidity) {
+                System.out.println(humidity.getHumidity());
+            }
+        });
 
         //plantViewModel.getPlantInfo("karlo", deviceIdentifier);
+
 
         plantViewModel.getPlant().observe(getViewLifecycleOwner(), new Observer<Plant>() {
             @Override

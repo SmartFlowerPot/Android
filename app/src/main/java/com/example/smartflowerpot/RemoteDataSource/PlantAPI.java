@@ -47,7 +47,7 @@ public interface PlantAPI {
 
     //  Ionut
     @GET("Humidity")
-    Call<HumidityResponse> getHumidity();
+    Call<HumidityResponse> getHumidity(@Query("eui") String eui);
 
     @GET("Plant/{username}")
     Call<PlantsResponse> getPlants(@Path("username") String username);

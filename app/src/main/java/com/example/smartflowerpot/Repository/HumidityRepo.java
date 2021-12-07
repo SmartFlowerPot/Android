@@ -36,9 +36,9 @@ public class HumidityRepo {
         return humidity;
     }
 
-    public void getHumidityRequest(){
+    public void getHumidityRequest(String deviceID){
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<HumidityResponse> call = plantAPI.getHumidity();
+        Call<HumidityResponse> call = plantAPI.getHumidity(deviceID);
         call.enqueue(new Callback<HumidityResponse>() {
             @Override
             public void onResponse(Call<HumidityResponse> call, Response<HumidityResponse> response) {
@@ -46,6 +46,7 @@ public class HumidityRepo {
                     if (response.code() == 204){
                         humidity.setValue(null);
                     } else {
+                        System.out.println(response.body().getHumidity());
                         humidity.setValue(response.body().getHumidity());
                     }
                 }
