@@ -18,7 +18,7 @@ public class PlantViewModel extends ViewModel {
         return plantRepo.getPlant();
     }
 
-    public void getPlantInfo(String username, String plantID) {
-        plantRepo.getPlantInfo(username, plantID);
+    public void getPlantInfo(String username, String eui) {
+        plantRepo.getPlantInfo(username, eui);
     }
 }

@@ -17,6 +17,10 @@ public class CO2 {
 
     }
 
+    public String getReading(){
+        return cO2Level + " ppm";
+    }
+
     @Override
     public String toString() {
         return "CO2{" +

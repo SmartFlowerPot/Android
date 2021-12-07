@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/overviewFragment"
-        android:name="com.example.smartflowerpot.OverviewFragment"
+        android:name="com.example.smartflowerpot.fragments.OverviewFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_overview" >
         <action
@@ -16,27 +16,27 @@
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.example.smartflowerpot.AccountFragment"
+        android:name="com.example.smartflowerpot.fragments.AccountFragment"
         android:label="Your account"
         tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/friendsFragment"
-        android:name="com.example.smartflowerpot.FriendsFragment"
+        android:name="com.example.smartflowerpot.fragments.FriendsFragment"
         android:label="Friends"
         tools:layout="@layout/fragment_friends" />
     <fragment
         android:id="@+id/createFragment"
-        android:name="com.example.smartflowerpot.CreateFragment"
+        android:name="com.example.smartflowerpot.fragments.CreateFragment"
         android:label="New plant"
         tools:layout="@layout/fragment_create" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.smartflowerpot.SettingsFragment"
+        android:name="com.example.smartflowerpot.fragments.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/plant"
-        android:name="com.example.smartflowerpot.PlantFragment"
+        android:name="com.example.smartflowerpot.fragments.PlantFragment"
         tools:layout="@layout/fragment_plant" >
         <argument
             android:name="DeviceIdentifier"

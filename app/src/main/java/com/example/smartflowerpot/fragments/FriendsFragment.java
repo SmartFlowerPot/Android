@@ -1,4 +1,4 @@
-package com.example.smartflowerpot;
+package com.example.smartflowerpot.fragments;
 
 import android.os.Bundle;
 
@@ -9,19 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.smartflowerpot.Activity.BaseActivity;
+import com.example.smartflowerpot.R;
 
-public class AccountFragment extends Fragment {
-
+public class FriendsFragment extends Fragment {
+    private View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((BaseActivity)getActivity()).setTopbarTitle("Your account");
+        ((BaseActivity)getActivity()).setTopbarTitle("Friends");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_friends, container, false);
+
+
+        return view;
     }
 }

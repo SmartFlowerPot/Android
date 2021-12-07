@@ -1,4 +1,4 @@
-package com.example.smartflowerpot;
+package com.example.smartflowerpot.fragments;
 
 import android.os.Bundle;
 
@@ -16,6 +16,7 @@ import com.example.smartflowerpot.Model.CO2;
 import com.example.smartflowerpot.Model.Humidity;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.Model.Temperature;
+import com.example.smartflowerpot.R;
 import com.example.smartflowerpot.ViewModel.CO2ViewModel;
 import com.example.smartflowerpot.ViewModel.HumidityViewModel;
 import com.example.smartflowerpot.ViewModel.PlantViewModel;
@@ -36,28 +37,22 @@ public class PlantFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        deviceIdentifier = requireArguments().getString("DeviceIdentifier");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updatePlantInfo();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_plant, container, false);
 
-        temperatureReading = view.findViewById(R.id.temperatureReading);
-        co2Reading = view.findViewById(R.id.co2Reading);
-        humidityReading = view.findViewById(R.id.humidityReading);
+        initViews();
 
-        plantViewModel = new ViewModelProvider(this).get(PlantViewModel.class);
-        temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
-        humidityViewModel = new ViewModelProvider(this).get(HumidityViewModel.class);
-        co2ViewModel = new ViewModelProvider(this).get(CO2ViewModel.class);
-
-        plantViewModel.getPlantInfo("karlo", "0004A30B00E8355E");
-        temperatureViewModel.getTemperatureRequest("0004A30B00E8355E");
-        humidityViewModel.getHumidityRequest("0004A30B00E8355E");
-        co2ViewModel.getCO2Request("0004A30B00E8355E");
+        getViewModels();
 
         plantViewModel.getPlant().observe(getViewLifecycleOwner(), new Observer<Plant>() {
             @Override
@@ -71,24 +66,52 @@ public class PlantFragment extends Fragment {
         humidityViewModel.getHumidity().observe(getViewLifecycleOwner(), new Observer<Humidity>() {
             @Override
             public void onChanged(Humidity humidity) {
-                humidityReading.setText(String.valueOf(humidity.getHumidity()));
+                humidityReading.setText(humidity.getReading());
             }
         });
 
         co2ViewModel.getCO2().observe(getViewLifecycleOwner(), new Observer<CO2>() {
             @Override
             public void onChanged(CO2 co2) {
-                co2Reading.setText(String.valueOf(co2.getcO2level()));
+                co2Reading.setText(co2.getReading());
             }
         });
 
         temperatureViewModel.getTemperature().observe(getViewLifecycleOwner(), new Observer<Temperature>() {
             @Override
             public void onChanged(Temperature temperature) {
-                temperatureReading.setText(String.valueOf(temperature.getTemperature()));
+                temperatureReading.setText(temperature.getCelsiusReading());
             }
         });
 
+        updatePlantInfo();
+
         return view;
+    }
+
+    private void updatePlantInfo() {
+        deviceIdentifier = requireArguments().getString("DeviceIdentifier");
+
+        temperatureReading.setText(R.string.no_reading);
+        co2Reading.setText(R.string.no_reading);
+        humidityReading.setText(R.string.no_reading);
+
+        plantViewModel.getPlantInfo("karlo", deviceIdentifier); // TODO fix this hardcoded username
+        temperatureViewModel.getTemperatureRequest(deviceIdentifier);
+        humidityViewModel.getHumidityRequest(deviceIdentifier);
+        co2ViewModel.getCO2Request(deviceIdentifier);
+    }
+
+    private void getViewModels() {
+        plantViewModel = new ViewModelProvider(this).get(PlantViewModel.class);
+        temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
+        humidityViewModel = new ViewModelProvider(this).get(HumidityViewModel.class);
+        co2ViewModel = new ViewModelProvider(this).get(CO2ViewModel.class);
+    }
+
+    private void initViews() {
+        temperatureReading = view.findViewById(R.id.temperatureReading);
+        co2Reading = view.findViewById(R.id.co2Reading);
+        humidityReading = view.findViewById(R.id.humidityReading);
     }
 }

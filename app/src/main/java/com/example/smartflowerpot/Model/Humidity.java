@@ -39,4 +39,8 @@ public class Humidity implements Serializable {
                 ", timestamp='" + timestamp + '\'' +
                 '}';
     }
+
+    public String getReading(){
+        return humidity + " %";
+    }
 }

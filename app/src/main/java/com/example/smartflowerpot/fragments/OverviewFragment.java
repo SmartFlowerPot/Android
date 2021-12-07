@@ -1,8 +1,10 @@
-package com.example.smartflowerpot;
+package com.example.smartflowerpot.fragments;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import com.example.smartflowerpot.Activity.BaseActivity;
 import com.example.smartflowerpot.Adapters.PlantsAdapter;
 import com.example.smartflowerpot.Model.Plant;
+import com.example.smartflowerpot.R;
 import com.example.smartflowerpot.ViewModel.AccountViewModel;
 import com.example.smartflowerpot.ViewModel.PlantsOverviewViewModel;
 import com.example.smartflowerpot.ViewModel.TemperatureViewModel;
@@ -27,43 +30,51 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     private View view;
     private RecyclerView recycledViewPlants;
     private PlantsAdapter plantsAdapter;
-    private PlantsOverviewViewModel plantsOverviewViewModel;
     private AccountViewModel accountViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //((BaseActivity)getActivity()).setTopbarTitle("Your plants"); why this doesnt work?????????????????????????????????????????????????????
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_overview, container, false);
 
-        recycledViewPlants = view.findViewById(R.id.recycledViewPlants);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
-        recycledViewPlants.setLayoutManager(gridLayoutManager);
+        initViews();
 
-        plantsOverviewViewModel = new ViewModelProvider(this).get(PlantsOverviewViewModel.class);
-        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+        getViewModels();
 
-        System.out.println( accountViewModel.getPlants("karlo"));
+        accountViewModel.getPlants("karlo");
 
-        ArrayList<Plant> plants1 = new ArrayList<>();
-
-        plantsAdapter = new PlantsAdapter(plants1, this);
+        plantsAdapter = new PlantsAdapter(new ArrayList<>(), this);
         recycledViewPlants.setAdapter(plantsAdapter);
 
         accountViewModel.getPlantsResponse().observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
             @Override
             public void onChanged(List<Plant> plants) {
-                System.out.println(plants);
-                //plants1.addAll(plants);
                 plantsAdapter.setmPlants(plants);
+                recycledViewPlants.setAdapter(plantsAdapter);
             }
         });
 
         return view;
+    }
+
+    private void initViews() {
+        recycledViewPlants = view.findViewById(R.id.recycledViewPlants);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
+        recycledViewPlants.setLayoutManager(gridLayoutManager);
+    }
+
+    private void getViewModels() {
+        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((BaseActivity)getActivity()).setTopbarTitle("Your plants");
     }
 
     @Override

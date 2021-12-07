@@ -15,11 +15,15 @@ import java.util.List;
 public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.ViewHolder> {
 
     private List<Plant> mPlants;
-    final private OnListItemClickListener mOnListItemClickListener;
+    private OnListItemClickListener mOnListItemClickListener;
 
     public PlantsAdapter(List<Plant> mPlants, OnListItemClickListener listener){
         this.mPlants = mPlants;
         mOnListItemClickListener = listener;
+    }
+
+    public void setmOnListItemClickListener(OnListItemClickListener mOnListItemClickListener) {
+        this.mOnListItemClickListener = mOnListItemClickListener;
     }
 
     public void setmPlants(List<Plant> mPlants) {

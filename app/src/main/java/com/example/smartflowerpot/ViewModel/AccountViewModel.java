@@ -32,8 +32,7 @@ public class AccountViewModel extends ViewModel {
         return accountRepo.getPlantsResponse();
     }
 
-    public MutableLiveData<ArrayList<Plant>> getPlants(String username) {
+    public void getPlants(String username) {
         accountRepo.getPlants(username);
-        return null;
     }
 }

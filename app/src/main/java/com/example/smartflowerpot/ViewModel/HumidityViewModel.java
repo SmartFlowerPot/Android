@@ -17,7 +17,7 @@ public class HumidityViewModel extends ViewModel {
         return humidityRepo.getHumidity();
     }
 
-    public void getHumidityRequest(String deviceID){
-        humidityRepo.getHumidityRequest(deviceID);
+    public void getHumidityRequest(String eui){
+        humidityRepo.getHumidityRequest(eui);
     }
 }

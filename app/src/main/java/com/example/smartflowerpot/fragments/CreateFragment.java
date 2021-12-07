@@ -1,4 +1,4 @@
-package com.example.smartflowerpot;
+package com.example.smartflowerpot.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,22 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.example.smartflowerpot.Activity.BaseActivity;
-import com.example.smartflowerpot.Activity.LoginActivity;
-import com.example.smartflowerpot.Activity.RegisterActivity;
 import com.example.smartflowerpot.Model.Plant;
+import com.example.smartflowerpot.R;
 import com.example.smartflowerpot.ViewModel.PlantsOverviewViewModel;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
