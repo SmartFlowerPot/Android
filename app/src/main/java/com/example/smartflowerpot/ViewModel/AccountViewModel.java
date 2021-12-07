@@ -10,6 +10,7 @@ import com.example.smartflowerpot.Model.Temperature;
 import com.example.smartflowerpot.Repository.AccountRepo;
 import com.example.smartflowerpot.Repository.TemperatureRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccountViewModel extends ViewModel {
@@ -31,7 +32,8 @@ public class AccountViewModel extends ViewModel {
         return accountRepo.getPlantsResponse();
     }
 
-    public void getPlants(String username) {
+    public MutableLiveData<ArrayList<Plant>> getPlants(String username) {
         accountRepo.getPlants(username);
+        return null;
     }
 }

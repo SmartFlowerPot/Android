@@ -47,7 +47,7 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         plantsOverviewViewModel = new ViewModelProvider(this).get(PlantsOverviewViewModel.class);
         accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
-        accountViewModel.getPlants("karlo");
+        System.out.println( accountViewModel.getPlants("karlo"));
 
         ArrayList<Plant> plants1 = new ArrayList<>();
 

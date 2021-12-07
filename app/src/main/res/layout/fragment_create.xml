@@ -35,12 +35,33 @@
             android:hint="Nickname" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date of Birth:"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"/>
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:endYear="2022"
+        android:isScrollContainer="false" />
+
     <Button
         android:id="@+id/createPlantBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
+
         android:text="Create a plant" />
+
 
 </LinearLayout>
