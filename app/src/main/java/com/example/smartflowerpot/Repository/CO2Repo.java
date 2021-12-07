@@ -16,9 +16,12 @@ import retrofit2.Response;
 public class CO2Repo {
     private static CO2Repo instance;
     private final MutableLiveData<CO2> currentCO2;
+    String TAG = "Requesting CO2: ";
 
     private CO2Repo() {
         currentCO2 = new MutableLiveData<>();
+        CO2 co2 = new CO2();
+        currentCO2.setValue(co2);
     }
 
     public static synchronized CO2Repo getInstance() {
@@ -32,14 +35,15 @@ public class CO2Repo {
         return currentCO2;
     }
 
-    public void getCO2Request() {
+    public void getCO2Request(String eui) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<CO2Response> call = plantAPI.getCO2();
+        Call<CO2Response> call = plantAPI.getCO2(eui);
         call.enqueue(new Callback<CO2Response>() {
             @Override
             public void onResponse(Call<CO2Response> call, Response<CO2Response> response) {
                 if (response.isSuccessful()) {
                     currentCO2.setValue(response.body().getCO2());
+                    Log.d(TAG, response.body().getCO2().toString());
                 }
             }
 

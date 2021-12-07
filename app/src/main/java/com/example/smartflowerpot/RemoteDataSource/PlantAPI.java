@@ -37,7 +37,7 @@ public interface PlantAPI {
     //-----------------------------------------------------------------------------------------------
 
     @GET("CO2")
-    Call<CO2Response> getCO2();
+    Call<CO2Response> getCO2(@Query("eui") String eui);
 
 
 

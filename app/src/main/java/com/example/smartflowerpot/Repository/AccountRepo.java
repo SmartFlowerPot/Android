@@ -46,7 +46,7 @@ public class AccountRepo {
             @Override
             public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
                 if (response.isSuccessful()) {
-                    account.postValue(response.body().getAccount(username, password));
+                    account.setValue(response.body().getAccount(username, password));
                     System.out.println("Account Retrieved: " + account.getValue().getUsername() + ", " + account.getValue().getPassword());
                 }
             }

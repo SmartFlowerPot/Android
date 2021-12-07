@@ -20,5 +20,10 @@ public class CO2ViewModel extends ViewModel {
         return co2Repo.getCO2();
     }
 
+    public void getCO2Request(String eui){
+
+        co2Repo.getCO2Request(eui);
+    }
+
 
 }
