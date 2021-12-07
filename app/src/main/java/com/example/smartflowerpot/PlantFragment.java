@@ -16,13 +16,10 @@ import com.example.smartflowerpot.Model.CO2;
 import com.example.smartflowerpot.Model.Humidity;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.Model.Temperature;
-import com.example.smartflowerpot.ViewModel.AccountViewModel;
 import com.example.smartflowerpot.ViewModel.CO2ViewModel;
 import com.example.smartflowerpot.ViewModel.HumidityViewModel;
 import com.example.smartflowerpot.ViewModel.PlantViewModel;
 import com.example.smartflowerpot.ViewModel.TemperatureViewModel;
-
-import org.w3c.dom.Text;
 
 public class PlantFragment extends Fragment {
     private View view;
@@ -66,7 +63,7 @@ public class PlantFragment extends Fragment {
             @Override
             public void onChanged(Plant plant) {
                 System.out.println(plant);
-                deviceIdentifier = plant.getPlantID();
+                deviceIdentifier = plant.getEui();
                 ((BaseActivity)getActivity()).setTopbarTitle(plant.getNickname());
             }
         });

@@ -109,7 +109,7 @@ public class AccountRepo {
                         plants.setValue(null);
                     }
                     else {
-                        System.out.println(response.body());
+                        System.out.println(response.body().getAccount().getPlants());
                         plants.setValue(response.body().getAccount().getPlants());
                     }
                 }
@@ -117,6 +117,7 @@ public class AccountRepo {
             @EverythingIsNonNull
             @Override
             public void onFailure(Call<AccountResponse> call, Throwable t) {
+                System.out.println(t.getMessage());
                 Log.i("Retrofit", "Something went wrong :(");
                 plants.setValue(null);
             }

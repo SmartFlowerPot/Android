@@ -3,7 +3,6 @@ package com.example.smartflowerpot.Adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.ViewHolder> {
@@ -40,7 +38,7 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.ViewHolder
 
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.name.setText(mPlants.get(position).getNickname());
-        viewHolder.deviceIdentifier.setText(mPlants.get(position).getPlantID());
+        viewHolder.deviceIdentifier.setText(mPlants.get(position).getEui());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

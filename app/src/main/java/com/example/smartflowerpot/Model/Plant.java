@@ -1,24 +1,22 @@
 package com.example.smartflowerpot.Model;
 
-import java.util.Date;
-
 public class Plant {
-    private String plantID;
+    private String eui;
     private String nickname;
-    private Date date;
+    private String dob;
 
-    public Plant(String plantID, String nickname, Date date) {
-        this.plantID = plantID;
+    public Plant(String dob, String nickname, String eui) {
+        this.eui = eui;
         this.nickname = nickname;
-        this.date = date;
+        this.dob = dob;
     }
 
-    public String getPlantID() {
-        return plantID;
+    public String getEui() {
+        return eui;
     }
 
-    public void setPlantID(String plantID) {
-        this.plantID = plantID;
+    public void setEui(String eui) {
+        this.eui = eui;
     }
 
     public String getNickname() {
@@ -29,20 +27,20 @@ public class Plant {
         this.nickname = nickname;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDob() {
+        return dob;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     @Override
     public String toString() {
         return "Plant{" +
-                "plantID='" + plantID + '\'' +
+                "plantID='" + eui + '\'' +
                 ", nickname='" + nickname + '\'' +
-                ", age=" + date +
+                ", dob=" + dob +
                 '}';
     }
 }

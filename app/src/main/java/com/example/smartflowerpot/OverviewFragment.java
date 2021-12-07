@@ -49,24 +49,20 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
 
         accountViewModel.getPlants("karlo");
 
-        //plantsOverviewViewModel.getPlants("karlo");
+        ArrayList<Plant> plants1 = new ArrayList<>();
 
-        plantsOverviewViewModel.getPlantsResponse().observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
+        plantsAdapter = new PlantsAdapter(plants1, this);
+        recycledViewPlants.setAdapter(plantsAdapter);
+
+        accountViewModel.getPlantsResponse().observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
             @Override
             public void onChanged(List<Plant> plants) {
+                System.out.println(plants);
+                //plants1.addAll(plants);
                 plantsAdapter.setmPlants(plants);
             }
         });
 
-        ArrayList<Plant> plants = new ArrayList<>();
-        plants.add(new Plant("123", "sadasdasd", null));
-        plants.add(new Plant("345", "asdasdas", null));
-        plants.add(new Plant("567", "fghjfghj", null));
-        plants.add(new Plant("789", "fg", null));
-        plants.add(new Plant("91011", "sfgshs", null));
-
-        plantsAdapter = new PlantsAdapter(plants, this);
-        recycledViewPlants.setAdapter(plantsAdapter);
         return view;
     }
 

@@ -61,6 +61,6 @@ public interface PlantAPI {
     @GET("Account/{username}")
     Call<AccountResponse> getPlants(@Path("username") String username);
 
-    @POST("Plant/{username}/{plant}")
-    Call<PlantResponse> createAPlant(@Path("username") String username, @Path("plant") Plant plant);
+    @POST("Plant/{username}")
+    Call<PlantResponse> createAPlant(@Path("username") String username, @Body() Plant plant);
 }

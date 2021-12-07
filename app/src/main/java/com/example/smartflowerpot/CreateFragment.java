@@ -29,8 +29,8 @@ public class CreateFragment extends Fragment {
     }
 
     private void createPlant() {
-        Plant plant = new Plant(deviceIdentifierField.getText().toString(), nicknameField.getText().toString(), null);
-        plantsOverviewViewModel.createAPlant("username", plant);
+        Plant plant = new Plant("", nicknameField.getText().toString(), deviceIdentifierField.getText().toString());
+        plantsOverviewViewModel.createAPlant("karlo", plant);
     }
 
     @Override
