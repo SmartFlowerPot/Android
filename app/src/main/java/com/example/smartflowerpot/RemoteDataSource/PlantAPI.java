@@ -3,8 +3,10 @@ package com.example.smartflowerpot.RemoteDataSource;
 import retrofit2.Call;
 
 import com.example.smartflowerpot.Model.Account;
+import com.example.smartflowerpot.Model.Humidity;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
+import com.example.smartflowerpot.RemoteDataSource.Response.HumidityResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.PlantResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.PlantsResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
@@ -42,6 +44,10 @@ public interface PlantAPI {
 
     @GET("Plant/{username}&{plantID}")
     Call<PlantResponse> getPlantInfo(@Path("username") String username, @Path("plantID") String plantID);
+
+    //  Ionut
+    @GET("Humidity")
+    Call<HumidityResponse> getHumidity();
 
     @GET("Plant/{username}")
     Call<PlantsResponse> getPlants(@Path("username") String username);

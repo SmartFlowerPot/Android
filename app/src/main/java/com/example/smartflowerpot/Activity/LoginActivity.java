@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartflowerpot.Model.Account;
@@ -71,13 +72,21 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        LiveData<Account> account = accountViewModel.getAccount(username, password);
-        if (account == null) {
-            Toast toast = Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT);
-            toast.show();
-        } else {
-            Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
-            startActivity(intent);
-        }
+        LiveData<Account> accountLiveData = accountViewModel.getAccount(username, password);
+
+        accountLiveData.observe(this, new Observer<Account>() {
+            @Override
+            public void onChanged(Account account) {
+
+                if (account == null) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
 }
