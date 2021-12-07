@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -63,8 +64,8 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
 
     private void initViews() {
         recycledViewPlants = view.findViewById(R.id.recycledViewPlants);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
-        recycledViewPlants.setLayoutManager(gridLayoutManager);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recycledViewPlants.setLayoutManager(layoutManager);
     }
 
     private void getViewModels() {
