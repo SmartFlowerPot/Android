@@ -27,13 +27,4 @@ public class AccountViewModel extends ViewModel {
     public LiveData<Account> registerAccount(String username, String password) {
         return accountRepo.registerAccount(username, password);
     }
-
-    public MutableLiveData<List<Plant>> getPlantsResponse() {
-        return accountRepo.getPlantsResponse();
-    }
-
-    public void getPlants(String username) {
-        accountRepo.getPlants(username);
-    }
-
 }

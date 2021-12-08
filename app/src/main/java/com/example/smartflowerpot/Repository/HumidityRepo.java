@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.smartflowerpot.Model.Humidity;
-import com.example.smartflowerpot.RemoteDataSource.PlantAPI;
+import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.HumidityResponse;
 import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
 
@@ -37,8 +37,8 @@ public class HumidityRepo {
     }
 
     public void getHumidityRequest(String deviceID){
-        PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<HumidityResponse> call = plantAPI.getHumidity(deviceID);
+        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        Call<HumidityResponse> call = applicationAPI.getHumidity(deviceID);
         call.enqueue(new Callback<HumidityResponse>() {
             @Override
             public void onResponse(Call<HumidityResponse> call, Response<HumidityResponse> response) {

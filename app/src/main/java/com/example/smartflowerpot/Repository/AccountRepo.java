@@ -7,11 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.smartflowerpot.Model.Account;
 import com.example.smartflowerpot.Model.Plant;
-import com.example.smartflowerpot.Model.Temperature;
-import com.example.smartflowerpot.RemoteDataSource.PlantAPI;
+import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
-import com.example.smartflowerpot.RemoteDataSource.Response.PlantsResponse;
-import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
 import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
 
 import java.util.List;
@@ -44,8 +41,8 @@ public class AccountRepo {
     }
 
     private void getAccountRequest(String username, String password) {
-        PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<AccountResponse> call = plantAPI.getAccount(username, password);
+        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        Call<AccountResponse> call = applicationAPI.getAccount(username, password);
         call.enqueue(new Callback<AccountResponse>() {
             @EverythingIsNonNull
             @Override
@@ -72,9 +69,9 @@ public class AccountRepo {
     }
 
     private void registerAccountRequest(String username, String password) {
-        PlantAPI plantAPI = ServiceResponse.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
         Account tempAccount = new Account(username, password);
-        Call<AccountResponse> call = plantAPI.registerAccount(tempAccount);
+        Call<AccountResponse> call = applicationAPI.registerAccount(tempAccount);
         call.enqueue(new Callback<AccountResponse>() {
             @EverythingIsNonNull
             @Override
@@ -89,37 +86,6 @@ public class AccountRepo {
             public void onFailure(Call<AccountResponse> call, Throwable t) {
                 Log.i("Retrofit", "Something went wrong :(");
                 account.setValue(null);
-            }
-        });
-    }
-
-    public MutableLiveData<List<Plant>> getPlantsResponse() {
-        return plants;
-    }
-
-    public void getPlants(String username) {
-        PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<AccountResponse> call = plantAPI.getAccountByUsername(username);
-        call.enqueue(new Callback<AccountResponse>() {
-            @EverythingIsNonNull
-            @Override
-            public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
-                if (response.isSuccessful()) {
-                    if(response.code() == 204) {
-                        plants.setValue(null);
-                    }
-                    else {
-                        System.out.println(response.body().getAccount().getPlants());
-                        plants.setValue(response.body().getAccount().getPlants());
-                    }
-                }
-            }
-            @EverythingIsNonNull
-            @Override
-            public void onFailure(Call<AccountResponse> call, Throwable t) {
-                System.out.println(t.getMessage());
-                Log.i("Retrofit", "Something went wrong :(");
-                plants.setValue(null);
             }
         });
     }

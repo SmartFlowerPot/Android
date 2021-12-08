@@ -3,12 +3,10 @@ package com.example.smartflowerpot.Repository;
 import retrofit2.Call;
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.smartflowerpot.Model.Account;
 import com.example.smartflowerpot.Model.Temperature;
-import com.example.smartflowerpot.RemoteDataSource.PlantAPI;
+import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
 import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
 
@@ -38,8 +36,8 @@ public class TemperatureRepo {
     }
 
     public void getTemperatureRequest(String eui) {
-        PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<TemperatureResponse> call = plantAPI.getTemperature(eui);
+        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        Call<TemperatureResponse> call = applicationAPI.getTemperature(eui);
         call.enqueue(new Callback<TemperatureResponse>() {
             @EverythingIsNonNull
             @Override

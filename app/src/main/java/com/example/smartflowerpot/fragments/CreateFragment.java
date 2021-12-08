@@ -75,10 +75,4 @@ public class CreateFragment extends Fragment {
 
         return view;
     }
-
-    @Override
-    public void onResume() {
-        plantViewModel.getPlantsResponse();
-        super.onResume();
-    }
 }

@@ -4,11 +4,10 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.smartflowerpot.Model.Plant;
-import com.example.smartflowerpot.RemoteDataSource.Response.PlantResponse;
 import com.example.smartflowerpot.Repository.PlantRepo;
 
 import java.util.List;
@@ -23,15 +22,27 @@ public class PlantViewModel extends AndroidViewModel {
 
 
     public MutableLiveData<Plant> getPlant() {
-        return plantRepo.getPlant();
+        return plantRepo.getPlantFromAPI();
     }
 
     public void getPlantInfo(String eui) {
-        plantRepo.getPlantInfo(eui);
+        plantRepo.getPlantInfoFromAPI(eui);
     }
 
-    public MutableLiveData<List<Plant>> getPlantsResponse() {
-        return plantRepo.getPlants();
+    public MutableLiveData<List<Plant>> getPlantsResponseFromAPI() {
+        return plantRepo.getPlantsResponseFromAPI();
+    }
+
+    public void getPlantsFromAPI(String username) {
+        plantRepo.getPlantsFromAPI(username);
+    }
+
+    public void getPlantsFromDb() {
+        plantRepo.getPlantsFromDB();
+    }
+
+    public LiveData<List<Plant>> getPlantsResponseFromDb() {
+        return plantRepo.getPlantsFromDB();
     }
 
     public void createAPlant(String username, Plant plant) {

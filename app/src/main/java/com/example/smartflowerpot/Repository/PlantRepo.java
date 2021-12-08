@@ -1,37 +1,42 @@
 package com.example.smartflowerpot.Repository;
 
 import android.app.Application;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
 
+import androidx.core.os.HandlerCompat;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.smartflowerpot.Model.Plant;
-import com.example.smartflowerpot.RemoteDataSource.PlantAPI;
-import com.example.smartflowerpot.RemoteDataSource.Response.PlantResponse;
-import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
-import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
+import com.example.smartflowerpot.RemoteDataSource.API.PlantAPI;
+import com.example.smartflowerpot.database.PlantDAO;
 import com.example.smartflowerpot.database.PlantDatabase;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.internal.EverythingIsNonNull;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PlantRepo {
     private static PlantRepo instance;
-    private MutableLiveData<Plant> plant;
-    private MutableLiveData<List<Plant>> plants;
-    private MutableLiveData<Plant> createdPlant;
+    private PlantAPI plantAPI;
+    private PlantDAO plantDAO;
+
+    ExecutorService executorService;
+    Handler mainThreadHandler;
+
+    private LiveData<List<Plant>> allDbPlants;
 
     private PlantRepo(Application application) {
         PlantDatabase database = PlantDatabase.getInstance(application);
+        plantDAO = database.getPlantDAO();
+        executorService = Executors.newFixedThreadPool(2);
+        mainThreadHandler = HandlerCompat.createAsync(Looper.getMainLooper());
 
+        allDbPlants = plantDAO.getAllPlants();
 
-        plant = new MutableLiveData<>();
-        plants = new MutableLiveData<>();
-        createdPlant = new MutableLiveData<>();
+        plantAPI = PlantAPI.getInstance();
     }
 
     public static synchronized PlantRepo getInstance(Application application) {
@@ -40,68 +45,46 @@ public class PlantRepo {
         return instance;
     }
 
-    public MutableLiveData<Plant> getPlant() {
-        return plant;
+    public MutableLiveData<Plant> getPlantFromAPI() {
+        return plantAPI.getPlant();
     }
 
-    public void getPlantInfo(String plantID) {
-        PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<PlantResponse> call = plantAPI.getPlantInfo(plantID);
-        call.enqueue(new Callback<PlantResponse>() {
-            @EverythingIsNonNull
+    public void getPlantInfoFromAPI(String plantID) {
+        plantAPI.getPlantInfo(plantID);
+    }
+
+    public MutableLiveData<List<Plant>> getPlantsResponseFromAPI() {
+
+        MutableLiveData<List<Plant>> plants = plantAPI.getPlants();
+
+        plants.observeForever(new Observer<List<Plant>>() {
             @Override
-            public void onResponse(Call<PlantResponse> call, Response<PlantResponse> response) {
-                if (response.isSuccessful()) {
-                    if(response.code() == 204) {
-                        plant.setValue(null);
-                    }
-                    else {
-                        System.out.println(response.body().getPlant());
-                        plant.setValue(response.body().getPlant());
-                    }
-                }
-            }
-            @EverythingIsNonNull
-            @Override
-            public void onFailure(Call<PlantResponse> call, Throwable t) {
-                Log.i("Retrofit", "Something went wrong :(");
-                plant.setValue(null);
+            public void onChanged(List<Plant> plants) {
+                savePlantsToDB(plants);
             }
         });
+
+        return plants;
     }
 
-    public MutableLiveData<List<Plant>> getPlants() {
-        return plants;
+    public void getPlantsFromAPI(String username){
+        plantAPI.getPlants(username);
+
+    }
+
+    private void savePlantsToDB(List<Plant> plants) {
+        for (Plant plant: plants) {
+            System.out.println("******************************************Saving plant to db " + plant.toString());
+            executorService.execute(() -> plantDAO.insert(plant));
+        }
+    }
+
+    public LiveData<List<Plant>> getPlantsFromDB(){
+        return allDbPlants;
     }
 
 
     public void createAPlant(String username, Plant plant) {
-
-
-
-
-        PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<PlantResponse> call = plantAPI.createAPlant(username, plant);
-        call.enqueue(new Callback<PlantResponse>() {
-            @EverythingIsNonNull
-            @Override
-            public void onResponse(Call<PlantResponse> call, Response<PlantResponse> response) {
-                if (response.isSuccessful()) {
-                    if(response.code() == 204) {
-                        createdPlant.setValue(null);
-                    }
-                    else createdPlant.setValue(response.body().getPlant());
-                }
-            }
-            @EverythingIsNonNull
-            @Override
-            public void onFailure(Call<PlantResponse> call, Throwable t) {
-                Log.i("Retrofit", "Something went wrong :(");
-                createdPlant.setValue(null);
-            }
-        });
+        plantAPI.createAPlant(username, plant);
     }
-
-
-
 }
