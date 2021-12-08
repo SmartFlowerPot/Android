@@ -22,10 +22,6 @@ public class PlantsOverviewViewModel extends ViewModel {
         return plantsOverviewRepo.getPlants();
     }
 
-    public void getPlants(String username) {
-        //plantsOverviewRepo.getPlants(username);
-    }
-
     public void createAPlant(String username, Plant plant) {
         plantsOverviewRepo.createAPlant(username, plant);
     }

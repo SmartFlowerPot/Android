@@ -1,5 +1,7 @@
 package com.example.smartflowerpot.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -80,7 +82,13 @@ public class PlantFragment extends Fragment {
         temperatureViewModel.getTemperature().observe(getViewLifecycleOwner(), new Observer<Temperature>() {
             @Override
             public void onChanged(Temperature temperature) {
-                temperatureReading.setText(temperature.getCelsiusReading());
+
+                SharedPreferences prefs = getActivity().getSharedPreferences("My Preferences", Context.MODE_PRIVATE);
+                if (prefs.getString("temp_units", "CELSIUS").equals("FAHRENHEIT")) {
+                    temperatureReading.setText(temperature.getFahrenheitReading());
+                } else {
+                    temperatureReading.setText(temperature.getCelsiusReading());
+                }
             }
         });
 

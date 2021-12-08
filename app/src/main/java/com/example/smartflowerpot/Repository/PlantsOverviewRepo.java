@@ -33,36 +33,11 @@ public class PlantsOverviewRepo {
         return instance;
     }
 
-    public MutableLiveData<Plant> getCreatedPlant() {
-        return createdPlant;
-    }
 
     public MutableLiveData<List<Plant>> getPlants() {
         return plants;
     }
 
-    /*public void getPlants(String username) {
-        PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<PlantsResponse> call = plantAPI.getPlants(username);
-        call.enqueue(new Callback<PlantsResponse>() {
-            @EverythingIsNonNull
-            @Override
-            public void onResponse(Call<PlantsResponse> call, Response<PlantsResponse> response) {
-                if (response.isSuccessful()) {
-                    if(response.code() == 204) {
-                        plants.setValue(null);
-                    }
-                    else plants.setValue(response.body().getPlants());
-                }
-            }
-            @EverythingIsNonNull
-            @Override
-            public void onFailure(Call<PlantsResponse> call, Throwable t) {
-                Log.i("Retrofit", "Something went wrong :(");
-                plants.setValue(null);
-            }
-        });
-    }*/
 
     public void createAPlant(String username, Plant plant) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
