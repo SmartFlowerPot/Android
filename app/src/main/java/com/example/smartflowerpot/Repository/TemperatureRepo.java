@@ -18,7 +18,7 @@ import retrofit2.internal.EverythingIsNonNull;
 
 public class TemperatureRepo {
     private static TemperatureRepo instance;
-    private final MutableLiveData<Temperature> temperature;
+    private MutableLiveData<Temperature> temperature;
 
 
     private TemperatureRepo() {
@@ -37,9 +37,9 @@ public class TemperatureRepo {
         return temperature;
     }
 
-    public void getTemperatureRequest() {
+    public void getTemperatureRequest(String eui) {
         PlantAPI plantAPI = ServiceResponse.getPlantAPI();
-        Call<TemperatureResponse> call = plantAPI.getTemperature();
+        Call<TemperatureResponse> call = plantAPI.getTemperature(eui);
         call.enqueue(new Callback<TemperatureResponse>() {
             @EverythingIsNonNull
             @Override
@@ -48,13 +48,14 @@ public class TemperatureRepo {
                     if(response.code() == 204) {
                         temperature.setValue(null);
                     }
-                    else temperature.setValue(response.body().getTemperature());
+                    else {
+                        temperature.setValue(response.body().getTemperature());
+                    }
                 }
             }
             @EverythingIsNonNull
             @Override
             public void onFailure(Call<TemperatureResponse> call, Throwable t) {
-                System.out.println("sdasdasd" + t.getCause());
                 Log.i("Retrofit", "Something went wrong :(");
                 temperature.setValue(null);
             }

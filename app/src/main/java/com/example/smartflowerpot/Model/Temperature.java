@@ -15,6 +15,10 @@ public class Temperature implements Serializable {
     public Temperature() {
     }
 
+    private double convertToFahrenheit(){
+        return temperature*(9/5) + 32;
+    }
+
     public double getTemperature() {
         return temperature;
     }
@@ -37,5 +41,13 @@ public class Temperature implements Serializable {
                 "temperature=" + temperature +
                 ", timeStamp=" + timeStamp +
                 '}';
+    }
+
+    public String getCelsiusReading(){
+        return temperature + " °C";
+    }
+
+    public String getFahrenheitReading(){
+        return convertToFahrenheit() + " °F";
     }
 }
