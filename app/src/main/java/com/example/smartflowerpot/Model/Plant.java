@@ -1,6 +1,13 @@
 package com.example.smartflowerpot.Model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "plant_table")
 public class Plant {
+    @NonNull
+    @PrimaryKey(autoGenerate = false)
     private String eui;
     private String nickname;
     private String dob;

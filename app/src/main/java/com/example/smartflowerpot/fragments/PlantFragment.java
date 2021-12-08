@@ -104,7 +104,7 @@ public class PlantFragment extends Fragment {
         co2Reading.setText(R.string.no_reading);
         humidityReading.setText(R.string.no_reading);
 
-        plantViewModel.getPlantInfo("karlo", deviceIdentifier); // TODO fix this hardcoded username
+        plantViewModel.getPlantInfo(deviceIdentifier);
         temperatureViewModel.getTemperatureRequest(deviceIdentifier);
         humidityViewModel.getHumidityRequest(deviceIdentifier);
         co2ViewModel.getCO2Request(deviceIdentifier);

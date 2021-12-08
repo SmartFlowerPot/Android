@@ -1,6 +1,5 @@
 package com.example.smartflowerpot.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,7 +14,7 @@ import android.widget.EditText;
 import com.example.smartflowerpot.Activity.BaseActivity;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.R;
-import com.example.smartflowerpot.ViewModel.PlantsOverviewViewModel;
+import com.example.smartflowerpot.ViewModel.PlantViewModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,7 +26,7 @@ public class CreateFragment extends Fragment {
     private EditText deviceIdentifierField;
     private Button createPlantbtn;
     private View view;
-    private PlantsOverviewViewModel plantsOverviewViewModel;
+    private PlantViewModel plantViewModel;
 
 
     @Override
@@ -51,7 +50,7 @@ public class CreateFragment extends Fragment {
 
         Plant plant = new Plant(nowAsISO, nicknameField.getText().toString(), deviceIdentifierField.getText().toString());
         System.out.println(plant.toString());
-        plantsOverviewViewModel.createAPlant("karlo", plant);
+        plantViewModel.createAPlant("karlo", plant);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class CreateFragment extends Fragment {
         deviceIdentifierField = view.findViewById(R.id.deviceIdentifierField);
         createPlantbtn = view.findViewById(R.id.createPlantBtn);
 
-        plantsOverviewViewModel = new ViewModelProvider(this).get(PlantsOverviewViewModel.class);
+        plantViewModel = new ViewModelProvider(this).get(PlantViewModel.class);
 
 
         createPlantbtn.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +78,7 @@ public class CreateFragment extends Fragment {
 
     @Override
     public void onResume() {
-        plantsOverviewViewModel.getPlantsResponse();
+        plantViewModel.getPlantsResponse();
         super.onResume();
     }
 }

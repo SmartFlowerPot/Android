@@ -1,5 +1,9 @@
 package com.example.smartflowerpot.ViewModel;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -7,18 +11,30 @@ import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.RemoteDataSource.Response.PlantResponse;
 import com.example.smartflowerpot.Repository.PlantRepo;
 
-public class PlantViewModel extends ViewModel {
+import java.util.List;
+
+public class PlantViewModel extends AndroidViewModel {
     private static PlantRepo plantRepo;
 
-    public PlantViewModel() {
-        plantRepo = PlantRepo.getInstance();
+    public PlantViewModel(@NonNull Application application) {
+        super(application);
+        plantRepo = PlantRepo.getInstance(application);
     }
+
 
     public MutableLiveData<Plant> getPlant() {
         return plantRepo.getPlant();
     }
 
-    public void getPlantInfo(String username, String eui) {
-        plantRepo.getPlantInfo(username, eui);
+    public void getPlantInfo(String eui) {
+        plantRepo.getPlantInfo(eui);
+    }
+
+    public MutableLiveData<List<Plant>> getPlantsResponse() {
+        return plantRepo.getPlants();
+    }
+
+    public void createAPlant(String username, Plant plant) {
+        plantRepo.createAPlant(username, plant);
     }
 }
