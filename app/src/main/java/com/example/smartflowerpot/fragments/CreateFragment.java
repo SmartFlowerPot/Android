@@ -1,7 +1,12 @@
 package com.example.smartflowerpot.fragments;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -10,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.smartflowerpot.Activity.BaseActivity;
 import com.example.smartflowerpot.Model.Plant;
@@ -24,6 +31,7 @@ import java.util.TimeZone;
 public class CreateFragment extends Fragment {
     private EditText nicknameField;
     private EditText deviceIdentifierField;
+    private TextView onlineMessage;
     private Button createPlantbtn;
     private View view;
     private PlantViewModel plantViewModel;
@@ -35,8 +43,8 @@ public class CreateFragment extends Fragment {
         ((BaseActivity) getActivity()).setTopbarTitle("New plant");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void createPlant() {
-
         long millis = System.currentTimeMillis();
         Date date = new Date(millis);
 
@@ -44,13 +52,12 @@ public class CreateFragment extends Fragment {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.000'");
         df.setTimeZone(tz);
         String nowAsISO = df.format(date);
-        System.out.println(nowAsISO);
-
-
 
         Plant plant = new Plant(nowAsISO, nicknameField.getText().toString(), deviceIdentifierField.getText().toString());
-        System.out.println(plant.toString());
-        plantViewModel.createAPlant("karlo", plant);
+
+        if(isNetworkAvailable()) {
+            plantViewModel.createAPlant("karlo", plant); //TODO remove hardcoded username
+        }
     }
 
     @Override
@@ -62,11 +69,13 @@ public class CreateFragment extends Fragment {
         nicknameField = view.findViewById(R.id.nicknameField);
         deviceIdentifierField = view.findViewById(R.id.deviceIdentifierField);
         createPlantbtn = view.findViewById(R.id.createPlantBtn);
+        onlineMessage = view.findViewById(R.id.onlineMessage);
+        onlineMessage.setVisibility(View.INVISIBLE);
 
         plantViewModel = new ViewModelProvider(this).get(PlantViewModel.class);
 
-
         createPlantbtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 createPlant();
@@ -74,5 +83,25 @@ public class CreateFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isNetworkAvailable()) {
+            onlineMessage.setVisibility(View.INVISIBLE);
+        } else {
+            onlineMessage.setVisibility(View.VISIBLE);
+            onlineMessage.setText("To create a plant, please connect to internet.");
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

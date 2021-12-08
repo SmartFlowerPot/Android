@@ -2,6 +2,7 @@ package com.example.smartflowerpot.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -41,6 +42,14 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         initViews();
+
+        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        String username = preferences.getString("username", "default_value");
+
+        if(!username.equals("default_value")) {
+            Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
+            startActivity(intent);
+        }
 
         accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
@@ -97,16 +106,19 @@ public class LoginActivity extends AppCompatActivity {
         accountLiveData.observe(this, new Observer<Account>() {
             @Override
             public void onChanged(Account account) {
-
                 if (account == null) {
                     Toast toast = Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
+                    SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("username", username);
+                    editor.apply();
+
                     Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
                     startActivity(intent);
                 }
             }
         });
-
     }
 }

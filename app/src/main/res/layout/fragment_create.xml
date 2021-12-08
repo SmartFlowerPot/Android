@@ -44,5 +44,12 @@
 
         android:text="Create a plant" />
 
+    <TextView
+        android:id="@+id/onlineMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#FF0000" />
+
 
 </LinearLayout>
