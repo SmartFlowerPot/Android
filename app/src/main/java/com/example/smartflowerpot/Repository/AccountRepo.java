@@ -13,6 +13,7 @@ import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
 import com.example.smartflowerpot.RemoteDataSource.ServiceGenerator;
+import com.example.smartflowerpot.database.AccountDAO;
 
 import java.util.List;
 
@@ -26,10 +27,10 @@ public class AccountRepo {
     private MutableLiveData<Account> account;
     private MutableLiveData<List<Plant>> plants;
 
-    Application application;
+    private AccountDAO accountDAO;
 
     private AccountRepo(Application app) {
-        this.application = app;
+        accountDAO = AccountDAO.getInstance(app);
         account = new MutableLiveData<>();
         plants = new MutableLiveData<>();
     }
@@ -107,25 +108,14 @@ public class AccountRepo {
     }
 
     public void persistLoggedInUser(String username) {
-        SharedPreferences prefs = application.getSharedPreferences("AccountPreferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("username", username);
-        editor.apply();
-        //TODO move this to accountDAO
+        accountDAO.persistLoggedInUser(username);
     }
 
     public String getPersistedLoggedInUser() {
-        SharedPreferences prefs = application.getSharedPreferences("AccountPreferences", Context.MODE_PRIVATE);
-        String username = prefs.getString("username", "none");
-        if (username.equals("none")){
-            return null;
-        } return username;
+        return accountDAO.getPersistedLoggedInUser();
     }
 
     public void discontinueLoggedInUser(String username) {
-        SharedPreferences prefs = application.getSharedPreferences("AccountPreferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.remove("username");
-        editor.apply();
+        accountDAO.discontinueLoggedInUser(username);
     }
 }
