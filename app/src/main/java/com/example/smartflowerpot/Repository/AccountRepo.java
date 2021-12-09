@@ -63,14 +63,14 @@ public class AccountRepo {
         });
     }
 
-    public LiveData<Account> registerAccount(String username, String password) {
-        registerAccountRequest(username, password);
+    public LiveData<Account> registerAccount(String username, String password, String dob, String gender, String region) {
+        registerAccountRequest(username, password, dob, gender, region);
         return account;
     }
 
-    private void registerAccountRequest(String username, String password) {
+    private void registerAccountRequest(String username, String password, String dob, String gender, String region) {
         ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
-        Account tempAccount = new Account(username, password);
+        Account tempAccount = new Account(username, password, dob, gender, region);
         Call<AccountResponse> call = applicationAPI.registerAccount(tempAccount);
         call.enqueue(new Callback<AccountResponse>() {
             @EverythingIsNonNull

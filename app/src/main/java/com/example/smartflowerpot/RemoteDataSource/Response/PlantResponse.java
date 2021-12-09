@@ -9,6 +9,7 @@ public class PlantResponse {
     private String nickname;
     private String eui;
     private String dob;
+    private int age;
 
     public Plant getPlant() {
         return new Plant(dob, nickname, eui);

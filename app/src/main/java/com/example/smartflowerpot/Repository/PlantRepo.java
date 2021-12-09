@@ -73,9 +73,11 @@ public class PlantRepo {
     }
 
     private void savePlantsToDB(List<Plant> plants) {
-        for (Plant plant: plants) {
-            System.out.println("******************************************Saving plant to db " + plant.toString());
-            executorService.execute(() -> plantDAO.insert(plant));
+        if (plants != null){
+            for (Plant plant: plants) {
+                System.out.println("******************************************Saving plant to db " + plant.toString());
+                executorService.execute(() -> plantDAO.insert(plant));
+            }
         }
     }
 

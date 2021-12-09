@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,8 +35,10 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputEditText passwordInputRegister;
     private DatePicker dobDatePicker;
     private Spinner regionSpinner;
-    private Spinner genderSpinner;
+    private RadioGroup genderRadioGroup;
     private AccountViewModel accountViewModel;
+
+    private String[] gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,17 @@ public class RegisterActivity extends AppCompatActivity {
                 handleRegister();
             }
         });
+
+        gender = new String[1];
+        genderRadioGroup.setOnCheckedChangeListener(((radioGroup, i) -> {
+            if (i == R.id.radioBtnMale){
+                gender[0] = "MALE";
+            } else if (i == R.id.radioBtnFemale){
+                gender[0] = "FEMALE";
+            } else if (i == R.id.radioBtnOther){
+                gender[0] = "OTHER";
+            }
+        }));
     }
 
     private void initViews() {
@@ -60,12 +74,12 @@ public class RegisterActivity extends AppCompatActivity {
         passwordInputRegister = findViewById(R.id.passwordInputRegister);
         dobDatePicker = findViewById(R.id.dobDatePicker);
         regionSpinner = findViewById(R.id.regionSpinner);
-        genderSpinner = findViewById(R.id.genderSpinner);
+        genderRadioGroup = findViewById(R.id.genderRadioGroup);
 
-        populateSpinners();
+        populateRegion();
     }
 
-    private void populateSpinners() {
+    private void populateRegion() {
         List<String> regions = new ArrayList<>();
         regions.add("North America");
         regions.add("South America");
@@ -79,17 +93,6 @@ public class RegisterActivity extends AppCompatActivity {
         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         regionSpinner.setAdapter(regionAdapter);
-
-        List<String> genders = new ArrayList<>();
-        regions.add("Male");
-        regions.add("Female");
-        regions.add("Other");
-
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genders);
-
-        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        genderSpinner.setAdapter(genderAdapter);
     }
 
     private void handleRegister() {
@@ -109,6 +112,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
+        String region = regionSpinner.getSelectedItem().toString();
+
 
         if (username.isEmpty()) {
             usernameInputRegister.setError("Username cannot be empty.");
@@ -122,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        LiveData<Account> account = accountViewModel.registerAccount(username, password);
+        LiveData<Account> account = accountViewModel.registerAccount(username, password, nowAsISO, gender[0], region);
         if (account.getValue() != null) {
             Toast toast = Toast.makeText(getApplicationContext(), "Account Created", Toast.LENGTH_SHORT);
             toast.show();

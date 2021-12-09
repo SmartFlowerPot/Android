@@ -7,15 +7,18 @@ import java.util.ArrayList;
 
 public class AccountResponse {
 
-    private String password;
     private String username;
+    private String password;
+    private String dateOfBirth;
+    private String gender;
+    private String region;
     private ArrayList<Plant> plants;
 
     public Account getAccount() {
-        return new Account(username, password, plants);
+        return new Account(username, password, dateOfBirth, gender, region);
     }
 
     public Account getAccount(String username, String password) {
-        return new Account(username, password);
+        return new Account(username, password, dateOfBirth, gender, region);
     }
 }
