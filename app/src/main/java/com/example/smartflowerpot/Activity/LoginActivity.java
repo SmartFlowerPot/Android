@@ -35,23 +35,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginactivity);
 
-        if (isNetworkAvailable()){
-            System.out.println("We have internet");
-        } else {
-            System.out.println("No internet bois");
-        }
-
         initViews();
+        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
-        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
-        String username = preferences.getString("username", "default_value");
+        String loggedInUser = accountViewModel.getPersistedLoggedInUser();
 
-        if(!username.equals("default_value")) {
-            Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
-            startActivity(intent);
+        if(loggedInUser != null) {
+            startActivity(new Intent(LoginActivity.this, BaseActivity.class));
         }
 
-        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,16 +99,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(Account account) {
                 if (account == null) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
                 } else {
-                    SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("username", username);
-                    editor.apply();
+                    accountViewModel.persistLoggedInUser(account.getUsername());
 
-                    Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
-                    startActivity(intent);
+                    startActivity(new Intent(LoginActivity.this, BaseActivity.class));
                 }
             }
         });

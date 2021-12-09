@@ -40,7 +40,6 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,8 +52,14 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         plantsAdapter = new PlantsAdapter(new ArrayList<>(), this);
         recycledViewPlants.setAdapter(plantsAdapter);
 
+        updatePlants();
+        return view;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void updatePlants(){
         if (isNetworkAvailable()){
-            plantViewModel.getPlantsFromAPI("test1");
+            plantViewModel.getPlantsFromAPI(accountViewModel.getPersistedLoggedInUser());
 
             plantViewModel.getPlantsResponseFromAPI().observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
                 @Override
@@ -75,13 +80,15 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
                 }
             });
         }
-        return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResume() {
         super.onResume();
         ((BaseActivity)getActivity()).setTopbarTitle("Your plants");
+
+        updatePlants();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

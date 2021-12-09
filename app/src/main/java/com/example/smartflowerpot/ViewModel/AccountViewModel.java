@@ -1,5 +1,9 @@
 package com.example.smartflowerpot.ViewModel;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -13,11 +17,12 @@ import com.example.smartflowerpot.Repository.TemperatureRepo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountViewModel extends ViewModel {
+public class AccountViewModel extends AndroidViewModel {
     private static AccountRepo accountRepo;
 
-    public AccountViewModel() {
-        accountRepo = AccountRepo.getInstance();
+    public AccountViewModel(@NonNull Application application) {
+        super(application);
+        accountRepo = AccountRepo.getInstance(application);
     }
 
     public LiveData<Account> getAccount(String username, String password) {
@@ -37,5 +42,13 @@ public class AccountViewModel extends ViewModel {
 
     public void persistLoggedInUser(String username) {
         accountRepo.persistLoggedInUser(username);
+    }
+
+    public String getPersistedLoggedInUser(){
+        return accountRepo.getPersistedLoggedInUser();
+    }
+
+    public void discontinueLoggedInUser(String username) {
+        accountRepo.discontinueLoggedInUser(username);
     }
 }

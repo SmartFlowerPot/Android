@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +16,18 @@ import android.widget.Button;
 import com.example.smartflowerpot.Activity.BaseActivity;
 import com.example.smartflowerpot.Activity.LoginActivity;
 import com.example.smartflowerpot.R;
+import com.example.smartflowerpot.ViewModel.AccountViewModel;
 
 public class AccountFragment extends Fragment {
 
     private Button logoutbtn;
 
+    private AccountViewModel accountViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
         ((BaseActivity)getActivity()).setTopbarTitle("Your account");
     }
 
@@ -45,15 +49,8 @@ public class AccountFragment extends Fragment {
     }
 
     private void handleLogout() {
-        SharedPreferences prefs = getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = prefs.edit();
-
-        editor.remove("username");
-        editor.apply();
-
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        startActivity(intent);
+        accountViewModel.discontinueLoggedInUser(accountViewModel.getPersistedLoggedInUser());
+        startActivity(new Intent(getContext(), LoginActivity.class));
     }
 
     private void initViews(View view) {
