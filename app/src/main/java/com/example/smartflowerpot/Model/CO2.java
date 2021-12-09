@@ -5,12 +5,14 @@ public class CO2 {
     private double cO2Level;
     private String timeStamp;
     private String eui;
+    private boolean open_close_window;
 
-    public CO2(int id, double cO2Level, String timeStamp, String eui) {
+    public CO2(int id, double cO2Level, String timeStamp, String eui, boolean open_close_window) {
         this.id = id;
         this.cO2Level = cO2Level;
         this.timeStamp = timeStamp;
         this.eui = eui;
+        this.open_close_window = open_close_window;
     }
 
     public CO2() {

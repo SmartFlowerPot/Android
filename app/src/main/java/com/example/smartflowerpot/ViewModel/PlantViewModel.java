@@ -36,6 +36,7 @@ public class PlantViewModel extends AndroidViewModel {
     public void getPlantsFromAPI(String username) {
         plantRepo.getPlantsFromAPI(username);
     }
+  
 
     public void getPlantsFromDb() {
         plantRepo.getPlantsFromDB();

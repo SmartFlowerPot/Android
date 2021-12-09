@@ -63,4 +63,10 @@ public interface ApplicationAPI {
 
     @POST("Plant/{username}")
     Call<PlantResponse> createAPlant(@Path("username") String username, @Body Plant plant);
+
+    //Antonio
+    @POST("C02/{timestamp}/{eui}/{open_close_window}")
+    Call<CO2Response> ControlWindow(@Query("timestamp") String timestamp, @Query("eui") String eui,
+                                    @Query("open_close_window") boolean open_close_window);
+
 }

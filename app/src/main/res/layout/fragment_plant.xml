@@ -84,6 +84,12 @@
                         android:layout_margin="2dp" />
                 </LinearLayout>
 
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_window_close_" />
+
             </LinearLayout>
 
         </LinearLayout>

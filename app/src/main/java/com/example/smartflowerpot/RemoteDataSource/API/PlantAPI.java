@@ -4,12 +4,15 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.smartflowerpot.Model.CO2;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
+import com.example.smartflowerpot.RemoteDataSource.Response.CO2Response;
 import com.example.smartflowerpot.RemoteDataSource.Response.PlantResponse;
 import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,11 +26,13 @@ public class PlantAPI {
     private MutableLiveData<Plant> plant;
     private MutableLiveData<List<Plant>> plants;
     private MutableLiveData<Plant> createdPlant;
+    private MutableLiveData<CO2> Co2;
 
     private PlantAPI(){
         plant = new MutableLiveData<>();
         plants = new MutableLiveData<>();
         createdPlant = new MutableLiveData<>();
+        Co2 = new MutableLiveData<>();
     }
 
     public static synchronized PlantAPI getInstance(){
@@ -118,6 +123,29 @@ public class PlantAPI {
             public void onFailure(Call<PlantResponse> call, Throwable t) {
                 Log.i("Retrofit", "Something went wrong :(");
                 createdPlant.setValue(null);
+            }
+        });
+    }
+
+    public void ControlWindow(String timestamp, String eui, boolean open_close_window) {
+        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        Call<CO2Response> call = applicationAPI.ControlWindow(timestamp, eui, open_close_window);
+        call.enqueue(new Callback<CO2Response>() {
+            @EverythingIsNonNull
+            @Override
+            public void onResponse(Call<CO2Response> call, Response<CO2Response> response) {
+                if (response.isSuccessful()) {
+                    if(response.code() == 204) {
+                        Co2.setValue(null);
+                    }
+                    else Co2.setValue(response.body().getCO2());
+                }
+            }
+            @EverythingIsNonNull
+            @Override
+            public void onFailure(Call<CO2Response> call, Throwable t) {
+                Log.i("Retrofit", "Something went wrong :(");
+                Co2.setValue(null);
             }
         });
     }
