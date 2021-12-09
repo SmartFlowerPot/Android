@@ -128,6 +128,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         LiveData<Account> account = accountViewModel.registerAccount(username, password, nowAsISO, gender[0], region);
+
+
+
         if (account.getValue() != null) {
             Toast toast = Toast.makeText(getApplicationContext(), "Account Created", Toast.LENGTH_SHORT);
             toast.show();

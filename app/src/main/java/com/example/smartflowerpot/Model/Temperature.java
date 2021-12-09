@@ -15,8 +15,8 @@ public class Temperature implements Serializable {
     public Temperature() {
     }
 
-    private double convertToFahrenheit(){
-        return temperature*(9/5) + 32;
+    public double convertToFahrenheit(){
+        return temperature*1.8 + 32;
     }
 
     public double getTemperature() {
