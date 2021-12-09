@@ -101,7 +101,7 @@
             android:layout_marginTop="10sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Temperature"
+            android:text="Temperature (°C)"
             android:layout_gravity="center"/>
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/temperatureChart"
@@ -115,7 +115,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Humidity"
+            android:text="Humidity (%)"
             android:layout_gravity="center"/>
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/humidityChart"
@@ -129,7 +129,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CO2"
+            android:text="CO2 (PPM)"
             android:layout_gravity="center"/>
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/co2Chart"

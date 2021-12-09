@@ -46,6 +46,10 @@ public class PlantFragment extends Fragment {
     private LineChart co2Chart;
     private LineChart humidityChart;
 
+    private ArrayList<Humidity> humidityArrayList;
+    private ArrayList<CO2> co2ArrayList;
+    private ArrayList<Temperature> temperatureArrayList;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +87,7 @@ public class PlantFragment extends Fragment {
             }
         });
 
+
         co2ViewModel.getCO2().observe(getViewLifecycleOwner(), new Observer<CO2>() {
             @Override
             public void onChanged(CO2 co2) {
@@ -102,7 +107,12 @@ public class PlantFragment extends Fragment {
                 }
             }
         });
-
+//        humidityViewModel.getWeekHumidity().observe(getViewLifecycleOwner(), new Observer<ArrayList<Humidity>>() {
+//            @Override
+//            public void onChanged(ArrayList<Humidity> humidities) {
+//                humidityArrayList = humidities;
+//            }
+//        });
         updatePlantInfo();
 
         return view;
@@ -119,6 +129,8 @@ public class PlantFragment extends Fragment {
         temperatureViewModel.getTemperatureRequest(deviceIdentifier);
         humidityViewModel.getHumidityRequest(deviceIdentifier);
         co2ViewModel.getCO2Request(deviceIdentifier);
+
+        //humidityViewModel.getWeekHumidityRequest(deviceIdentifier);
     }
 
     private void getViewModels() {

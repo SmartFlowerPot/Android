@@ -57,7 +57,7 @@ public class LineGraph {
         this.values = values;
         setup();
         leftAxis.setAxisMinimum(0f);
-        leftAxis.setAxisMaximum(2000f);
+        leftAxis.setAxisMaximum(2400f);
         leftAxis.setYOffset(-9f);
     }
 
@@ -69,8 +69,8 @@ public class LineGraph {
         }
         this.values = values;
         setup();
-        leftAxis.setAxisMinimum(-50f);
-        leftAxis.setAxisMaximum(50f);
+        leftAxis.setAxisMinimum(-30f);
+        leftAxis.setAxisMaximum(60f);
         leftAxis.setYOffset(-9f);
     }
 

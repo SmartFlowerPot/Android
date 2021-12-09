@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel;
 import com.example.smartflowerpot.Model.Humidity;
 import com.example.smartflowerpot.Repository.HumidityRepo;
 
+import java.util.ArrayList;
+
 //  Ionut
 
 public class HumidityViewModel extends ViewModel {
@@ -19,5 +21,12 @@ public class HumidityViewModel extends ViewModel {
 
     public void getHumidityRequest(String eui){
         humidityRepo.getHumidityRequest(eui);
+    }
+
+    public LiveData<ArrayList<Humidity>> getWeekHumidity(){
+        return humidityRepo.getWeekHumidity();
+    }
+    public void getWeekHumidityRequest(String eui){
+        humidityRepo.getWeekHumidityRequest(eui);
     }
 }
