@@ -6,6 +6,10 @@ public class CO2 {
     private String timeStamp;
     private String eui;
 
+    public CO2(double cO2Level, String timeStamp){
+        this.timeStamp = timeStamp;
+        this.cO2Level = cO2Level;
+    }
     public CO2(int id, double cO2Level, String timeStamp, String eui) {
         this.id = id;
         this.cO2Level = cO2Level;
