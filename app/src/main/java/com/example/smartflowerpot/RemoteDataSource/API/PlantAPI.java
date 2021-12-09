@@ -81,11 +81,7 @@ public class PlantAPI {
                 if (response.isSuccessful()) {
                     if(response.code() == 204) {
                         plants.setValue(null);
-                    }
-                    else {
-                        System.out.println("///////////////////");
-                        System.out.println(response.body().getAccount().toString());
-                        System.out.println("///////////////////");
+                    } else {
                         plants.setValue(response.body().getAccount().getPlants());
                     }
                 }

@@ -23,6 +23,7 @@ import com.example.smartflowerpot.Activity.BaseActivity;
 import com.example.smartflowerpot.Adapters.PlantsAdapter;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.R;
+import com.example.smartflowerpot.Utils;
 import com.example.smartflowerpot.ViewModel.AccountViewModel;
 import com.example.smartflowerpot.ViewModel.PlantViewModel;
 
@@ -58,7 +59,7 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void updatePlants(){
-        if (isNetworkAvailable()){
+        if (Utils.isNetworkAvailable(getActivity())){
             plantViewModel.getPlantsFromAPI(accountViewModel.getPersistedLoggedInUser());
 
             plantViewModel.getPlantsResponseFromAPI().observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
@@ -70,7 +71,6 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
             });
         } else {
             System.out.println("Gotten plants from db instead");
-            plantViewModel.getPlantsFromDb();
 
             plantViewModel.getPlantsResponseFromDb().observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
                 @Override
@@ -94,7 +94,7 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onListItemClick(String deviceIdentifier) {
-        if (isNetworkAvailable()){
+        if (Utils.isNetworkAvailable(getActivity())){
             Bundle bundle = new Bundle();
             bundle.putString("DeviceIdentifier", deviceIdentifier);
             Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_plant, bundle);
@@ -112,13 +112,5 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     private void getViewModels() {
         accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
         plantViewModel = new ViewModelProvider(this).get(PlantViewModel.class);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

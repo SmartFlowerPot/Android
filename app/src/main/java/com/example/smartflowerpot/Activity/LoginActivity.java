@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -19,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartflowerpot.Model.Account;
 import com.example.smartflowerpot.R;
+import com.example.smartflowerpot.Utils;
 import com.example.smartflowerpot.ViewModel.AccountViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -44,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(LoginActivity.this, BaseActivity.class));
         }
 
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,15 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    // TODO extract to Utils class
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     private void initViews() {

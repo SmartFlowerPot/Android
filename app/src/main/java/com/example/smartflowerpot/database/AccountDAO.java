@@ -8,8 +8,13 @@ public class AccountDAO {
     private static AccountDAO instance;
     private  Application application;
 
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
+
     private AccountDAO(Application app){
         this.application = app;
+        prefs = application.getSharedPreferences("AccountPreferences", Context.MODE_PRIVATE);
+        editor = prefs.edit();
     }
 
 
@@ -21,15 +26,11 @@ public class AccountDAO {
     }
 
     public void persistLoggedInUser(String username) {
-        SharedPreferences prefs = application.getSharedPreferences("AccountPreferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
         editor.putString("username", username);
         editor.apply();
-        //TODO move this to accountDAO
     }
 
     public String getPersistedLoggedInUser() {
-        SharedPreferences prefs = application.getSharedPreferences("AccountPreferences", Context.MODE_PRIVATE);
         String username = prefs.getString("username", "none");
         if (username.equals("none")){
             return null;
@@ -37,8 +38,6 @@ public class AccountDAO {
     }
 
     public void discontinueLoggedInUser(String username) {
-        SharedPreferences prefs = application.getSharedPreferences("AccountPreferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
         editor.remove("username");
         editor.apply();
     }

@@ -22,6 +22,7 @@ import com.example.smartflowerpot.R;
 import com.example.smartflowerpot.ViewModel.CO2ViewModel;
 import com.example.smartflowerpot.ViewModel.HumidityViewModel;
 import com.example.smartflowerpot.ViewModel.PlantViewModel;
+import com.example.smartflowerpot.ViewModel.SettingsViewModel;
 import com.example.smartflowerpot.ViewModel.TemperatureViewModel;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -41,6 +42,7 @@ public class PlantFragment extends Fragment {
     private TemperatureViewModel temperatureViewModel;
     private HumidityViewModel humidityViewModel;
     private CO2ViewModel co2ViewModel;
+    private SettingsViewModel settingsViewModel;
 
     private LineChart temperatureChart;
     private LineChart co2Chart;
@@ -99,8 +101,7 @@ public class PlantFragment extends Fragment {
             @Override
             public void onChanged(Temperature temperature) {
 
-                SharedPreferences prefs = getActivity().getSharedPreferences("My Preferences", Context.MODE_PRIVATE);
-                if (prefs.getString("temp_units", "CELSIUS").equals("FAHRENHEIT")) {
+                if (settingsViewModel.getPersistedTemperatureUnits().equals("FAHRENHEIT")) {
                     temperatureReading.setText(temperature.getFahrenheitReading());
                 } else {
                     temperatureReading.setText(temperature.getCelsiusReading());
@@ -138,6 +139,7 @@ public class PlantFragment extends Fragment {
         temperatureViewModel = new ViewModelProvider(this).get(TemperatureViewModel.class);
         humidityViewModel = new ViewModelProvider(this).get(HumidityViewModel.class);
         co2ViewModel = new ViewModelProvider(this).get(CO2ViewModel.class);
+        settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
     }
 
     private void initViews() {

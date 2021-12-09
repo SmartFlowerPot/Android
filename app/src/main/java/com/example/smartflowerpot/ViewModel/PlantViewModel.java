@@ -37,10 +37,6 @@ public class PlantViewModel extends AndroidViewModel {
         plantRepo.getPlantsFromAPI(username);
     }
 
-    public void getPlantsFromDb() {
-        plantRepo.getPlantsFromDB();
-    }
-
     public LiveData<List<Plant>> getPlantsResponseFromDb() {
         return plantRepo.getPlantsFromDB();
     }
