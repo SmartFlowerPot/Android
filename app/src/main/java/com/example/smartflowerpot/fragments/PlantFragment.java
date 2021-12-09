@@ -23,6 +23,12 @@ import com.example.smartflowerpot.ViewModel.CO2ViewModel;
 import com.example.smartflowerpot.ViewModel.HumidityViewModel;
 import com.example.smartflowerpot.ViewModel.PlantViewModel;
 import com.example.smartflowerpot.ViewModel.TemperatureViewModel;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.ChartData;
+import com.github.mikephil.charting.data.LineData;
+
+import java.util.ArrayList;
 
 public class PlantFragment extends Fragment {
     private View view;
@@ -35,6 +41,7 @@ public class PlantFragment extends Fragment {
     private TemperatureViewModel temperatureViewModel;
     private HumidityViewModel humidityViewModel;
     private CO2ViewModel co2ViewModel;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,7 @@ public class PlantFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plant, container, false);
 
+
         initViews();
 
         getViewModels();
@@ -61,7 +69,7 @@ public class PlantFragment extends Fragment {
             public void onChanged(Plant plant) {
                 System.out.println(plant);
                 deviceIdentifier = plant.getEui();
-                ((BaseActivity)getActivity()).setTopbarTitle(plant.getNickname());
+                ((BaseActivity) getActivity()).setTopbarTitle(plant.getNickname());
             }
         });
 
@@ -122,4 +130,6 @@ public class PlantFragment extends Fragment {
         co2Reading = view.findViewById(R.id.co2Reading);
         humidityReading = view.findViewById(R.id.humidityReading);
     }
+
+
 }

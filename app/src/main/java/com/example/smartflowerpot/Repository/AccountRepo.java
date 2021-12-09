@@ -11,6 +11,7 @@ import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
 import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,6 +29,10 @@ public class AccountRepo {
         plants = new MutableLiveData<>();
     }
 
+    public LiveData<Account> getCurrentAccount() {
+        return account;
+    }
+
     public static synchronized AccountRepo getInstance() {
         if (instance == null) {
             instance = new AccountRepo();
@@ -40,6 +45,10 @@ public class AccountRepo {
         return account;
     }
 
+    public LiveData<List<Plant>> getAllCurrentPlants(){
+        return plants;
+    }
+
     private void getAccountRequest(String username, String password) {
         ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
         Call<AccountResponse> call = applicationAPI.getAccount(username, password);
@@ -49,6 +58,7 @@ public class AccountRepo {
             public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
                 if (response.code() == 200) {
                     account.setValue(response.body().getAccount(username, password));
+                    Log.d("Requesting Account", account.getValue().toString());
                 } else if(response.code() == 404){
                     account.setValue(null);
                 }
@@ -78,6 +88,7 @@ public class AccountRepo {
             public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
                 if (response.isSuccessful()) {
                     account.setValue(response.body().getAccount(username, password));
+                    Log.d("Registering Account", account.getValue().toString());
                 }
             }
 

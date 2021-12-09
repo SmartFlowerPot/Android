@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Account {
     private String username;
     private String password;
-    private String dob;
+    private String dateOfBirth;
     private String gender;
     private String region;
     private ArrayList<Plant> plants;
@@ -13,10 +13,12 @@ public class Account {
     public Account() {
     }
 
-    public Account(String username, String password, String dob, String gender, String region) {
+
+
+    public Account(String username, String password, String dateOfBirth, String gender, String region) {
         this.username = username;
         this.password = password;
-        this.dob = dob;
+        this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.region = region;
     }
@@ -38,11 +40,11 @@ public class Account {
     }
 
     public String getDob() {
-        return dob;
+        return dateOfBirth;
     }
 
     public void setDob(String dob) {
-        this.dob = dob;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getGender() {
@@ -74,7 +76,7 @@ public class Account {
         return "Account{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", dob='" + dob + '\'' +
+                ", dob='" + dateOfBirth + '\'' +
                 ", gender='" + gender + '\'' +
                 ", region='" + region + '\'' +
                 ", plants=" + plants +

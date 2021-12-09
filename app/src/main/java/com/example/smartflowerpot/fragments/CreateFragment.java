@@ -1,6 +1,7 @@
 package com.example.smartflowerpot.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -35,11 +36,13 @@ public class CreateFragment extends Fragment {
     private Button createPlantbtn;
     private View view;
     private PlantViewModel plantViewModel;
+    private SharedPreferences sharedPreferences;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         ((BaseActivity) getActivity()).setTopbarTitle("New plant");
     }
 
@@ -56,7 +59,7 @@ public class CreateFragment extends Fragment {
         Plant plant = new Plant(nowAsISO, nicknameField.getText().toString(), deviceIdentifierField.getText().toString());
 
         if(isNetworkAvailable()) {
-            plantViewModel.createAPlant("karlo", plant); //TODO remove hardcoded username
+            plantViewModel.createAPlant(sharedPreferences.getString("username","noUsername"), plant);
         }
     }
 

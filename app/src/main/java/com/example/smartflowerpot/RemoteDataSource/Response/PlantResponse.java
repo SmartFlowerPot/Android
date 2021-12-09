@@ -12,6 +12,6 @@ public class PlantResponse {
     private int age;
 
     public Plant getPlant() {
-        return new Plant(dob, nickname, eui);
+        return new Plant(dob, nickname, eui, age);
     }
 }

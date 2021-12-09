@@ -83,7 +83,9 @@ public class PlantAPI {
                         plants.setValue(null);
                     }
                     else {
-                        System.out.println(response.body().getAccount().getPlants());
+                        System.out.println("///////////////////");
+                        System.out.println(response.body().getAccount().toString());
+                        System.out.println("///////////////////");
                         plants.setValue(response.body().getAccount().getPlants());
                     }
                 }
@@ -109,8 +111,14 @@ public class PlantAPI {
                 if (response.isSuccessful()) {
                     if(response.code() == 204) {
                         createdPlant.setValue(null);
+
                     }
-                    else createdPlant.setValue(response.body().getPlant());
+                    else
+                    {
+                        Log.d("Creating Plant", username + "/" + plant.toString());
+                        createdPlant.setValue(response.body().getPlant());
+                        System.out.println(createdPlant.getValue().toString());
+                    }
                 }
             }
             @EverythingIsNonNull
