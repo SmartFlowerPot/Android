@@ -13,6 +13,8 @@ import com.example.smartflowerpot.RemoteDataSource.Response.CO2Response;
 import com.example.smartflowerpot.RemoteDataSource.Response.HumidityResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
 
+import java.util.ArrayList;
+
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -48,10 +50,15 @@ public interface ApplicationAPI {
     @GET("Plant")
     Call<PlantResponse> getPlantInfo(@Query("eui") String eui);
 
+    //-----------------------------------------------------------------------------------------------
+
     @GET("CO2")
     Call<CO2Response> getCO2(@Query("eui") String eui);
 
     //-----------------------------------------------------------------------------------------------
+
+    @GET("Humidity/history")
+    Call<ArrayList<Humidity>> getWeekHumidity(@Query("eui") String eu);
 
     //  Ionut
     @GET("Humidity")
