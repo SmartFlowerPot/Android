@@ -9,7 +9,6 @@ import com.example.smartflowerpot.Model.CO2;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.HumidityResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.PlantResponse;
-import com.example.smartflowerpot.RemoteDataSource.Response.PlantsResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.CO2Response;
 import com.example.smartflowerpot.RemoteDataSource.Response.HumidityResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;

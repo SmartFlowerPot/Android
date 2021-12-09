@@ -15,7 +15,7 @@ public class AccountResponse {
     private ArrayList<Plant> plants;
 
     public Account getAccount() {
-        return new Account(username, password, dateOfBirth, gender, region);
+        return new Account(username, password, dateOfBirth, gender, region, plants);
     }
 
     public Account getAccount(String username, String password) {

@@ -1,5 +1,6 @@
 package com.example.smartflowerpot.Repository;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -9,9 +10,8 @@ import com.example.smartflowerpot.Model.Account;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
-import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
+import com.example.smartflowerpot.RemoteDataSource.ServiceGenerator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -50,7 +50,7 @@ public class AccountRepo {
     }
 
     private void getAccountRequest(String username, String password) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
         Call<AccountResponse> call = applicationAPI.getAccount(username, password);
         call.enqueue(new Callback<AccountResponse>() {
             @EverythingIsNonNull
@@ -79,7 +79,7 @@ public class AccountRepo {
     }
 
     private void registerAccountRequest(String username, String password, String dob, String gender, String region) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
         Account tempAccount = new Account(username, password, dob, gender, region);
         Call<AccountResponse> call = applicationAPI.registerAccount(tempAccount);
         call.enqueue(new Callback<AccountResponse>() {
@@ -99,5 +99,8 @@ public class AccountRepo {
                 account.setValue(null);
             }
         });
+    }
+
+    public void persistLoggedInUser(String username) {
     }
 }
