@@ -8,7 +8,7 @@ import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.PlantResponse;
-import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
+import com.example.smartflowerpot.RemoteDataSource.ServiceGenerator;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class PlantAPI {
     }
 
     public void getPlantInfo(String plantID) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
         Call<PlantResponse> call = applicationAPI.getPlantInfo(plantID);
         call.enqueue(new Callback<PlantResponse>() {
             @EverythingIsNonNull
@@ -72,7 +72,7 @@ public class PlantAPI {
     }
 
     public void getPlants(String username) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
         Call<AccountResponse> call = applicationAPI.getAccountByUsername(username);
         call.enqueue(new Callback<AccountResponse>() {
             @EverythingIsNonNull
@@ -94,7 +94,7 @@ public class PlantAPI {
             @Override
             public void onFailure(Call<AccountResponse> call, Throwable t) {
                 System.out.println(t.getMessage());
-                Log.i("Retrofit", "Something went wrong :(");
+                Log.i("Retrofit", "Something went wrong with getting plants :(");
                 plants.setValue(null);
             }
         });
@@ -102,7 +102,7 @@ public class PlantAPI {
 
 
     public void createAPlant(String username, Plant plant) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
         Call<PlantResponse> call = applicationAPI.createAPlant(username, plant);
         call.enqueue(new Callback<PlantResponse>() {
             @EverythingIsNonNull

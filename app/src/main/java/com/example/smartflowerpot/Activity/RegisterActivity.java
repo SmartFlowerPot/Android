@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartflowerpot.Model.Account;
@@ -58,11 +59,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         gender = new String[1];
         genderRadioGroup.setOnCheckedChangeListener(((radioGroup, i) -> {
-            if (i == R.id.radioBtnMale){
+            if (i == R.id.radioBtnMale) {
                 gender[0] = "MALE";
-            } else if (i == R.id.radioBtnFemale){
+            } else if (i == R.id.radioBtnFemale) {
                 gender[0] = "FEMALE";
-            } else if (i == R.id.radioBtnOther){
+            } else if (i == R.id.radioBtnOther) {
                 gender[0] = "OTHER";
             }
         }));
@@ -106,10 +107,8 @@ public class RegisterActivity extends AppCompatActivity {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.000'");
         df.setTimeZone(tz);
-        String nowAsISO = df.format(new Date(year, month, day, 0,0,0));
+        String nowAsISO = df.format(new Date(year, month, day, 0, 0, 0));
         System.out.println(nowAsISO);
-
-
 
 
         String region = regionSpinner.getSelectedItem().toString();
@@ -129,18 +128,17 @@ public class RegisterActivity extends AppCompatActivity {
 
         LiveData<Account> account = accountViewModel.registerAccount(username, password, nowAsISO, gender[0], region);
 
-
-
-        if (account.getValue() != null) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Account Created", Toast.LENGTH_SHORT);
-            toast.show();
-            Intent intent = new Intent(RegisterActivity.this, BaseActivity.class);
-            startActivity(intent);
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(), "Registration Failed", Toast.LENGTH_SHORT);
-            toast.show();
-        }
+        account.observe(this, new Observer<Account>() {
+            @Override
+            public void onChanged(Account account) {
+                if (account != null) {
+                    accountViewModel.persistLoggedInUser(account.getUsername());
+                    Toast.makeText(getApplicationContext(), "Account Created", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(RegisterActivity.this, BaseActivity.class));
+                } else {
+                    Toast.makeText(getApplicationContext(), "Registration Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
-
-
 }

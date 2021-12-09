@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.smartflowerpot.Model.CO2;
 import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.CO2Response;
-import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
+import com.example.smartflowerpot.RemoteDataSource.ServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +36,7 @@ public class CO2Repo {
     }
 
     public void getCO2Request(String eui) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
         Call<CO2Response> call = applicationAPI.getCO2(eui);
         call.enqueue(new Callback<CO2Response>() {
             @Override

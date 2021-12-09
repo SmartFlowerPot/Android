@@ -13,7 +13,14 @@ public class Account {
     public Account() {
     }
 
-
+    public Account(String username, String password, String dateOfBirth, String gender, String region, ArrayList<Plant> plants) {
+        this.username = username;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.region = region;
+        this.plants = plants;
+    }
 
     public Account(String username, String password, String dateOfBirth, String gender, String region) {
         this.username = username;

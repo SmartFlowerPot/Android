@@ -34,4 +34,8 @@ public class AccountViewModel extends ViewModel {
     public LiveData<Account> registerAccount(String username, String password, String dob, String gender, String region) {
         return accountRepo.registerAccount(username, password, dob, gender, region);
     }
+
+    public void persistLoggedInUser(String username) {
+        accountRepo.persistLoggedInUser(username);
+    }
 }
