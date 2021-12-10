@@ -85,7 +85,7 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/ImageviewCO2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/ic_window_close_" />

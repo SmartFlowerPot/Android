@@ -49,4 +49,10 @@ public class PlantViewModel extends AndroidViewModel {
     public void createAPlant(String username, Plant plant) {
         plantRepo.createAPlant(username, plant);
     }
+
+    public void deletePlant(String eui) {
+        plantRepo.deletePlant(eui);
+    }
+
+
 }

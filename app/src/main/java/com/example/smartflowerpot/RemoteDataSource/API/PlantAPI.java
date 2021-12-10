@@ -127,9 +127,9 @@ public class PlantAPI {
         });
     }
 
-    public void ControlWindow(String timestamp, String eui, boolean open_close_window) {
+    public void ControlWindow(String timeStamp, String eui, boolean open_close_window) {
         ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
-        Call<CO2Response> call = applicationAPI.ControlWindow(timestamp, eui, open_close_window);
+        Call<CO2Response> call = applicationAPI.ControlWindow(timeStamp, eui, open_close_window);
         call.enqueue(new Callback<CO2Response>() {
             @EverythingIsNonNull
             @Override
@@ -146,6 +146,24 @@ public class PlantAPI {
             public void onFailure(Call<CO2Response> call, Throwable t) {
                 Log.i("Retrofit", "Something went wrong :(");
                 Co2.setValue(null);
+            }
+        });
+    }
+    public void deletePlant(String eui) {
+        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        Call<PlantResponse> call = applicationAPI.deletePlant(eui);
+        call.enqueue(new Callback<PlantResponse>() {
+            @Override
+            public void onResponse(Call<PlantResponse> call, Response<PlantResponse> response) {
+                if (response.isSuccessful()) {
+                    if (response.code() == 204) {
+                        createdPlant.setValue(null);
+                    }
+                } else createdPlant.setValue(response.body().getPlant());
+            }
+            @Override
+            public void onFailure(Call<PlantResponse> call, Throwable t) {
+
             }
         });
     }

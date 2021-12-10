@@ -87,4 +87,8 @@ public class PlantRepo {
     public void createAPlant(String username, Plant plant) {
         plantAPI.createAPlant(username, plant);
     }
+
+    public void deletePlant(String eui)  {
+        plantAPI.deletePlant(eui);
+    }
 }

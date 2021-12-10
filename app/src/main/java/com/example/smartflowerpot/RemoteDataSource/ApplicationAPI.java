@@ -65,8 +65,12 @@ public interface ApplicationAPI {
     Call<PlantResponse> createAPlant(@Path("username") String username, @Body Plant plant);
 
     //Antonio
-    @POST("C02/{timestamp}/{eui}/{open_close_window}")
-    Call<CO2Response> ControlWindow(@Query("timestamp") String timestamp, @Query("eui") String eui,
+    @POST("C02/{timeStamp}/{eui}/{open_close_window}")
+    Call<CO2Response> ControlWindow(@Query("timeStamp") String timeStamp, @Query("eui") String eui,
                                     @Query("open_close_window") boolean open_close_window);
 
+
+    //Antonio
+    @DELETE("plant")
+    Call<PlantResponse> deletePlant(@Query("eui") String eui);
 }

@@ -1,6 +1,7 @@
 package com.example.smartflowerpot.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -119,4 +120,6 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+
 }

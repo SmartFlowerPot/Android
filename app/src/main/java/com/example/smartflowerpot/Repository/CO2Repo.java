@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.smartflowerpot.Model.CO2;
+import com.example.smartflowerpot.RemoteDataSource.API.PlantAPI;
 import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.CO2Response;
 import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
@@ -17,6 +18,7 @@ public class CO2Repo {
     private static CO2Repo instance;
     private final MutableLiveData<CO2> currentCO2;
     String TAG = "Requesting CO2: ";
+    private PlantAPI plantAPI;
 
     private CO2Repo() {
         currentCO2 = new MutableLiveData<>();
@@ -55,6 +57,12 @@ public class CO2Repo {
         });
 
 
+
+
+    }
+
+    public void ControlWindow(String timeStamp, String eui, boolean open_close_window) {
+        plantAPI.ControlWindow(timeStamp, eui, open_close_window);
     }
 }
 

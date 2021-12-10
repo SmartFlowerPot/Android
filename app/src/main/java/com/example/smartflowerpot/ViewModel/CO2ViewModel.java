@@ -24,6 +24,7 @@ public class CO2ViewModel extends ViewModel {
 
         co2Repo.getCO2Request(eui);
     }
-
-
+    public void ControlWindow(String timeStamp, String eui, boolean open_close_window) {
+        co2Repo.ControlWindow(timeStamp, eui, open_close_window);
+    }
 }
