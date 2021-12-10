@@ -2,6 +2,9 @@ package com.example.smartflowerpot.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.smartflowerpot.Model.CO2;
 import com.example.smartflowerpot.Model.Humidity;
@@ -20,6 +23,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -35,12 +39,14 @@ public class LineGraph {
         this.resources = resources;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void setupHumidityGraph(ArrayList<Humidity> dataToInsert) {
         List<Entry> values = new ArrayList<>();
 
         for (int i = 0; i < dataToInsert.size(); i++) {
             values.add(new Entry(convertToFloatTimeStamp(dataToInsert.get(i).getTimestamp()), convertToFloat(dataToInsert.get(i).getHumidity())));
         }
+        values.sort(Comparator.comparing(Entry :: getX));
         this.values = values;
         setup();
         leftAxis.setAxisMinimum(0f);
@@ -48,12 +54,14 @@ public class LineGraph {
         leftAxis.setYOffset(-9f);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void setupCO2Graph(ArrayList<CO2> dataToInsert) {
         List<Entry> values = new ArrayList<>();
 
         for (int i = 0; i < dataToInsert.size(); i++) {
             values.add(new Entry(convertToFloatTimeStamp(dataToInsert.get(i).getTimeStamp()), convertToFloat(dataToInsert.get(i).getcO2level())));
         }
+        values.sort(Comparator.comparing(Entry :: getX));
         this.values = values;
         setup();
         leftAxis.setAxisMinimum(0f);
@@ -61,12 +69,14 @@ public class LineGraph {
         leftAxis.setYOffset(-9f);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void setupTemperatureGraph(ArrayList<Temperature> dataToInsert) {
         List<Entry> values = new ArrayList<>();
 
         for (int i = 0; i < dataToInsert.size(); i++) {
             values.add(new Entry(convertToFloatTimeStamp(dataToInsert.get(i).getTimeStamp()), convertToFloat(dataToInsert.get(i).getTemperature())));
         }
+        values.sort(Comparator.comparing(Entry :: getX));
         this.values = values;
         setup();
         leftAxis.setAxisMinimum(-30f);
@@ -121,6 +131,9 @@ public class LineGraph {
 
     public static Float convertToFloatTimeStamp(String string) {
         Date date = null;
+        if (string.length() > 21){
+            string = string.substring(0, 21);
+        }
         try {
             date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(string);
             System.out.println("//////////////////////////" + date.toString());

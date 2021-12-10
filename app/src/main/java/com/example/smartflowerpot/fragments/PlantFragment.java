@@ -48,7 +48,7 @@ public class PlantFragment extends Fragment {
     private LineChart co2Chart;
     private LineChart humidityChart;
 
-    private ArrayList<Humidity> humidityArrayList;
+    private ArrayList<Humidity> humidityArrayList = new ArrayList<>();
     private ArrayList<CO2> co2ArrayList;
     private ArrayList<Temperature> temperatureArrayList;
 
@@ -108,13 +108,24 @@ public class PlantFragment extends Fragment {
                 }
             }
         });
-//        humidityViewModel.getWeekHumidity().observe(getViewLifecycleOwner(), new Observer<ArrayList<Humidity>>() {
-//            @Override
-//            public void onChanged(ArrayList<Humidity> humidities) {
-//                humidityArrayList = humidities;
-//            }
-//        });
         updatePlantInfo();
+
+        humidityViewModel.getWeekHumidity().observe(getViewLifecycleOwner(), new Observer<ArrayList<Humidity>>() {
+            @Override
+            public void onChanged(ArrayList<Humidity> humidities) {
+                if (humidities == null) {
+                    LineGraph lineGraph2 = null;
+                    lineGraph2.setupHumidityGraph(null);
+                    System.out.println("Humidity NULL");
+                } else {
+                    System.out.println(humidities.toString());
+                    humidityArrayList = humidities;
+                    LineGraph lineGraph2 = new LineGraph(humidityChart, getResources());
+                    lineGraph2.setupHumidityGraph(humidityArrayList);
+                }
+            }
+        });
+
 
         return view;
     }
@@ -131,7 +142,7 @@ public class PlantFragment extends Fragment {
         humidityViewModel.getHumidityRequest(deviceIdentifier);
         co2ViewModel.getCO2Request(deviceIdentifier);
 
-        //humidityViewModel.getWeekHumidityRequest(deviceIdentifier);
+        humidityViewModel.getWeekHumidityRequest(deviceIdentifier);
     }
 
     private void getViewModels() {
@@ -150,6 +161,11 @@ public class PlantFragment extends Fragment {
         temperatureChart = view.findViewById(R.id.temperatureChart);
         humidityChart = view.findViewById(R.id.humidityChart);
 
+
+
+    }
+
+    private void initGraphs() {
         ArrayList<Humidity> humidityTest = new ArrayList();
         ArrayList<CO2> co2Test = new ArrayList();
         ArrayList<Temperature> tempTest = new ArrayList();
@@ -180,15 +196,13 @@ public class PlantFragment extends Fragment {
         tempTest.add(temperature2);
         tempTest.add(temperature3);
         tempTest.add(temperature4);
-
         LineGraph lineGraph = new LineGraph(temperatureChart, getResources());
         LineGraph lineGraph2 = new LineGraph(humidityChart, getResources());
         LineGraph lineGraph3 = new LineGraph(co2Chart, getResources());
 
-        lineGraph.setupTemperatureGraph(tempTest);
-        lineGraph2.setupHumidityGraph(humidityTest);
-        lineGraph3.setupCO2Graph(co2Test);
+          lineGraph.setupTemperatureGraph(tempTest);
+        //lineGraph2.setupHumidityGraph(humidityArrayList);
+           lineGraph3.setupCO2Graph(co2Test);
     }
-
 
 }

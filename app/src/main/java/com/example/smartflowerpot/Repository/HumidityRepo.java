@@ -27,14 +27,14 @@ public class HumidityRepo {
     public LiveData<ArrayList<Humidity>> getWeekHumidity() {
         return humidityAPI.getWeekHumidity();
     }
-
+    public void getWeekHumidityRequest(String deviceID) {
+        humidityAPI.getWeekHumidityRequest(deviceID);
+    }
     public LiveData<Humidity> getHumidity() {
         return humidityAPI.getHumidity();
     }
 
-    public void getWeekHumidityRequest(String deviceID) {
-        humidityAPI.getWeekHumidityRequest(deviceID);
-    }
+
 
     public void getHumidityRequest(String deviceID) {
         humidityAPI.getHumidityRequest(deviceID);

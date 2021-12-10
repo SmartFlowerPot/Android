@@ -11,4 +11,6 @@ public class HumidityResponse {
     public Humidity getHumidity(){
         return new Humidity(relativeHumidity, timeStamp);
     }
+
+
 }

@@ -1,9 +1,13 @@
 package com.example.smartflowerpot.Repository;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.smartflowerpot.Model.Humidity;
 import com.example.smartflowerpot.Model.Temperature;
 import com.example.smartflowerpot.RemoteDataSource.API.TemperatureAPI;
+
+import java.util.ArrayList;
 
 
 public class TemperatureRepo {
@@ -29,5 +33,11 @@ public class TemperatureRepo {
 
     public void getTemperatureRequest(String eui) {
         temperatureAPI.getTemperatureRequest(eui);
+    }
+    public LiveData<ArrayList<Temperature>> getWeekTemperature() {
+        return temperatureAPI.getWeekTemperature();
+    }
+    public void getWeekHumidityRequest(String deviceID) {
+        temperatureAPI.getWeekTemperatureRequest(deviceID);
     }
 }

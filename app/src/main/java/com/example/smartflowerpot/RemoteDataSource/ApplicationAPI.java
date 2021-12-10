@@ -5,20 +5,18 @@ import retrofit2.Call;
 import com.example.smartflowerpot.Model.Account;
 import com.example.smartflowerpot.Model.Humidity;
 import com.example.smartflowerpot.Model.Plant;
-import com.example.smartflowerpot.Model.CO2;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.HumidityResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.PlantResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.CO2Response;
-import com.example.smartflowerpot.RemoteDataSource.Response.HumidityResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -57,8 +55,12 @@ public interface ApplicationAPI {
 
     //-----------------------------------------------------------------------------------------------
 
+    @GET("Temperature/history")
+    Call<ArrayList<TemperatureResponse>> getWeekTemperature(@Query("eui") String eu);
+    @GET("CO2/history")
+    Call<ArrayList<CO2Response>> getWeekCO2(@Query("eui") String eu);
     @GET("Humidity/history")
-    Call<ArrayList<Humidity>> getWeekHumidity(@Query("eui") String eu);
+    Call<ArrayList<HumidityResponse>> getWeekHumidity(@Query("eui") String eu);
 
     //  Ionut
     @GET("Humidity")
