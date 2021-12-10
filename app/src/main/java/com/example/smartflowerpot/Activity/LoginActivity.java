@@ -1,15 +1,10 @@
 package com.example.smartflowerpot.Activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -20,8 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.smartflowerpot.Model.Account;
 import com.example.smartflowerpot.R;
-import com.example.smartflowerpot.Utils;
 import com.example.smartflowerpot.ViewModel.AccountViewModel;
+import com.example.smartflowerpot.ViewModel.PlantViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
@@ -29,7 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button goToRegisterButton;
     private TextInputEditText usernameInput;
     private TextInputEditText passwordInput;
+
     private AccountViewModel accountViewModel;
+    private PlantViewModel plantViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -38,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.loginactivity);
 
         initViews();
-        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+        initializeViewModels();
 
         String loggedInUser = accountViewModel.getPersistedLoggedInUser();
 
@@ -60,6 +57,11 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void initializeViewModels() {
+        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+        plantViewModel = new ViewModelProvider(this).get(PlantViewModel.class);
     }
 
     private void initViews() {
@@ -94,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
                 } else {
                     accountViewModel.persistLoggedInUser(account.getUsername());
+                    plantViewModel.deleteAllPlantsFromDB();
 
                     startActivity(new Intent(LoginActivity.this, BaseActivity.class));
                 }

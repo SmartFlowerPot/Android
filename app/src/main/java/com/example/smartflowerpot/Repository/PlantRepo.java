@@ -60,7 +60,11 @@ public class PlantRepo {
         plants.observeForever(new Observer<List<Plant>>() {
             @Override
             public void onChanged(List<Plant> plants) {
-                savePlantsToDB(plants);
+                if (plants.isEmpty()){
+                    deleteAllPlantsFromDB();
+                } else {
+                    savePlantsToDB(plants);
+                }
             }
         });
 
@@ -88,5 +92,9 @@ public class PlantRepo {
 
     public void createAPlant(String username, Plant plant) {
         plantAPI.createAPlant(username, plant);
+    }
+
+    public void deleteAllPlantsFromDB(){
+        executorService.execute(() -> plantDAO.deleteAll());
     }
 }
