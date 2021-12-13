@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,21 +13,19 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
 import com.example.smartflowerpot.R;
+import com.example.smartflowerpot.ViewModel.SettingsViewModel;
 
 //  Ionut
 
 public class SettingsFragment extends Fragment {
 
     private RadioGroup tempUnitsRadioGroup;
-    private SharedPreferences prefs;
-
-    public SettingsFragment() {
-    }
+    private SettingsViewModel settingsViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefs = getActivity().getSharedPreferences("My Preferences", Context.MODE_PRIVATE);
+        settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
     }
 
     @Override
@@ -37,15 +36,12 @@ public class SettingsFragment extends Fragment {
         initViews(view);
 
         tempUnitsRadioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
-            SharedPreferences.Editor editor = prefs.edit();
 
             if (i == R.id.celsiusRadioBtn) {
-                editor.putString("temp_units", "CELSIUS");
+                settingsViewModel.persistTemperatureUnits("CELSIUS");
             } else if (i == R.id.fahrenheitRadioBtn) {
-                editor.putString("temp_units", "FAHRENHEIT");
+                settingsViewModel.persistTemperatureUnits("FAHRENHEIT");
             }
-
-            editor.apply();
         });
 
         return view;
@@ -53,8 +49,7 @@ public class SettingsFragment extends Fragment {
 
     private void initViews(View view) {
         tempUnitsRadioGroup = view.findViewById(R.id.tempUnitsRadioGroup);
-
-        if (prefs.getString("temp_units", "CELSIUS").equals("FAHRENHEIT")){
+        if (settingsViewModel.getPersistedTemperatureUnits().equals("FAHRENHEIT")){
             tempUnitsRadioGroup.check(R.id.fahrenheitRadioBtn);
         } else {
             tempUnitsRadioGroup.check(R.id.celsiusRadioBtn);

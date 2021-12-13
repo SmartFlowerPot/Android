@@ -1,8 +1,7 @@
 package com.example.smartflowerpot.fragments;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -16,11 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.smartflowerpot.Activity.BaseActivity;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.R;
+import com.example.smartflowerpot.utils.Utils;
 import com.example.smartflowerpot.ViewModel.PlantViewModel;
 
 import java.text.DateFormat;
@@ -35,11 +34,13 @@ public class CreateFragment extends Fragment {
     private Button createPlantbtn;
     private View view;
     private PlantViewModel plantViewModel;
+    private SharedPreferences sharedPreferences;
 
-
+//TODO check input fields and redirect
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         ((BaseActivity) getActivity()).setTopbarTitle("New plant");
     }
 
@@ -55,8 +56,8 @@ public class CreateFragment extends Fragment {
 
         Plant plant = new Plant(nowAsISO, nicknameField.getText().toString(), deviceIdentifierField.getText().toString());
 
-        if(isNetworkAvailable()) {
-            plantViewModel.createAPlant("karlo", plant); //TODO remove hardcoded username
+        if(Utils.isNetworkAvailable(getActivity())) {
+            plantViewModel.createAPlant(sharedPreferences.getString("username","noUsername"), plant);
         }
     }
 
@@ -89,19 +90,11 @@ public class CreateFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(isNetworkAvailable()) {
+        if(Utils.isNetworkAvailable(getActivity())) {
             onlineMessage.setVisibility(View.INVISIBLE);
         } else {
             onlineMessage.setVisibility(View.VISIBLE);
             onlineMessage.setText("To create a plant, please connect to internet.");
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

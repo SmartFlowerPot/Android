@@ -1,10 +1,6 @@
 package com.example.smartflowerpot.Activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.smartflowerpot.Model.Account;
 import com.example.smartflowerpot.R;
 import com.example.smartflowerpot.ViewModel.AccountViewModel;
+import com.example.smartflowerpot.ViewModel.PlantViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
@@ -27,7 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button goToRegisterButton;
     private TextInputEditText usernameInput;
     private TextInputEditText passwordInput;
+
     private AccountViewModel accountViewModel;
+    private PlantViewModel plantViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -35,23 +34,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginactivity);
 
-        if (isNetworkAvailable()){
-            System.out.println("We have internet");
-        } else {
-            System.out.println("No internet bois");
-        }
-
         initViews();
+        initializeViewModels();
 
-        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
-        String username = preferences.getString("username", "default_value");
+        String loggedInUser = accountViewModel.getPersistedLoggedInUser();
 
-        if(!username.equals("default_value")) {
-            Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
-            startActivity(intent);
+        if(loggedInUser != null) {
+            startActivity(new Intent(LoginActivity.this, BaseActivity.class));
         }
-
-        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,13 +59,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // TODO extract to Utils class
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    private void initializeViewModels() {
+        accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+        plantViewModel = new ViewModelProvider(this).get(PlantViewModel.class);
     }
 
     private void initViews() {
@@ -107,16 +93,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(Account account) {
                 if (account == null) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
                 } else {
-                    SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("username", username);
-                    editor.apply();
+                    accountViewModel.persistLoggedInUser(account.getUsername());
+                    plantViewModel.deleteAllPlantsFromDb();
 
-                    Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
-                    startActivity(intent);
+                    startActivity(new Intent(LoginActivity.this, BaseActivity.class));
                 }
             }
         });

@@ -1,5 +1,8 @@
 package com.example.smartflowerpot.Repository;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -7,9 +10,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.smartflowerpot.Model.Account;
 import com.example.smartflowerpot.Model.Plant;
+import com.example.smartflowerpot.RemoteDataSource.API.AccountAPI;
 import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
-import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
+import com.example.smartflowerpot.RemoteDataSource.ServiceGenerator;
+import com.example.smartflowerpot.database.AccountDAO;
 
 import java.util.List;
 
@@ -20,74 +25,49 @@ import retrofit2.internal.EverythingIsNonNull;
 
 public class AccountRepo {
     private static AccountRepo instance;
-    private MutableLiveData<Account> account;
-    private MutableLiveData<List<Plant>> plants;
 
-    private AccountRepo() {
-        account = new MutableLiveData<>();
-        plants = new MutableLiveData<>();
+    private AccountDAO accountDAO;
+    private AccountAPI accountAPI;
+
+    private AccountRepo(Application app) {
+        accountDAO = AccountDAO.getInstance(app);
+        accountAPI = AccountAPI.getInstance();
     }
 
-    public static synchronized AccountRepo getInstance() {
+    public LiveData<Account> getCurrentAccount() {
+        return accountAPI.getCurrentAccount();
+    }
+
+    public static synchronized AccountRepo getInstance(Application app) {
         if (instance == null) {
-            instance = new AccountRepo();
+            instance = new AccountRepo(app);
         }
         return instance;
     }
 
     public LiveData<Account> getAccount(String username, String password) {
-        getAccountRequest(username, password);
-        return account;
+        return accountAPI.getAccount(username, password);
     }
 
-    private void getAccountRequest(String username, String password) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
-        Call<AccountResponse> call = applicationAPI.getAccount(username, password);
-        call.enqueue(new Callback<AccountResponse>() {
-            @EverythingIsNonNull
-            @Override
-            public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
-                if (response.code() == 200) {
-                    account.setValue(response.body().getAccount(username, password));
-                } else if(response.code() == 404){
-                    account.setValue(null);
-                }
-            }
-
-            @EverythingIsNonNull
-            @Override
-            public void onFailure(Call<AccountResponse> call, Throwable t) {
-                Log.i("Retrofit", "Something went wrong :(");
-                account.setValue(null);
-            }
-        });
+    public LiveData<List<Plant>> getAllCurrentPlants(){
+        return accountAPI.getAllCurrentPlants();
     }
 
-    public LiveData<Account> registerAccount(String username, String password) {
-        registerAccountRequest(username, password);
-        return account;
+    public LiveData<Account> registerAccount(String username, String password, String dob, String gender, String region) {
+        return accountAPI. registerAccount(username, password, dob, gender, region);
     }
 
-    private void registerAccountRequest(String username, String password) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
-        Account tempAccount = new Account(username, password);
-        Call<AccountResponse> call = applicationAPI.registerAccount(tempAccount);
-        call.enqueue(new Callback<AccountResponse>() {
-            @EverythingIsNonNull
-            @Override
-            public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
-                if (response.isSuccessful()) {
-                    account.setValue(response.body().getAccount(username, password));
-                }
-            }
 
-            @EverythingIsNonNull
-            @Override
-            public void onFailure(Call<AccountResponse> call, Throwable t) {
-                Log.i("Retrofit", "Something went wrong :(");
-                account.setValue(null);
-            }
-        });
+    public void persistLoggedInUser(String username) {
+        accountDAO.persistLoggedInUser(username);
+    }
+
+    public String getPersistedLoggedInUser() {
+        return accountDAO.getPersistedLoggedInUser();
+    }
+
+    public void discontinueLoggedInUser(String username) {
+        accountDAO.discontinueLoggedInUser(username);
     }
 
 }

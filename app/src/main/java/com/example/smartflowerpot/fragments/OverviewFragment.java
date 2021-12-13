@@ -24,9 +24,9 @@ import com.example.smartflowerpot.Activity.BaseActivity;
 import com.example.smartflowerpot.Adapters.PlantsAdapter;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.R;
+import com.example.smartflowerpot.utils.Utils;
 import com.example.smartflowerpot.ViewModel.AccountViewModel;
 import com.example.smartflowerpot.ViewModel.PlantViewModel;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,6 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,8 +55,14 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         plantsAdapter = new PlantsAdapter(new ArrayList<>(), this);
         recycledViewPlants.setAdapter(plantsAdapter);
 
-        if (isNetworkAvailable()){
-            plantViewModel.getPlantsFromAPI("karlo");
+        updatePlants();
+        return view;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void updatePlants(){
+        if (Utils.isNetworkAvailable(getActivity())){
+            plantViewModel.getPlantsFromAPI(accountViewModel.getPersistedLoggedInUser());
 
             plantViewModel.getPlantsResponseFromAPI().observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
                 @Override
@@ -68,7 +73,6 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
             });
         } else {
             System.out.println("Gotten plants from db instead");
-            plantViewModel.getPlantsFromDb();
 
             plantViewModel.getPlantsResponseFromDb().observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
                 @Override
@@ -78,23 +82,21 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
                 }
             });
         }
-
-
-
-
-        return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResume() {
         super.onResume();
         ((BaseActivity)getActivity()).setTopbarTitle("Your plants");
+
+        updatePlants();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onListItemClick(String deviceIdentifier) {
-        if (isNetworkAvailable()){
+        if (Utils.isNetworkAvailable(getActivity())){
             Bundle bundle = new Bundle();
             bundle.putString("DeviceIdentifier", deviceIdentifier);
             Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_plant, bundle);
@@ -125,4 +127,5 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     public void delete(String eui){
         plantViewModel.deletePlant("");
     }
+}
 }

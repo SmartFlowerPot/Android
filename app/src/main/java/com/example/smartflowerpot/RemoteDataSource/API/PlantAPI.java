@@ -10,7 +10,7 @@ import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.CO2Response;
 import com.example.smartflowerpot.RemoteDataSource.Response.PlantResponse;
-import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
+import com.example.smartflowerpot.RemoteDataSource.ServiceGenerator;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -22,6 +22,7 @@ import retrofit2.internal.EverythingIsNonNull;
 
 public class PlantAPI {
     private static PlantAPI instance;
+    ApplicationAPI applicationAPI;
 
     private MutableLiveData<Plant> plant;
     private MutableLiveData<List<Plant>> plants;
@@ -33,6 +34,7 @@ public class PlantAPI {
         plants = new MutableLiveData<>();
         createdPlant = new MutableLiveData<>();
         Co2 = new MutableLiveData<>();
+        applicationAPI = ServiceGenerator.getApplicationAPI();
     }
 
     public static synchronized PlantAPI getInstance(){
@@ -47,7 +49,6 @@ public class PlantAPI {
     }
 
     public void getPlantInfo(String plantID) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
         Call<PlantResponse> call = applicationAPI.getPlantInfo(plantID);
         call.enqueue(new Callback<PlantResponse>() {
             @EverythingIsNonNull
@@ -77,7 +78,6 @@ public class PlantAPI {
     }
 
     public void getPlants(String username) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
         Call<AccountResponse> call = applicationAPI.getAccountByUsername(username);
         call.enqueue(new Callback<AccountResponse>() {
             @EverythingIsNonNull
@@ -86,9 +86,7 @@ public class PlantAPI {
                 if (response.isSuccessful()) {
                     if(response.code() == 204) {
                         plants.setValue(null);
-                    }
-                    else {
-                        System.out.println(response.body().getAccount().getPlants());
+                    } else {
                         plants.setValue(response.body().getAccount().getPlants());
                     }
                 }
@@ -97,7 +95,7 @@ public class PlantAPI {
             @Override
             public void onFailure(Call<AccountResponse> call, Throwable t) {
                 System.out.println(t.getMessage());
-                Log.i("Retrofit", "Something went wrong :(");
+                Log.i("Retrofit", "Something went wrong with getting plants :(");
                 plants.setValue(null);
             }
         });
@@ -105,7 +103,6 @@ public class PlantAPI {
 
 
     public void createAPlant(String username, Plant plant) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
         Call<PlantResponse> call = applicationAPI.createAPlant(username, plant);
         call.enqueue(new Callback<PlantResponse>() {
             @EverythingIsNonNull
@@ -114,8 +111,14 @@ public class PlantAPI {
                 if (response.isSuccessful()) {
                     if(response.code() == 204) {
                         createdPlant.setValue(null);
+
                     }
-                    else createdPlant.setValue(response.body().getPlant());
+                    else
+                    {
+                        Log.d("Creating Plant", username + "/" + plant.toString());
+                        createdPlant.setValue(response.body().getPlant());
+                        System.out.println(createdPlant.getValue().toString());
+                    }
                 }
             }
             @EverythingIsNonNull

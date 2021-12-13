@@ -38,10 +38,6 @@ public class PlantViewModel extends AndroidViewModel {
     }
   
 
-    public void getPlantsFromDb() {
-        plantRepo.getPlantsFromDB();
-    }
-
     public LiveData<List<Plant>> getPlantsResponseFromDb() {
         return plantRepo.getPlantsFromDB();
     }
@@ -56,5 +52,7 @@ public class PlantViewModel extends AndroidViewModel {
 
     public void ControlWindow( String eui, int open_close_window) {
         plantRepo.ControlWindow( eui, open_close_window);
+    public void deleteAllPlantsFromDb(){
+        plantRepo.deleteAllPlantsFromDB();
     }
 }

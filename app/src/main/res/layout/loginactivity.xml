@@ -19,13 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
-            android:text="karlo"
             app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="8dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -42,7 +40,6 @@
             android:layout_height="wrap_content"
             android:hint="Password"
             android:inputType="textPassword"
-            android:text="karlo"
             app:layout_constraintBottom_toTopOf="@+id/loginButton"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
             tools:layout_editor_absoluteX="5dp" />

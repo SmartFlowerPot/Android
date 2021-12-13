@@ -60,7 +60,11 @@ public class PlantRepo {
         plants.observeForever(new Observer<List<Plant>>() {
             @Override
             public void onChanged(List<Plant> plants) {
-                savePlantsToDB(plants);
+                if (plants.isEmpty()){
+                    deleteAllPlantsFromDB();
+                } else {
+                    savePlantsToDB(plants);
+                }
             }
         });
 
@@ -73,9 +77,10 @@ public class PlantRepo {
     }
 
     private void savePlantsToDB(List<Plant> plants) {
-        for (Plant plant: plants) {
-            System.out.println("******************************************Saving plant to db " + plant.toString());
-            executorService.execute(() -> plantDAO.insert(plant));
+        if (plants != null){
+            for (Plant plant: plants) {
+                executorService.execute(() -> plantDAO.insert(plant));
+            }
         }
     }
 
@@ -96,4 +101,7 @@ public class PlantRepo {
         plantAPI.ControlWindow(eui,  open_close_window);
     }
 
+    public void deleteAllPlantsFromDB(){
+        executorService.execute(() -> plantDAO.deleteAll());
+    }
 }
