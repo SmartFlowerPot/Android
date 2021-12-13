@@ -21,7 +21,6 @@ import retrofit2.Response;
 
 public class CO2Repo {
     private static CO2Repo instance;
-    private final MutableLiveData<CO2> currentCO2;
     String TAG = "Requesting CO2: ";
     private PlantAPI plantAPI;
     private CO2API co2API;
@@ -47,15 +46,14 @@ public class CO2Repo {
 
 
 
-    }
-
     public void ControlWindow( String eui, int open_close_window) {
         plantAPI.ControlWindow(eui, open_close_window);
+    }
     public LiveData<ArrayList<CO2>> getWeekCO2() {
         return co2API.getWeekCO2();
     }
-    public void getWeekCO2yRequest(String deviceID) {
-        co2API.getWeekCO2Request(deviceID);
+    public void getWeekCO2yRequest(String eui) {
+        co2API.getWeekCO2Request(eui);
     }
 }
 

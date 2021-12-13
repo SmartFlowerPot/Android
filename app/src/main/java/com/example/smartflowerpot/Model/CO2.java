@@ -33,7 +33,7 @@ public class CO2 {
         this.id = id;
     }
 
-    public double getcO2Level() {
+    public double getcO2level() {
         return cO2Level;
     }
 

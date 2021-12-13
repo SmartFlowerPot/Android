@@ -208,6 +208,7 @@ public class PlantFragment extends Fragment {
                     plantViewModel.ControlWindow(co2.getEui(), 1);
 
                 }
+                System.out.println("The data is sent");
 
             }
         });

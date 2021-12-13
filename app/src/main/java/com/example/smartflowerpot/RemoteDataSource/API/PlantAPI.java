@@ -131,7 +131,7 @@ public class PlantAPI {
     }
 
     public void ControlWindow( String eui, int open_close_window) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
         Call<CO2Response> call = applicationAPI.ControlWindow(eui, open_close_window);
         call.enqueue(new Callback<CO2Response>() {
             @EverythingIsNonNull
@@ -142,6 +142,7 @@ public class PlantAPI {
                         Co2.setValue(null);
                     }
                     else Co2.setValue(response.body().getCO2());
+                    Log.d("sendingMessage", response.code()+ "");
                 }
             }
             @EverythingIsNonNull
@@ -153,7 +154,7 @@ public class PlantAPI {
         });
     }
     public void deletePlant(String eui) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
         Call<PlantResponse> call = applicationAPI.deletePlant(eui);
         call.enqueue(new Callback<PlantResponse>() {
             @Override

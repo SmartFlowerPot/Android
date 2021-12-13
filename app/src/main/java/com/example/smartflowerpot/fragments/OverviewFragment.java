@@ -128,4 +128,4 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         plantViewModel.deletePlant("");
     }
 }
-}
+
