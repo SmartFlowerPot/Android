@@ -1,10 +1,14 @@
 package com.example.smartflowerpot.ViewModel;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.smartflowerpot.Model.CO2;
+import com.example.smartflowerpot.Model.Humidity;
 import com.example.smartflowerpot.Repository.CO2Repo;
+
+import java.util.ArrayList;
 
 public class CO2ViewModel extends ViewModel {
     private static CO2Repo co2Repo;
@@ -24,6 +28,11 @@ public class CO2ViewModel extends ViewModel {
 
         co2Repo.getCO2Request(eui);
     }
-
+    public LiveData<ArrayList<CO2>> getWeekCO2(){
+        return co2Repo.getWeekCO2();
+    }
+    public void getWeekCO2Request(String eui){
+        co2Repo.getWeekCO2yRequest(eui);
+    }
 
 }

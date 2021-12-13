@@ -37,7 +37,7 @@ public class TemperatureRepo {
     public LiveData<ArrayList<Temperature>> getWeekTemperature() {
         return temperatureAPI.getWeekTemperature();
     }
-    public void getWeekHumidityRequest(String deviceID) {
+    public void getWeekTemperatureRequest(String deviceID) {
         temperatureAPI.getWeekTemperatureRequest(deviceID);
     }
 }

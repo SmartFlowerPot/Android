@@ -90,8 +90,8 @@ public class LineGraph {
         linedataset.setColor(R.color.black);
         linedataset.setDrawFilled(true);
         linedataset.setFillColor(R.color.black);
-        linedataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        linedataset.setDrawCircles(false);
+        linedataset.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+        linedataset.setDrawCircles(true);
         linedataset.setDrawValues(false);
         LineData data = new LineData(linedataset);
         chart.setData(data);
@@ -108,14 +108,15 @@ public class LineGraph {
         Legend l = chart.getLegend();
         l.setEnabled(false);
         XAxis xAxis = chart.getXAxis();
-        xAxis.setGranularity(1f);
+    //    xAxis.setGranularity(1f);
         xAxis.setTextSize(10f);
         xAxis.setTextColor(resources.getColor(R.color.white));
-        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(true);
         xAxis.setCenterAxisLabels(true);
-        xAxis.setGranularity(1f); // one hour
-        xAxis.setGranularityEnabled(true);
+       // xAxis.mAxisRange = 3000000000F;
+
+        xAxis.setGranularityEnabled(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         leftAxis = chart.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
@@ -136,7 +137,6 @@ public class LineGraph {
         }
         try {
             date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(string);
-            System.out.println("//////////////////////////" + date.toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }

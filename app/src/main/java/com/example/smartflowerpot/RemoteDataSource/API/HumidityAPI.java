@@ -56,7 +56,6 @@ public class HumidityAPI {
                         for (int i = 0; i < response.body().size(); i++){
 
                             temp.add(response.body().get(i).getHumidity());
-                            System.out.println(temp.get(i));
                         }
                         humidityArray.setValue(temp);
 

@@ -80,7 +80,6 @@ public class TemperatureAPI {
                         for (int i = 0; i < response.body().size(); i++){
 
                             temp.add(response.body().get(i).getTemperature());
-                            System.out.println(temp.get(i));
                         }
                         temperatureArray.setValue(temp);
 

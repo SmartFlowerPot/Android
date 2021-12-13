@@ -2,13 +2,17 @@ package com.example.smartflowerpot.Repository;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.smartflowerpot.Model.CO2;
+import com.example.smartflowerpot.Model.Humidity;
 import com.example.smartflowerpot.RemoteDataSource.API.CO2API;
 import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.CO2Response;
 import com.example.smartflowerpot.RemoteDataSource.ServiceGenerator;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +39,13 @@ public class CO2Repo {
 
     public void getCO2Request(String eui) {
         co2API.getCO2Request(eui);
+    }
+
+    public LiveData<ArrayList<CO2>> getWeekCO2() {
+        return co2API.getWeekCO2();
+    }
+    public void getWeekCO2yRequest(String deviceID) {
+        co2API.getWeekCO2Request(deviceID);
     }
 }
 

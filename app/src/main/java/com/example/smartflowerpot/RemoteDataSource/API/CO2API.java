@@ -77,7 +77,6 @@ public class CO2API {
                         for (int i = 0; i < response.body().size(); i++){
 
                             temp.add(response.body().get(i).getCO2());
-                            System.out.println(temp.get(i));
                         }
                         co2Array.setValue(temp);
 
