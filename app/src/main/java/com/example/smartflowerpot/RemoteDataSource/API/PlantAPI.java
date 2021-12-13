@@ -127,9 +127,9 @@ public class PlantAPI {
         });
     }
 
-    public void ControlWindow(String timeStamp, String eui, boolean open_close_window) {
+    public void ControlWindow( String eui, int open_close_window) {
         ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
-        Call<CO2Response> call = applicationAPI.ControlWindow(timeStamp, eui, open_close_window);
+        Call<CO2Response> call = applicationAPI.ControlWindow(eui, open_close_window);
         call.enqueue(new Callback<CO2Response>() {
             @EverythingIsNonNull
             @Override

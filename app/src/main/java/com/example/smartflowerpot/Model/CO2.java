@@ -5,14 +5,12 @@ public class CO2 {
     private double cO2Level;
     private String timeStamp;
     private String eui;
-    private boolean open_close_window;
 
     public CO2(int id, double cO2Level, String timeStamp, String eui, boolean open_close_window) {
         this.id = id;
         this.cO2Level = cO2Level;
         this.timeStamp = timeStamp;
         this.eui = eui;
-        this.open_close_window = open_close_window;
     }
 
     public CO2() {
@@ -55,13 +53,7 @@ public class CO2 {
         this.eui = eui;
     }
 
-    public boolean isOpen_close_window() {
-        return open_close_window;
-    }
 
-    public void setOpen_close_window(boolean open_close_window) {
-        this.open_close_window = open_close_window;
-    }
 
     @Override
     public String toString() {
@@ -70,7 +62,6 @@ public class CO2 {
                 ", cO2Level=" + cO2Level +
                 ", timeStamp='" + timeStamp + '\'' +
                 ", eui='" + eui + '\'' +
-                ", open_close_window=" + open_close_window +
                 '}';
     }
 
