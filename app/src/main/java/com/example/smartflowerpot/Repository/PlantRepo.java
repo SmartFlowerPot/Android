@@ -91,4 +91,9 @@ public class PlantRepo {
     public void deletePlant(String eui)  {
         plantAPI.deletePlant(eui);
     }
+
+    public void ControlWindow(String timeStamp, String eui, boolean open_close_window) {
+        plantAPI.ControlWindow(timeStamp, eui,  open_close_window);
+    }
+
 }

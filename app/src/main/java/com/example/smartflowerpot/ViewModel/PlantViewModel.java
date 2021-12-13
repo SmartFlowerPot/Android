@@ -54,5 +54,7 @@ public class PlantViewModel extends AndroidViewModel {
         plantRepo.deletePlant(eui);
     }
 
-
+    public void ControlWindow(String timeStamp, String eui, boolean open_close_window) {
+        plantRepo.ControlWindow(timeStamp, eui, open_close_window);
+    }
 }

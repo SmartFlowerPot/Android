@@ -100,9 +100,18 @@ public class PlantFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ImageviewCO2.setImageResource(images[i]);
+                CO2 co2 = new CO2();
+                plantViewModel.ControlWindow(co2.getTimeStamp(),co2.getEui(), false);
+
                 i++;
-                if(i==2)
-                    i=0;
+                if(i==1)   {
+                    plantViewModel.ControlWindow(co2.getTimeStamp(),co2.getEui(), true);
+                    if(i == 2)
+                        i=0;
+                    plantViewModel.ControlWindow(co2.getTimeStamp(),co2.getEui(), false);
+
+                }
+
             }
         });
 
@@ -121,9 +130,7 @@ public class PlantFragment extends Fragment {
         humidityViewModel.getHumidityRequest(deviceIdentifier);
         co2ViewModel.getCO2Request(deviceIdentifier);
     }
-    private void ControlWindow() {
 
-    }
 
     private void getViewModels() {
         plantViewModel = new ViewModelProvider(this).get(PlantViewModel.class);

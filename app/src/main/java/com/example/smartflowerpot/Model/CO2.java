@@ -19,24 +19,9 @@ public class CO2 {
 
     }
 
-    public String getReading(){
+    public String getReading() {
         return cO2Level + " ppm";
     }
-
-    @Override
-    public String toString() {
-        return "CO2{" +
-                "id=" + id +
-                ", cO2Level=" + cO2Level +
-                ", timeStamp='" + timeStamp + '\'' +
-                ", eui='" + eui + '\'' +
-                '}';
-    }
-
-    public String getTimeStamp() {
-        return timeStamp;
-    }
-
 
     public int getId() {
         return id;
@@ -46,12 +31,20 @@ public class CO2 {
         this.id = id;
     }
 
-    public double getcO2level() {
+    public double getcO2Level() {
         return cO2Level;
     }
 
-    public void setcO2level(double cO2level) {
-        this.cO2Level = cO2level;
+    public void setcO2Level(double cO2Level) {
+        this.cO2Level = cO2Level;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public String getEui() {
@@ -62,7 +55,23 @@ public class CO2 {
         this.eui = eui;
     }
 
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
+    public boolean isOpen_close_window() {
+        return open_close_window;
     }
+
+    public void setOpen_close_window(boolean open_close_window) {
+        this.open_close_window = open_close_window;
+    }
+
+    @Override
+    public String toString() {
+        return "CO2{" +
+                "id=" + id +
+                ", cO2Level=" + cO2Level +
+                ", timeStamp='" + timeStamp + '\'' +
+                ", eui='" + eui + '\'' +
+                ", open_close_window=" + open_close_window +
+                '}';
+    }
+
 }

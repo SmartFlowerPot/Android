@@ -38,6 +38,7 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     private AccountViewModel accountViewModel;
     private PlantViewModel plantViewModel;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,5 +122,7 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-
+    public void delete(String eui){
+        plantViewModel.deletePlant("");
+    }
 }

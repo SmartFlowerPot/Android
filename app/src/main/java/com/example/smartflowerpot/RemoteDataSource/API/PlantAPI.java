@@ -163,7 +163,8 @@ public class PlantAPI {
             }
             @Override
             public void onFailure(Call<PlantResponse> call, Throwable t) {
-
+                Log.i("Retrofit", "Something went wrong :(");
+                Co2.setValue(null);
             }
         });
     }
