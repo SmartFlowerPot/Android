@@ -101,14 +101,14 @@ public class PlantFragment extends Fragment {
             public void onClick(View v) {
                 ImageviewCO2.setImageResource(images[i]);
                 CO2 co2 = new CO2();
-                plantViewModel.ControlWindow(co2.getEui(), 0);
+                plantViewModel.ControlWindow(co2.getEui(), 1);
 
                 i++;
                 if(i==1)   {
-                    plantViewModel.ControlWindow(co2.getEui(), 1);
+                    plantViewModel.ControlWindow(co2.getEui(), 0);
                     if(i == 2)
                         i=0;
-                    plantViewModel.ControlWindow(co2.getEui(), 0);
+                    plantViewModel.ControlWindow(co2.getEui(), 1);
 
                 }
 
