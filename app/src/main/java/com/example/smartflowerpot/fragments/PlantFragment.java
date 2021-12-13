@@ -225,6 +225,10 @@ public class PlantFragment extends Fragment {
         daysSince.setText("No reading");
         lightReading.setText("No reading");
         //-----------------------------------------------------------
+        humidityViewModel.getWeekHumidityRequest(deviceIdentifier);
+        co2ViewModel.getWeekCO2Request(deviceIdentifier);
+        temperatureViewModel.getWeekTemperatureRequest(deviceIdentifier);
+        //----------------------------------------------------------
         plantViewModel.getPlantInfo(deviceIdentifier);
         temperatureViewModel.getTemperatureRequest(deviceIdentifier);
         humidityViewModel.getHumidityRequest(deviceIdentifier);
