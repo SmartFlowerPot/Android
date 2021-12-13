@@ -8,7 +8,7 @@ import com.example.smartflowerpot.Model.LightLvl;
 import com.example.smartflowerpot.RemoteDataSource.ApplicationAPI;
 import com.example.smartflowerpot.RemoteDataSource.Response.CO2Response;
 import com.example.smartflowerpot.RemoteDataSource.Response.LightLvlResponse;
-import com.example.smartflowerpot.RemoteDataSource.ServiceResponse;
+import com.example.smartflowerpot.RemoteDataSource.ServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +33,7 @@ public class LightLvlRepo {
     }
 
     public void getLightLvlRequest(String eui) {
-        ApplicationAPI applicationAPI = ServiceResponse.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
         Call<LightLvlResponse> call = applicationAPI.getLightLvl(eui);
         call.enqueue(new Callback<LightLvlResponse>() {
             @Override

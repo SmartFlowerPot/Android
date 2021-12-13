@@ -2,8 +2,6 @@ package com.example.smartflowerpot.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -17,12 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.smartflowerpot.Activity.BaseActivity;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.R;
-import com.example.smartflowerpot.Utils;
+import com.example.smartflowerpot.utils.Utils;
 import com.example.smartflowerpot.ViewModel.PlantViewModel;
 
 import java.text.DateFormat;

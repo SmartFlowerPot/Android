@@ -19,6 +19,7 @@ import retrofit2.internal.EverythingIsNonNull;
 
 public class PlantAPI {
     private static PlantAPI instance;
+    ApplicationAPI applicationAPI;
 
     private MutableLiveData<Plant> plant;
     private MutableLiveData<List<Plant>> plants;
@@ -28,6 +29,7 @@ public class PlantAPI {
         plant = new MutableLiveData<>();
         plants = new MutableLiveData<>();
         createdPlant = new MutableLiveData<>();
+        applicationAPI = ServiceGenerator.getApplicationAPI();
     }
 
     public static synchronized PlantAPI getInstance(){
@@ -42,7 +44,6 @@ public class PlantAPI {
     }
 
     public void getPlantInfo(String plantID) {
-        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
         Call<PlantResponse> call = applicationAPI.getPlantInfo(plantID);
         call.enqueue(new Callback<PlantResponse>() {
             @EverythingIsNonNull
@@ -72,7 +73,6 @@ public class PlantAPI {
     }
 
     public void getPlants(String username) {
-        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
         Call<AccountResponse> call = applicationAPI.getAccountByUsername(username);
         call.enqueue(new Callback<AccountResponse>() {
             @EverythingIsNonNull
@@ -98,7 +98,6 @@ public class PlantAPI {
 
 
     public void createAPlant(String username, Plant plant) {
-        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
         Call<PlantResponse> call = applicationAPI.createAPlant(username, plant);
         call.enqueue(new Callback<PlantResponse>() {
             @EverythingIsNonNull

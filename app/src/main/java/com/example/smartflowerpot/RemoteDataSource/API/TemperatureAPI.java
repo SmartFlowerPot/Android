@@ -41,7 +41,7 @@ public class TemperatureAPI {
     }
 
     public void getTemperatureRequest(String eui) {
-        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
         Call<TemperatureResponse> call = applicationAPI.getTemperature(eui);
         call.enqueue(new Callback<TemperatureResponse>() {
             @EverythingIsNonNull
@@ -68,7 +68,7 @@ public class TemperatureAPI {
         return temperatureArray;
     }
     public void getWeekTemperatureRequest(String deviceID) {
-        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
         Call<ArrayList<TemperatureResponse>> call = applicationAPI.getWeekTemperature(deviceID);
         call.enqueue(new Callback<ArrayList<TemperatureResponse>>() {
             @Override

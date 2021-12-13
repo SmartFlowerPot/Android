@@ -3,9 +3,11 @@ package com.example.smartflowerpot.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,10 +28,17 @@ import com.example.smartflowerpot.ViewModel.CO2ViewModel;
 import com.example.smartflowerpot.ViewModel.HumidityViewModel;
 import com.example.smartflowerpot.ViewModel.LightLvlViewModel;
 import com.example.smartflowerpot.ViewModel.PlantViewModel;
+import com.example.smartflowerpot.ViewModel.SettingsViewModel;
 import com.example.smartflowerpot.ViewModel.TemperatureViewModel;
+import com.example.smartflowerpot.utils.LineGraph;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.ChartData;
+import com.github.mikephil.charting.data.LineData;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +58,15 @@ public class PlantFragment extends Fragment {
     private TemperatureViewModel temperatureViewModel;
     private HumidityViewModel humidityViewModel;
     private CO2ViewModel co2ViewModel;
+    private SettingsViewModel settingsViewModel;
+
+    private LineChart temperatureChart;
+    private LineChart co2Chart;
+    private LineChart humidityChart;
+
+    private ArrayList<Humidity> humidityArrayList = new ArrayList<>();
+    private ArrayList<CO2> co2ArrayList;
+    private ArrayList<Temperature> temperatureArrayList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +75,10 @@ public class PlantFragment extends Fragment {
 
     @Override
     public void onResume() {
+        temperatureChart.setData(null);
+        co2Chart.setData(null);
+        humidityChart.setData(null);
+        updatePlantInfo();
         super.onResume();
         updatePlantInfo();
     }
@@ -66,6 +88,7 @@ public class PlantFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plant, container, false);
 
+
         initViews();
 
         getViewModels();
@@ -74,6 +97,7 @@ public class PlantFragment extends Fragment {
             @SuppressLint("SimpleDateFormat")
             @Override
             public void onChanged(Plant plant) {
+                System.out.println(plant);
                 deviceIdentifier = plant.getEui();
                 setDaysSincePlantation(plant);
                 ((BaseActivity)getActivity()).setTopbarTitle(plant.getNickname());
@@ -86,6 +110,7 @@ public class PlantFragment extends Fragment {
                 humidityReading.setText(humidity.getReading());
             }
         });
+
 
         co2ViewModel.getCO2().observe(getViewLifecycleOwner(), new Observer<CO2>() {
             @Override
@@ -106,6 +131,53 @@ public class PlantFragment extends Fragment {
             }
         });
 
+        humidityViewModel.getWeekHumidity().observe(getViewLifecycleOwner(), new Observer<ArrayList<Humidity>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onChanged(ArrayList<Humidity> humidities) {
+                if (humidities == null) {
+                    LineGraph lineGraph1 = null;
+                    lineGraph1.setupHumidityGraph(null);
+                    System.out.println("Humidity NULL");
+                } else { ;
+                    humidityArrayList = humidities;
+                    LineGraph lineGraph1 = new LineGraph(humidityChart, getResources());
+                    lineGraph1.setupHumidityGraph(humidityArrayList);
+                }
+            }
+        });
+        co2ViewModel.getWeekCO2().observe(getViewLifecycleOwner(), new Observer<ArrayList<CO2>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onChanged(ArrayList<CO2> co2Array) {
+                if (co2Array == null) {
+                    LineGraph lineGraph2 = null;
+                    lineGraph2.setupCO2Graph(null);
+                    System.out.println("CO2 NULL");
+                } else {
+                    co2ArrayList = co2Array;
+                    LineGraph lineGraph2 = new LineGraph(co2Chart, getResources());
+                    lineGraph2.setupCO2Graph(co2ArrayList);
+                }
+            }
+        });
+        temperatureViewModel.getWeekTemperature().observe(getViewLifecycleOwner(), new Observer<ArrayList<Temperature>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onChanged(ArrayList<Temperature> tempArray) {
+                if (tempArray == null) {
+                    LineGraph lineGraph3 = null;
+                    lineGraph3.setupTemperatureGraph(null);
+                    System.out.println("Temperature NULL");
+                } else {
+                    temperatureArrayList = tempArray;
+                    LineGraph lineGraph3 = new LineGraph(temperatureChart, getResources());
+                    lineGraph3.setupTemperatureGraph(temperatureArrayList);
+                }
+            }
+        });
+
+
         //-----------------------------------Karlo----------------------------------------------
         lightLvlViewModel.getLightLvlResponse().observe(getViewLifecycleOwner(), new Observer<LightLvl>() {
             @Override
@@ -125,7 +197,7 @@ public class PlantFragment extends Fragment {
         //convert String date from the plant and set another format
         Date date = null;
         try {
-            date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(plant.getDob());
+            date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(plant.getDob());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -172,10 +244,16 @@ public class PlantFragment extends Fragment {
         temperatureReading = view.findViewById(R.id.temperatureReading);
         co2Reading = view.findViewById(R.id.co2Reading);
         humidityReading = view.findViewById(R.id.humidityReading);
+
+        co2Chart = view.findViewById(R.id.co2Chart);
+        temperatureChart = view.findViewById(R.id.temperatureChart);
+        humidityChart = view.findViewById(R.id.humidityChart);
+
         //----------------------Karlo--------------------------------
         dateOfPlantation = view.findViewById(R.id.dateOfPlantation);
         daysSince = view.findViewById(R.id.daysSince);
         lightReading = view.findViewById(R.id.lightReading);
         //-----------------------------------------------------------
     }
+
 }

@@ -44,7 +44,7 @@ public class HumidityAPI {
     }
 
     public void getWeekHumidityRequest(String deviceID) {
-        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
         Call<ArrayList<HumidityResponse>> call = applicationAPI.getWeekHumidity(deviceID);
         call.enqueue(new Callback<ArrayList<HumidityResponse>>() {
             @Override
@@ -74,7 +74,7 @@ public class HumidityAPI {
     }
 
     public void getHumidityRequest(String deviceID) {
-        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
         Call<HumidityResponse> call = applicationAPI.getHumidity(deviceID);
         call.enqueue(new Callback<HumidityResponse>() {
             @Override

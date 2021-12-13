@@ -18,7 +18,7 @@ public class ServiceGenerator {
         return instance;
     }
 
-    public static ApplicationAPI getPlantAPI() {
+    public static ApplicationAPI getApplicationAPI() {
         return applicationApi;
     }
 }

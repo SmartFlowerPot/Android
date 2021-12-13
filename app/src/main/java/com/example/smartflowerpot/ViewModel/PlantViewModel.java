@@ -45,7 +45,7 @@ public class PlantViewModel extends AndroidViewModel {
         plantRepo.createAPlant(username, plant);
     }
 
-    public void deleteAllPlantsFromDB(){
+    public void deleteAllPlantsFromDb(){
         plantRepo.deleteAllPlantsFromDB();
     }
 }

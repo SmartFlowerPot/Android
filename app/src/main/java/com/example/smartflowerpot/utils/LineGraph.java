@@ -1,6 +1,5 @@
-package com.example.smartflowerpot.fragments;
+package com.example.smartflowerpot.utils;
 
-import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Build;
 

@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
                 } else {
                     accountViewModel.persistLoggedInUser(account.getUsername());
-                    plantViewModel.deleteAllPlantsFromDB();
+                    plantViewModel.deleteAllPlantsFromDb();
 
                     startActivity(new Intent(LoginActivity.this, BaseActivity.class));
                 }

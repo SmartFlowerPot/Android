@@ -44,7 +44,7 @@ public class CO2API {
     }
 
     public void getCO2Request(String eui) {
-        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
         Call<CO2Response> call = applicationAPI.getCO2(eui);
         call.enqueue(new Callback<CO2Response>() {
             @Override
@@ -65,7 +65,7 @@ public class CO2API {
         return co2Array;
     }
     public void getWeekCO2Request(String deviceID) {
-        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
         Call<ArrayList<CO2Response>> call = applicationAPI.getWeekCO2(deviceID);
         call.enqueue(new Callback<ArrayList<CO2Response>>() {
             @Override

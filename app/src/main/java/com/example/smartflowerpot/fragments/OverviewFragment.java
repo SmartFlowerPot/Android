@@ -1,8 +1,5 @@
 package com.example.smartflowerpot.fragments;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -23,7 +20,7 @@ import com.example.smartflowerpot.Activity.BaseActivity;
 import com.example.smartflowerpot.Adapters.PlantsAdapter;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.R;
-import com.example.smartflowerpot.Utils;
+import com.example.smartflowerpot.utils.Utils;
 import com.example.smartflowerpot.ViewModel.AccountViewModel;
 import com.example.smartflowerpot.ViewModel.PlantViewModel;
 

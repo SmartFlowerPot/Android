@@ -1,4 +1,4 @@
-package com.example.smartflowerpot;
+package com.example.smartflowerpot.utils;
 
 import android.app.Activity;
 import android.content.Context;

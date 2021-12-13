@@ -50,7 +50,7 @@ public class AccountAPI {
     }
 
     private void getAccountRequest(String username, String password) {
-        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
         Call<AccountResponse> call = applicationAPI.getAccount(username, password);
         call.enqueue(new Callback<AccountResponse>() {
             @EverythingIsNonNull
@@ -79,7 +79,7 @@ public class AccountAPI {
     }
 
     private void registerAccountRequest(String username, String password, String dob, String gender, String region) {
-        ApplicationAPI applicationAPI = ServiceGenerator.getPlantAPI();
+        ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
         Account tempAccount = new Account(username, password, dob, gender, region);
         Call<AccountResponse> call = applicationAPI.registerAccount(tempAccount);
         call.enqueue(new Callback<AccountResponse>() {
