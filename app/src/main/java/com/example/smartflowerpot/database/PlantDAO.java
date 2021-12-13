@@ -19,6 +19,9 @@ public interface PlantDAO {
     @Delete
     void delete(Plant plant);
 
+    @Query("DELETE FROM plant_table")
+    void deleteAll();
+
     @Query("SELECT * FROM plant_table")
     LiveData<List<Plant>> getAllPlants();
 }
