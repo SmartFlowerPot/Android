@@ -39,7 +39,7 @@ public class CreateFragment extends Fragment {
     private PlantViewModel plantViewModel;
     private SharedPreferences sharedPreferences;
 
-
+//TODO check input fields and redirect
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

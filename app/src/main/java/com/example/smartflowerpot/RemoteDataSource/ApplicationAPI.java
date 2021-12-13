@@ -7,6 +7,7 @@ import com.example.smartflowerpot.Model.Humidity;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.RemoteDataSource.Response.AccountResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.HumidityResponse;
+import com.example.smartflowerpot.RemoteDataSource.Response.LightLvlResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.PlantResponse;
 import com.example.smartflowerpot.RemoteDataSource.Response.CO2Response;
 import com.example.smartflowerpot.RemoteDataSource.Response.TemperatureResponse;
@@ -71,4 +72,9 @@ public interface ApplicationAPI {
 
     @POST("Plant/{username}")
     Call<PlantResponse> createAPlant(@Path("username") String username, @Body Plant plant);
+
+    //-------------------------Karlo------------------------
+    @GET("Light")
+    Call<LightLvlResponse> getLightLvl(@Query("eui") String eui);
+    //------------------------------------------------------
 }
