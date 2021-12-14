@@ -62,8 +62,7 @@ public class PlantFragment extends Fragment {
     private TemperatureViewModel temperatureViewModel;
     private HumidityViewModel humidityViewModel;
     private CO2ViewModel co2ViewModel;
-    private int[] images ={R.drawable.ic_window_open_, R.drawable.ic_window_close_};
-    private int current_image;
+    private int current_image = R.drawable.ic_window_close_;
     private SettingsViewModel settingsViewModel;
 
     private LineChart temperatureChart;
@@ -196,22 +195,18 @@ public class PlantFragment extends Fragment {
         ImageviewCO2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageviewCO2.setImageResource(images[current_image]);
-                CO2 co2 = new CO2();
-                plantViewModel.ControlWindow(co2.getEui(), 1);
-                if(current_image == 0)   {
-                    ImageviewCO2.setImageResource(images[current_image]);
-                    current_image++;
-                    plantViewModel.ControlWindow(co2.getEui(), 0);
 
+                if(current_image == R.drawable.ic_window_close_){
+                    plantViewModel.ControlWindow(deviceIdentifier, 1);
+                    ImageviewCO2.setImageResource(R.drawable.ic_window_open_);
+                    current_image = R.drawable.ic_window_open_;
                 }
-                if(current_image == 1) {
-                    ImageviewCO2.setImageResource(images[current_image]);
-                    current_image--;
-                    plantViewModel.ControlWindow(co2.getEui(), 1);
+                else
+                {
+                    plantViewModel.ControlWindow(deviceIdentifier, 0);
+                    ImageviewCO2.setImageResource(R.drawable.ic_window_close_);
+                    current_image = R.drawable.ic_window_close_;
                 }
-
-                System.out.println("The data is sent");
 
             }
         });

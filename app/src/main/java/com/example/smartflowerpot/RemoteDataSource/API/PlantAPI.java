@@ -131,25 +131,22 @@ public class PlantAPI {
 
     public void ControlWindow(String eui, int toOpen) {
         ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
-        Call<CO2Response> call = applicationAPI.ControlWindow(eui, toOpen);
-        call.enqueue(new Callback<CO2Response>() {
+        Call call = applicationAPI.ControlWindow(eui, toOpen);
+        call.enqueue(new Callback() {
             @EverythingIsNonNull
             @Override
-            public void onResponse(Call<CO2Response> call, Response<CO2Response> response) {
+            public void onResponse(Call call, Response response) {
                 if (response.isSuccessful()) {
-                    if(response.code() == 204) {
-                        Co2.setValue(null);
-                        Log.d("sendingMessage", toOpen + "");
-
-                    }
-                    else Co2.setValue(response.body().getCO2());
+                    Log.d("Response for Window", response.code() + "");
+                }
+                else {
+                    Log.d("Response for Window", "The current state of the connection is not Open.");
                 }
             }
             @EverythingIsNonNull
             @Override
-            public void onFailure(Call<CO2Response> call, Throwable t) {
+            public void onFailure(Call call, Throwable t) {
                 Log.i("Retrofit", "Something went wrong :(");
-                Co2.setValue(null);
             }
         });
     }

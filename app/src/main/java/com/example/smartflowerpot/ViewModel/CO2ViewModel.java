@@ -28,7 +28,7 @@ public class CO2ViewModel extends ViewModel {
 
         co2Repo.getCO2Request(eui);
     }
-    public void ControlWindow( String eui, int open_close_window) {
+    public void controlWindow( String eui, int open_close_window) {
         co2Repo.ControlWindow( eui, open_close_window);
     }
     public LiveData<ArrayList<CO2>> getWeekCO2(){
