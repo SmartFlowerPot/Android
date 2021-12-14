@@ -13,12 +13,16 @@ public class Plant {
     private String nickname;
     private String dob;
     private int age;
+    //----------Ionut----------
+    private String type;
 
-    public Plant(String dob, String nickname, String eui) {
+    public Plant(String dob, String nickname, String eui, String type) {
         this.eui = eui;
         this.nickname = nickname;
         this.dob = dob;
+        this.type = type;
     }
+    //-------------------------
 
     @Ignore
     public Plant(@NonNull String eui, String nickname, String dob, int age) {
@@ -28,19 +32,12 @@ public class Plant {
         this.age = age;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
+    @NonNull
     public String getEui() {
         return eui;
     }
 
-    public void setEui(String eui) {
+    public void setEui(@NonNull String eui) {
         this.eui = eui;
     }
 
@@ -60,12 +57,30 @@ public class Plant {
         this.dob = dob;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Plant{" +
-                "plantID='" + eui + '\'' +
+                "eui='" + eui + '\'' +
                 ", nickname='" + nickname + '\'' +
-                ", dob=" + dob +
+                ", dob='" + dob + '\'' +
+                ", age=" + age +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
