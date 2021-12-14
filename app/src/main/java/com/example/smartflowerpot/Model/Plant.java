@@ -14,22 +14,23 @@ public class Plant {
     private String dob;
     private int age;
     //----------Ionut----------
-    private String type;
+    private String plantType;
 
-    public Plant(String dob, String nickname, String eui, String type) {
+    public Plant(String dob, String nickname, String eui, String plantType) {
         this.eui = eui;
         this.nickname = nickname;
         this.dob = dob;
-        this.type = type;
+        this.plantType = plantType;
     }
     //-------------------------
 
     @Ignore
-    public Plant(@NonNull String eui, String nickname, String dob, int age) {
+    public Plant(@NonNull String eui, String nickname, String dob, int age, String plantType) {
         this.eui = eui;
         this.nickname = nickname;
         this.dob = dob;
         this.age = age;
+        this.plantType = plantType;
     }
 
     @NonNull
@@ -65,12 +66,12 @@ public class Plant {
         this.age = age;
     }
 
-    public String getType() {
-        return type;
+    public String getPlantType() {
+        return plantType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setPlantType(String plantType) {
+        this.plantType = plantType;
     }
 
     @Override
@@ -80,7 +81,7 @@ public class Plant {
                 ", nickname='" + nickname + '\'' +
                 ", dob='" + dob + '\'' +
                 ", age=" + age +
-                ", type='" + type + '\'' +
+                ", type='" + plantType + '\'' +
                 '}';
     }
 }
