@@ -76,7 +76,7 @@ public interface ApplicationAPI {
     //Antonio
     @POST("Window")
     Call<CO2Response> ControlWindow( @Query("eui") String eui,
-                                    @Query("open_close_window") int open_close_window);
+                                    @Query("open_close_window") int toOpen);
 
 
     //Antonio

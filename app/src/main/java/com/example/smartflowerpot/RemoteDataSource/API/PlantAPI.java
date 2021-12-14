@@ -28,7 +28,6 @@ public class PlantAPI {
     private MutableLiveData<List<Plant>> plants;
     private MutableLiveData<Plant> createdPlant;
     private MutableLiveData<CO2> Co2;
-
     private PlantAPI(){
         plant = new MutableLiveData<>();
         plants = new MutableLiveData<>();
@@ -130,9 +129,9 @@ public class PlantAPI {
         });
     }
 
-    public void ControlWindow( String eui, int open_close_window) {
+    public void ControlWindow(String eui, int toOpen) {
         ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
-        Call<CO2Response> call = applicationAPI.ControlWindow(eui, open_close_window);
+        Call<CO2Response> call = applicationAPI.ControlWindow(eui, toOpen);
         call.enqueue(new Callback<CO2Response>() {
             @EverythingIsNonNull
             @Override
@@ -140,9 +139,10 @@ public class PlantAPI {
                 if (response.isSuccessful()) {
                     if(response.code() == 204) {
                         Co2.setValue(null);
+                        Log.d("sendingMessage", toOpen + "");
+
                     }
                     else Co2.setValue(response.body().getCO2());
-                    Log.d("sendingMessage", response.code()+ "");
                 }
             }
             @EverythingIsNonNull

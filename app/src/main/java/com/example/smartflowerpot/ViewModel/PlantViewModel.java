@@ -50,8 +50,8 @@ public class PlantViewModel extends AndroidViewModel {
         plantRepo.deletePlant(eui);
     }
 
-    public void ControlWindow( String eui, int open_close_window) {
-        plantRepo.ControlWindow(eui, open_close_window);
+    public void ControlWindow( String eui, int toOpen) {
+        plantRepo.ControlWindow(eui, toOpen);
     }
     public void deleteAllPlantsFromDb(){
         plantRepo.deleteAllPlantsFromDB();

@@ -46,8 +46,8 @@ public class CO2Repo {
 
 
 
-    public void ControlWindow( String eui, int open_close_window) {
-        plantAPI.ControlWindow(eui, open_close_window);
+    public void ControlWindow( String eui, int toOpen) {
+        plantAPI.ControlWindow(eui, toOpen);
     }
     public LiveData<ArrayList<CO2>> getWeekCO2() {
         return co2API.getWeekCO2();

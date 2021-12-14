@@ -97,8 +97,8 @@ public class PlantRepo {
         plantAPI.deletePlant(eui);
     }
 
-    public void ControlWindow( String eui, int open_close_window) {
-        plantAPI.ControlWindow(eui,  open_close_window);
+    public void ControlWindow( String eui, int toOpen) {
+        plantAPI.ControlWindow(eui,  toOpen);
     }
 
     public void deleteAllPlantsFromDB(){
