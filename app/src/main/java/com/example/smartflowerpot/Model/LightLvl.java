@@ -25,6 +25,11 @@ public class LightLvl {
         this.timestamp = timestamp;
     }
 
+    // Ionut
+    public String getReading(){
+        return lightLvl + " lm";
+    }
+
     @Override
     public String toString() {
         return "LightLvl{" +

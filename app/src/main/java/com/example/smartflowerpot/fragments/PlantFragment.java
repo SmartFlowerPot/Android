@@ -126,8 +126,8 @@ public class PlantFragment extends Fragment {
         temperatureViewModel.getTemperature().observe(getViewLifecycleOwner(), new Observer<Temperature>() {
             @Override
             public void onChanged(Temperature temperature) {
-                SharedPreferences prefs = getActivity().getSharedPreferences("My Preferences", Context.MODE_PRIVATE);
-                if (prefs.getString("temp_units", "CELSIUS").equals("FAHRENHEIT")) {
+
+                if (settingsViewModel.getPersistedTemperatureUnits().equals("FAHRENHEIT")) {
                     temperatureReading.setText(temperature.getFahrenheitReading());
                 } else {
                     temperatureReading.setText(temperature.getCelsiusReading());
@@ -186,7 +186,7 @@ public class PlantFragment extends Fragment {
         lightLvlViewModel.getLightLvlResponse().observe(getViewLifecycleOwner(), new Observer<LightLvl>() {
             @Override
             public void onChanged(LightLvl lightLvl) {
-                lightReading.setText(String.valueOf(lightLvl.getLightLvl()));
+                lightReading.setText(String.valueOf(lightLvl.getReading()));
             }
         });
         //--------------------------------------------------------------------------------------
@@ -265,6 +265,7 @@ public class PlantFragment extends Fragment {
         humidityViewModel = new ViewModelProvider(this).get(HumidityViewModel.class);
         co2ViewModel = new ViewModelProvider(this).get(CO2ViewModel.class);
         lightLvlViewModel = new ViewModelProvider(this).get(LightLvlViewModel.class);
+        settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
     }
 
     private void initViews() {
