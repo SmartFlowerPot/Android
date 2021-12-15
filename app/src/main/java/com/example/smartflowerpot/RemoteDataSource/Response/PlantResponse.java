@@ -7,9 +7,10 @@ public class PlantResponse {
     private String eui;
     private String dob;
     private int age;
+    private String plantType;
 
 
     public Plant getPlant() {
-        return new Plant(eui, nickname, dob, age);
+        return new Plant(eui, nickname, dob, age, plantType);
     }
 }

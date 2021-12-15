@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.smartflowerpot.Model.Plant;
 
-@Database(entities = {Plant.class}, version = 3)
+@Database(entities = {Plant.class}, version = 5)
 public abstract class PlantDatabase extends RoomDatabase {
     private static PlantDatabase instance;
     public  abstract PlantDAO getPlantDAO();
