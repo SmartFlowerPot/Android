@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartflowerpot.Activity.BaseActivity;
@@ -38,7 +39,7 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     private PlantsAdapter plantsAdapter;
     private AccountViewModel accountViewModel;
     private PlantViewModel plantViewModel;
-    private ImageView deleteImage;
+    private TextView noPlantsLabel;
 
     private ProgressBar progressBar;
 
@@ -73,18 +74,28 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
                 @Override
                 public void onChanged(List<Plant> plants) {
                     progressBar.setVisibility(View.GONE);
-                    plantsAdapter.setmPlants(plants);
-                    recycledViewPlants.setAdapter(plantsAdapter);
+                    if (!plants.isEmpty()){
+                        plantsAdapter.setmPlants(plants);
+                        recycledViewPlants.setAdapter(plantsAdapter);
+                    } else {
+                        noPlantsLabel.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         } else {
             System.out.println("Gotten plants from db instead");
 
+
             plantViewModel.getPlantsResponseFromDb().observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
                 @Override
                 public void onChanged(List<Plant> plants) {
-                    plantsAdapter.setmPlants(plants);
-                    recycledViewPlants.setAdapter(plantsAdapter);
+                    progressBar.setVisibility(View.GONE);
+                    if (!plants.isEmpty()){
+                        plantsAdapter.setmPlants(plants);
+                        recycledViewPlants.setAdapter(plantsAdapter);
+                    } else {
+                        noPlantsLabel.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         }
@@ -113,7 +124,13 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onListDeleteItemClick(String eui) {
-        plantViewModel.deletePlant(eui);
+        if (Utils.isNetworkAvailable(getActivity())){
+            plantViewModel.deletePlant(eui);
+            plantViewModel.getPlantsFromAPI(accountViewModel.getPersistedLoggedInUser());
+            Navigation.findNavController(view).navigate(R.id.overviewFragment);
+        } else {
+            Toast.makeText(getContext(), "No internet connection. Please connect to internet.", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -123,19 +140,12 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         recycledViewPlants.setLayoutManager(layoutManager);
 
         progressBar = view.findViewById(R.id.plantsOverviewPB);
-        deleteImage = view.findViewById(R.id.imageView2);
+        noPlantsLabel = view.findViewById(R.id.noPlantsLabel);
+        noPlantsLabel.setVisibility(View.GONE);
     }
 
     private void getViewModels() {
         accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
         plantViewModel = new ViewModelProvider(this).get(PlantViewModel.class);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

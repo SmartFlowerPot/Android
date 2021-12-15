@@ -9,11 +9,6 @@ public class TemperatureTest extends TestCase {
 
     Temperature temperature;
 
-    @Before
-    public void setup(){
-        temperature = new Temperature();
-    }
-
     @Test
     public void test0CDegrees(){
         temperature = new Temperature();

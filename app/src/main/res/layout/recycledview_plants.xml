@@ -20,7 +20,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:text="Plant name"
+            android:text="@string/plant_name"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +33,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:text="Device identifier"
+            android:text="@string/device_identifier"
 
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
