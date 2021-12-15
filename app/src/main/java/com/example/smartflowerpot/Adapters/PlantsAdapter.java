@@ -50,14 +50,20 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.ViewHolder
         TextView name;
         TextView deviceIdentifier;
         ImageView delete;
+        ImageView plantStaticImage;
 
         ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.nickname);
             deviceIdentifier = itemView.findViewById(R.id.deviceIdentifier);
             delete = itemView.findViewById(R.id.imageView2);
+            plantStaticImage = itemView.findViewById(R.id.plantStaticImage);
             deviceIdentifier.setClickable(true);
             deviceIdentifier.setOnClickListener(this);
+            name.setClickable(true);
+            name.setOnClickListener(this);
+            plantStaticImage.setClickable(true);
+            plantStaticImage.setOnClickListener(this);
             delete.setClickable(true);
             delete.setOnClickListener(r -> mOnListItemClickListener.onListDeleteItemClick(deviceIdentifier.getText().toString()));
         }

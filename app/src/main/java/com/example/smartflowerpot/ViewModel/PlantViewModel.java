@@ -20,7 +20,6 @@ public class PlantViewModel extends AndroidViewModel {
         plantRepo = PlantRepo.getInstance(application);
     }
 
-
     public MutableLiveData<Plant> getPlant() {
         return plantRepo.getPlantFromAPI();
     }
@@ -53,6 +52,7 @@ public class PlantViewModel extends AndroidViewModel {
     public void ControlWindow( String eui, int toOpen) {
         plantRepo.ControlWindow(eui, toOpen);
     }
+
     public void deleteAllPlantsFromDb(){
         plantRepo.deleteAllPlantsFromDB();
     }

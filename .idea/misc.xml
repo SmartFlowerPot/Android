@@ -3,13 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Antonio/Documents/GitHub/Android/app/src/main/res/drawable/ic_icons_delete.xml" value="0.34791666666666665" />
-        <entry key="..\:/Users/Antonio/Documents/GitHub/Android/app/src/main/res/layout/fragment_account.xml" value="0.33177083333333335" />
-        <entry key="..\:/Users/Antonio/Documents/GitHub/Android/app/src/main/res/layout/fragment_create.xml" value="0.33177083333333335" />
-        <entry key="..\:/Users/Antonio/Documents/GitHub/Android/app/src/main/res/layout/fragment_friends.xml" value="0.33177083333333335" />
-        <entry key="..\:/Users/Antonio/Documents/GitHub/Android/app/src/main/res/layout/fragment_overview.xml" value="0.33177083333333335" />
-        <entry key="..\:/Users/Antonio/Documents/GitHub/Android/app/src/main/res/layout/fragment_plant.xml" value="0.33177083333333335" />
-        <entry key="..\:/Users/Antonio/Documents/GitHub/Android/app/src/main/res/layout/recycledview_plants.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/Ionut Grosu/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_spinner_dropdown_item.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ionut Grosu/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_spinner_item.xml" value="0.34479166666666666" />
         <entry key="..\:/Users/Ionut Grosu/Desktop/Android/app/src/main/res/layout/baseactivity.xml" value="0.5322916666666667" />
@@ -30,7 +23,10 @@
         <entry key="..\:/Users/User/Desktop/Sep4Android/app/src/main/res/layout/fragment_plant.xml" value="0.190625" />
         <entry key="..\:/Users/User/Desktop/Sep4Android/app/src/main/res/layout/loginactivity.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/Desktop/Sep4Android/app/src/main/res/layout/registeractivity.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/baseactivity.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/fragment_create.xml" value="0.302536231884058" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/fragment_plant.xml" value="0.35733695652173914" />
+        <entry key="..\:/Users/karl1/AndroidStudioProjects/Android/app/src/main/res/layout/recycledview_plants.xml" value="0.35733695652173914" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2235897435897436" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2235897435897436" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2235897435897436" />

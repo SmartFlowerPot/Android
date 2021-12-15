@@ -158,7 +158,7 @@ public class PlantAPI {
             public void onResponse(Call<PlantResponse> call, Response<PlantResponse> response) {
                 if (response.isSuccessful()) {
                     if (response.code() == 204) {
-                        createdPlant.setValue(null);
+
                     }
                 } else {
                     Log.d("Response", "Does not work");
@@ -167,7 +167,6 @@ public class PlantAPI {
             @Override
             public void onFailure(Call<PlantResponse> call, Throwable t) {
                 Log.i("Retrofit", "Something went wrong :(");
-                Co2.setValue(null);
             }
         });
     }
