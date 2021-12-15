@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class TemperatureRepo {
     private static TemperatureRepo instance;
 
-    private MutableLiveData<Temperature> temperature;
     private TemperatureAPI temperatureAPI;
 
     private TemperatureRepo() {
@@ -34,9 +33,11 @@ public class TemperatureRepo {
     public void getTemperatureRequest(String eui) {
         temperatureAPI.getTemperatureRequest(eui);
     }
+
     public LiveData<ArrayList<Temperature>> getWeekTemperature() {
         return temperatureAPI.getWeekTemperature();
     }
+
     public void getWeekTemperatureRequest(String deviceID) {
         temperatureAPI.getWeekTemperatureRequest(deviceID);
     }
