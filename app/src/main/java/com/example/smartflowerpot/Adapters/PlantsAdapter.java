@@ -56,25 +56,21 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.ViewHolder
             name = itemView.findViewById(R.id.nickname);
             deviceIdentifier = itemView.findViewById(R.id.deviceIdentifier);
             delete = itemView.findViewById(R.id.imageView2);
-            itemView.setOnClickListener(this);
+            deviceIdentifier.setClickable(true);
+            deviceIdentifier.setOnClickListener(this);
             delete.setClickable(true);
-            delete.setOnClickListener(this);
+            delete.setOnClickListener(r -> mOnListItemClickListener.onListDeleteItemClick(deviceIdentifier.getText().toString()));
         }
 
         @Override
         public void onClick(View v) {
             mOnListItemClickListener.onListItemClick(deviceIdentifier.getText().toString());
-            mOnListItemClickListener.onListDeleteItemClick(deviceIdentifier.getText().toString());
         }
     }
 
     public interface OnListItemClickListener {
         void onListItemClick(String deviceIdentifier);
-
         void onListDeleteItemClick(String eui);
     }
-
-
-
 }
 

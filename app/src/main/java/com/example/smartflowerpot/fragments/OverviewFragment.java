@@ -118,8 +118,7 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
 
     @Override
     public void onListDeleteItemClick(String eui) {
-        plantViewModel.deletePlant("0004A30B00E8355E");
-
+        plantViewModel.deletePlant(eui);
     }
 
     private void initViews() {
