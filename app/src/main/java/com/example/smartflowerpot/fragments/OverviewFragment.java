@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.smartflowerpot.Activity.BaseActivity;
@@ -37,6 +38,8 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     private PlantsAdapter plantsAdapter;
     private AccountViewModel accountViewModel;
     private PlantViewModel plantViewModel;
+
+    private ProgressBar progressBar;
 
 
     @Override
@@ -67,6 +70,7 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
             plantViewModel.getPlantsResponseFromAPI().observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
                 @Override
                 public void onChanged(List<Plant> plants) {
+                    progressBar.setVisibility(View.GONE);
                     plantsAdapter.setmPlants(plants);
                     recycledViewPlants.setAdapter(plantsAdapter);
                 }
@@ -109,19 +113,13 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         recycledViewPlants = view.findViewById(R.id.recycledViewPlants);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recycledViewPlants.setLayoutManager(layoutManager);
+
+        progressBar = view.findViewById(R.id.plantsOverviewPB);
     }
 
     private void getViewModels() {
         accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
         plantViewModel = new ViewModelProvider(this).get(PlantViewModel.class);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public void delete(String eui){
