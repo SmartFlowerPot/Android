@@ -14,13 +14,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Delete;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.smartflowerpot.Activity.BaseActivity;
+import com.example.smartflowerpot.Adapters.DeleteAdapter;
 import com.example.smartflowerpot.Adapters.PlantsAdapter;
 import com.example.smartflowerpot.Model.Plant;
 import com.example.smartflowerpot.R;
@@ -37,6 +40,9 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
     private PlantsAdapter plantsAdapter;
     private AccountViewModel accountViewModel;
     private PlantViewModel plantViewModel;
+    private ImageView deleteImage;
+    private DeleteAdapter deleteAdapter;
+    //  private int currentimage = R.drawable.ic_icons_delete;
 
 
     @Override
@@ -53,11 +59,16 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         getViewModels();
 
         plantsAdapter = new PlantsAdapter(new ArrayList<>(), this);
+
         recycledViewPlants.setAdapter(plantsAdapter);
 
         updatePlants();
+
+
         return view;
+
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void updatePlants(){
@@ -105,10 +116,19 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         }
     }
 
+    @Override
+    public void onListDeleteItemClick(String eui) {
+        plantViewModel.deletePlant("0004A30B00E8355E");
+
+    }
+
     private void initViews() {
+
         recycledViewPlants = view.findViewById(R.id.recycledViewPlants);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recycledViewPlants.setLayoutManager(layoutManager);
+        deleteImage = view.findViewById(R.id.imageView2);
+
     }
 
     private void getViewModels() {
@@ -123,9 +143,21 @@ public class OverviewFragment extends Fragment implements PlantsAdapter.OnListIt
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+/*
+    public void delete(){
+        deleteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    public void delete(String eui){
-        plantViewModel.deletePlant("");
+                if (currentimage == R.drawable.ic_window_close_) {
+
+                    plantViewModel.deletePlant("0004A30B00251001");
+
+
+                }
+            }
+        });
     }
-}
 
+ */
+}

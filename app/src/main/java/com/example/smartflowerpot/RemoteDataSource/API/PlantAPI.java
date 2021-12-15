@@ -160,7 +160,9 @@ public class PlantAPI {
                     if (response.code() == 204) {
                         createdPlant.setValue(null);
                     }
-                } else createdPlant.setValue(response.body().getPlant());
+                } else {
+                    Log.d("Response", "Does not work");
+                }
             }
             @Override
             public void onFailure(Call<PlantResponse> call, Throwable t) {
