@@ -1,5 +1,6 @@
 package com.example.smartflowerpot.RemoteDataSource;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 import com.example.smartflowerpot.Model.Account;
@@ -75,8 +76,8 @@ public interface ApplicationAPI {
 
     //Antonio
     @POST("Window")
-    Call<CO2Response> ControlWindow( @Query("eui") String eui,
-                                    @Query("open_close_window") int toOpen);
+    Call<ResponseBody> ControlWindow(@Query("eui") String eui,
+                                     @Query("open_close_window") int toOpen);
 
 
     //Antonio

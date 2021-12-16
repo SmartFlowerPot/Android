@@ -131,6 +131,7 @@ public class PlantAPI {
 
     public void ControlWindow(String eui, int toOpen) {
         ApplicationAPI applicationAPI = ServiceGenerator.getApplicationAPI();
+        System.out.println("EUI: " + eui + "\ntoOpen: " + toOpen);
         Call call = applicationAPI.ControlWindow(eui, toOpen);
         call.enqueue(new Callback() {
             @EverythingIsNonNull
